@@ -1,5 +1,6 @@
 body {
-    margin: 2%;
+    margin: 0;
     background-image:linear-gradient(cornsilk 0%, rgb(167, 155, 155) 100%);
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
