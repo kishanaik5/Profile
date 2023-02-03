@@ -5,13 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>CV</title>
+    <title>Kishan Profile CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /* styles for larger screens */
-        @media only screen and (max-width: 480px) {
-           /* styles for smaller screens */
+            .container {
+            display: flex;
+            flex-wrap: wrap;
         }
+        .left {
+            width: auto;
+            text-align: left;
+            align-self: left;
+        }
+        .right {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+        }
+        .item {
+            display: ;
+            text-align: left;
+            margin: 10px;
+        }
+        @media (max-width: 700px) {
+            .left,
+            .right {
+            width: 100%;
+            }
+            .right {
+            flex-direction: row;
+            }
+        }
+      
         img{
             border-radius: 200%;
         }
@@ -36,22 +63,29 @@
     </style>
 </head>
 <body>
-    <div style="display: flex;">
-        <img class="profile-pic" src="./KiSHAN.jpeg" alt="Profile Picture" height="200px" width="200px">
-        <div style="margin-left: 20px;">
-            <h2> KISHAN K NAIK</h2>
-            Email :<a href="mailto:kishaknaik03@gmail.com">kishanknaik03@gmail.com</a><br>
-            Contact me :<a href="tel:+916360333428">+91-6360333428</a><br>
-            github :<a href="https://github.com/kishanaik5/">github.com/kishanaik5</a><br>
-            <a href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" class="fa fa-instagram"> </a><a href="http://www.instagram.com/kishan_.rathod">kishan_.rathod</a>&emsp;<a href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" class="fa fa-linkedin"></a><a href="https://www.linkedin.com/in/kishan-k-823049259/">Kishan K</a><br>
-            </h4>
+    <div class="container">
+        <div class="left">
+          <img src="./KiSHAN.jpeg" alt="Profile Picture" height="200px" width="200px">
         </div>
-    </div>
+        <div class="right">
+          <div class="item">
+              <h2> KISHAN K NAIK</h2>
+          
+              Email :<a href="mailto:kishaknaik03@gmail.com">kishanknaik03@gmail.com</a><br>
+          
+              Contact me :<a href="tel:+916360333428">+91-6360333428</a><br>
+          
+              github :<a href="https://github.com/kishanaik5/">github.com/kishanaik5</a><br>
+          
+              <a href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" class="fa fa-instagram"> </a><a href="http://www.instagram.com/kishan_.rathod">kishan_.rathod</a>&emsp;<a href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" class="fa fa-linkedin"></a><a href="https://www.linkedin.com/in/kishan-k-823049259/">Kishan K</a><br>
+          </div>
+        </div>
+      </div>
     <p  style="margin-top: 20px; font-style: Times New Roman">Currently Studying At M S Ramaiah Institute Of Technology, Bengaluru, Karnataka
-    <h3>My Motivation,</h3>
-    <p style="font-size:16px"> Hello World, isn't your first program ?  Well i too started the same. Better to have goals rather than plans. Because, Goals never make you to give up. Still A beginner but soon gonna join the competative world!!<br>Creating a better tomorrow by learning, growing and getting inspired today :) </p>
+    <h3>About Me,</h3>
+    <p style="font-size:16px; font-style :italic"> Hello World, isn't your first program ?  Well i too started the same. Better to have goals rather than plans. Because, Goals never make you to give it up!! Still A beginner but soon gonna join the competative world!!<br>Creating a better tomorrow by learning, growing and getting inspired today :) </p>
     <hr> Currently A Scholar in Artificial Intelligence And Machine Learning. But, Sadly I'm beginner in python! </hr>
-    <hr><h3>Education</h3></hr>
+    <h3>Education</h3>
     <ul>
         <li>School: Jindal Vidya Mandir<br>             Term: 2007-2013,  <br>Grade: Nursery - IV <br> Vidyanagar, Toranagallu, Bellary Dist, Karnataka</li><br>
         <li>School: Sri Taralabalu Central School<br>   Term: 2013-2019,  <br>Grade: V - X<br>Davangere, Karnataka </li><br>
