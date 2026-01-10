@@ -7,7 +7,7 @@
     <title>Kishan K - AI & Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        xintegrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,11 +128,22 @@
             color: #64ffda;
             transform: translateY(-3px);
         }
+
+        .skill-tag {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin: 4px;
+            display: inline-block;
+        }
     </style>
 </head>
 
 <body class="bg-navy text-gray-300">
 
+    <!-- Social Sidebar -->
     <div class="side-element left-sidebar">
         <div class="sidebar-content">
             <a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400"><i class="fab fa-github"></i></a>
@@ -143,10 +154,11 @@
         </div>
     </div>
 
+    <!-- Email Sidebar -->
     <div class="side-element right-sidebar">
         <div class="sidebar-content">
-            <a href="mailto:kishanknaik03@gmail.com" class="email-link">
-                kishanknaik03@gmail.com
+            <a href="mailto:kishan.k.naik.ai@gmail.com" class="email-link">
+                kishan.k.naik.ai@gmail.com
             </a>
         </div>
     </div>
@@ -163,7 +175,7 @@
                         <a href="#experience" class="nav-link text-gray-300 font-medium">Experience</a>
                         <a href="#projects" class="nav-link text-gray-300 font-medium">Projects</a>
                         <a href="#contact" class="nav-link text-gray-300 font-medium">Contact</a>
-                        <a href="kishan_k_resume.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+                        <a href="#" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
                     </div>
                 </div>
                  <div class="md:hidden">
@@ -180,12 +192,13 @@
                 <a href="#experience" class="nav-link text-gray-300 hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
                 <a href="#projects" class="nav-link text-gray-300 hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
                 <a href="#contact" class="nav-link text-gray-300 hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-                <a href="kishan_k_resume.pdf" target="_blank" class="resume-button block w-full mt-2 border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+                <a href="#" target="_blank" class="resume-button block w-full mt-2 border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
             </div>
         </div>
     </header>
 
     <main class="pt-20">
+        <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center">
             <div class="container mx-auto px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row items-center justify-between">
@@ -199,23 +212,59 @@
                         </div>
                     </div>
                     <div class="md:w-2/5 mt-10 md:mt-0 flex justify-center reveal">
-                         <img src="KiSHAN.jpg" alt="Kishan K" class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-teal shadow-2xl">
+                        <!-- Replaced with a placeholder if the local image is missing -->
+                         <div class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-teal shadow-2xl overflow-hidden flex items-center justify-center bg-light-navy">
+                             <i class="fas fa-user-tie text-8xl text-teal/40"></i>
+                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- About & Education Section -->
         <section id="about" class="py-24">
             <div class="container mx-auto px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-center mb-12 text-gray-100 reveal">About Me</h2>
-                <div class="max-w-4xl mx-auto bg-light-navy rounded-lg shadow-lg p-8 reveal">
-                    <p class="text-lg text-gray-400 leading-relaxed">
-                        Hello! I'm Kishan, an AI and Software Engineer with a strong foundation from Ramaiah Institute of Technology. My passion lies in the entire development lifecycle—from conceptualizing an idea to deploying a robust, scalable application. Through my internships and projects, I've honed my skills in creating end-to-end solutions, whether it's an advanced RAG system for automation or a full-stack productivity tool. I thrive on technical challenges and am eager to contribute my expertise in a full-time role, turning complex requirements into high-impact software.
-                    </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-light-navy rounded-lg shadow-lg p-8 reveal">
+                        <p class="text-lg text-gray-400 leading-relaxed">
+                            Hello! I'm Kishan, an AI and Software Engineer with a strong foundation from Ramaiah Institute of Technology. My passion lies in the entire development lifecycle—from conceptualizing an idea to deploying a robust, scalable application. 
+                        </p>
+                        <p class="text-lg text-gray-400 leading-relaxed mt-4">
+                            I thrive on technical challenges and am eager to contribute my expertise in turning complex requirements into high-impact software through explainable AI research and robust engineering.
+                        </p>
+                    </div>
+                    <div class="bg-light-navy rounded-lg shadow-lg p-8 reveal">
+                        <h3 class="text-xl font-bold text-gray-100 mb-4">Education</h3>
+                        <div>
+                            <p class="text-teal font-bold">Ramaiah Institute of Technology, Bengaluru</p>
+                            <p class="text-gray-200">B.E. in Artificial Intelligence and Machine Learning</p>
+                            <p class="text-sm text-gray-400">2021 - 2025</p>
+                            <p class="mt-2 text-teal">CGPA: 8.6/10</p>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="text-xl font-bold text-gray-100 mb-4">Skills</h3>
+                            <div class="flex flex-wrap -m-1">
+                                <span class="skill-tag">Python (AsyncIO)</span>
+                                <span class="skill-tag">Gemini (Flash/Pro)</span>
+                                <span class="skill-tag">OpenAI API</span>
+                                <span class="skill-tag">TensorFlow</span>
+                                <span class="skill-tag">PyTorch</span>
+                                <span class="skill-tag">FastAPI</span>
+                                <span class="skill-tag">Django</span>
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">AWS (RDS/S3)</span>
+                                <span class="skill-tag">LangChain</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">Tableau</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Experience Section -->
         <section id="experience" class="py-24 bg-light-navy">
             <div class="container mx-auto px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-center mb-16 text-gray-100 reveal">Where I've Worked</h2>
@@ -236,101 +285,130 @@
                             <li>Conducted research on lung disease prediction with MRI data, demonstrating advanced data analysis skills.</li>
                         </ul>
                     </div>
-                    <div class="timeline-item reveal">
+                    <div class="mb-12 timeline-item reveal">
                         <h3 class="text-xl font-bold text-gray-100">Data Science Intern <span class="text-teal">@ Unified Mentor</span></h3>
                         <p class="text-sm text-gray-400 mb-3">Jul 2024 - Sept 2024</p>
                         <ul class="list-disc list-inside text-gray-400 space-y-2 marker:text-teal">
                             <li>Analyzed business and financial datasets (Amazon sales, stock market, aviation), providing actionable insights using Python and Tableau.</li>
                         </ul>
                     </div>
+                    <div class="timeline-item reveal">
+                        <h3 class="text-xl font-bold text-gray-100">AI Engineer Intern <span class="text-teal">@ Codsoft</span></h3>
+                        <p class="text-sm text-gray-400 mb-3">Jan 2024 - Feb 2024</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2 marker:text-teal">
+                            <li>Developed a SMS Spam Detection system using NLP techniques.</li>
+                            <li>Implemented Movie Recommendation systems and Customer Churn prediction models.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Projects Section -->
         <section id="projects" class="py-24">
             <div class="container mx-auto px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-center mb-12 text-gray-100 reveal">Things I've Built</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project 1 -->
                     <div class="project-card rounded-lg shadow-lg p-6 flex flex-col justify-between reveal">
                         <div>
                             <div class="flex justify-between items-center mb-4">
                                 <i class="far fa-folder-open text-teal text-3xl"></i>
                                 <div class="space-x-4">
-                                    <a href="https://github.com/code-samplings/NLP-HEALTH-TRACKER" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/code-samplings/NLP-HEALTH-TRACKER" target="_blank" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors"><a href="#">NLP Health Tracker</a></h3>
-                            <p class="text-gray-400 mb-4">A cloud-based full-stack dashboard integrating NLP for intelligent activity logging and analytics.</p>
+                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors">NLP Health Tracker</h3>
+                            <p class="text-gray-400 mb-4">A cloud-based full-stack dashboard integrating NLP for intelligent activity logging and analytics. Optimizes data logging via text commands.</p>
                         </div>
-                        <p class="text-sm text-gray-500 font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p>
+                        <p class="text-sm text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p>
                     </div>
+                    <!-- Project 2 -->
                     <div class="project-card rounded-lg shadow-lg p-6 flex flex-col justify-between reveal">
                         <div>
                             <div class="flex justify-between items-center mb-4">
                                 <i class="far fa-folder-open text-teal text-3xl"></i>
                                 <div class="space-x-4">
-                                    <a href="https://github.com/kishanaik5/RAG_FASTAPI_APP" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/kishanaik5/RAG_FASTAPI_APP" target="_blank" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors"><a href="#">RAG Solution for VLSI</a></h3>
-                            <p class="text-gray-400 mb-4">An AI-powered RAG system using Transformers to automate MCQ generation for VLSI education.</p>
+                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors">RAG Solution for VLSI</h3>
+                            <p class="text-gray-400 mb-4">An AI-powered RAG system using Transformers to automate MCQ generation for VLSI education and technical documentation.</p>
                         </div>
-                        <p class="text-sm text-gray-500 font-mono mt-4">Python, Transformers, MongoDB, AWS</p>
+                        <p class="text-sm text-teal font-mono mt-4">Python, Transformers, MongoDB, AWS</p>
                     </div>
+                    <!-- Project 3 -->
                     <div class="project-card rounded-lg shadow-lg p-6 flex flex-col justify-between reveal">
                         <div>
                             <div class="flex justify-between items-center mb-4">
                                 <i class="far fa-folder-open text-teal text-3xl"></i>
                                 <div class="space-x-4">
-                                    <a href="https://github.com/kishanaik5/Managers-APP" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/kishanaik5/Managers-APP" target="_blank" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors"><a href="#">Productivity Management System</a></h3>
-                            <p class="text-gray-400 mb-4">A task-tracking system for manager-employee workflows using the MERN stack.</p>
+                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors">Productivity Management System</h3>
+                            <p class="text-gray-400 mb-4">A task-tracking system for manager-employee workflows. Includes real-time updates and optimized database queries.</p>
                         </div>
-                        <p class="text-sm text-gray-500 font-mono mt-4">Node.js, MongoDB, React, Google API</p>
+                        <p class="text-sm text-teal font-mono mt-4">Node.js, MongoDB, React, Google API TTS</p>
                     </div>
+                    <!-- Project 4 -->
                     <div class="project-card rounded-lg shadow-lg p-6 flex flex-col justify-between reveal">
                         <div>
                             <div class="flex justify-between items-center mb-4">
                                 <i class="far fa-folder-open text-teal text-3xl"></i>
                                 <div class="space-x-4">
-                                    <a href="https://github.com/ariyaltharun/waste-segregation-using-deeplearning" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/ariyaltharun/waste-segregation-using-deeplearning" target="_blank" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors"><a href="#">Domestic Waste Segregation</a></h3>
-                            <p class="text-gray-400 mb-4">An IoT-based smart waste segregation solution using Deep Learning, achieving 92.5% accuracy.</p>
+                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors">Domestic Waste Segregation</h3>
+                            <p class="text-gray-400 mb-4">IoT-based solution using Inception ResNet V2 for waste classification with 92.5% accuracy and live testing UI.</p>
                         </div>
-                        <p class="text-sm text-gray-500 font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p>
+                        <p class="text-sm text-teal font-mono mt-4">PyTorch, Flask, ESP-32, ReactJS</p>
+                    </div>
+                    <!-- Project 5 -->
+                    <div class="project-card rounded-lg shadow-lg p-6 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <i class="far fa-folder-open text-teal text-3xl"></i>
+                                <div class="space-x-4">
+                                    <a href="#" target="_blank" class="nav-link text-gray-400 text-xl"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-100 hover:text-teal transition-colors">Mental Health Chatbot</h3>
+                            <p class="text-gray-400 mb-4">Developed for Smart India Hackathon. Uses RNN-LSTM and Transformers for context-aware empathetic conversations.</p>
+                        </div>
+                        <p class="text-sm text-teal font-mono mt-4">Python, TensorFlow, Transformers, Flask</p>
                     </div>
                 </div>
             </div>
         </section>
         
+        <!-- Contact Section -->
         <section id="contact" class="py-24">
             <div class="container mx-auto px-6 lg:px-8 text-center max-w-2xl">
                 <h2 class="text-2xl font-bold text-teal reveal">What's Next?</h2>
                 <h3 class="text-5xl font-bold text-gray-100 mt-4 reveal">Get In Touch</h3>
                 <p class="text-gray-400 mt-6 leading-relaxed reveal">
-                    My inbox is always open for new opportunities. I am actively seeking a full-time AI & Software Engineer role and would welcome the chance to discuss how my skills and dedication can be an asset to your team. Please feel free to reach out.
+                    I am actively seeking full-time AI & Software Engineer roles where I can apply my skills in building production-ready AI systems. My inbox is always open!
                 </p>
                 <div class="mt-10 reveal">
-                     <a href="mailto:kishanknaik03@gmail.com" class="border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">Say Hello</a>
+                     <a href="mailto:kishan.k.naik.ai@gmail.com" class="border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">Say Hello</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-navy">
-        <div class="container mx-auto py-6 px-6 lg:px-8 text-center text-gray-500">
-             <div class="flex justify-center space-x-6 mb-4 lg:hidden">
+    <footer class="bg-navy border-t border-gray-800">
+        <div class="container mx-auto py-8 px-6 lg:px-8 text-center text-gray-500">
+             <div class="flex justify-center space-x-6 mb-6 lg:hidden">
                 <a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="nav-link text-2xl"><i class="fab fa-linkedin"></i></a>
                 <a href="https://huggingface.co/kishanaik5" target="_blank" class="nav-link text-2xl">🤗</a>
                 <a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl"><i class="fab fa-whatsapp"></i></a>
                 <a href="https://www.instagram.com/kishan_.rathod/" target="_blank" class="nav-link text-2xl"><i class="fab fa-instagram"></i></a>
             </div>
-            <p class="text-sm">&copy; 2025 Designed & Built by Kishan K.</p>
+            <p class="text-sm mb-2">Designed & Built by Kishan K.</p>
+            <p class="text-xs">Built with Tailwind CSS & ScrollReveal</p>
         </div>
     </footer>
 
@@ -352,10 +430,11 @@
 
         // ScrollReveal animations
         ScrollReveal().reveal('.reveal', {
-            delay: 200,
-            distance: '20px',
+            delay: 150,
+            distance: '30px',
             origin: 'bottom',
             opacity: 0,
+            duration: 800,
             easing: 'cubic-bezier(0.5, 0, 0, 1)',
             interval: 100
         });
@@ -363,5 +442,3 @@
 </body>
 
 </html>
-
-
