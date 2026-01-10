@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan K - AI & Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        xintegrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -46,12 +48,17 @@
             transform: translateY(-2px);
         }
         
-        .project-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #112240;
+        .resume-button {
+             transition: background-color 0.3s, color 0.3s;
         }
 
-        .project-card:hover {
+        .project-card, .pub-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #112240;
+            height: 100%;
+        }
+
+        .project-card:hover, .pub-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 30px -15px rgba(2,12,27,0.7);
         }
@@ -68,6 +75,7 @@
             border: 3px solid #0a192f;
         }
 
+        /* Fixed Side Elements */
         .side-element {
             position: fixed;
             bottom: 0;
@@ -81,8 +89,17 @@
             }
         }
 
-        .left-sidebar { left: 40px; }
-        .right-sidebar { right: 40px; }
+        .left-sidebar {
+            left: 40px;
+            right: auto;
+            width: 40px;
+        }
+
+        .right-sidebar {
+            right: 40px;
+            left: auto;
+            width: 40px;
+        }
 
         .sidebar-content {
             display: flex;
@@ -116,10 +133,10 @@
         .skill-tag {
             background-color: rgba(100, 255, 218, 0.1);
             color: #64ffda;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 4px;
-            font-size: 0.75rem;
-            margin: 2px;
+            font-size: 0.85rem;
+            margin: 4px;
             display: inline-block;
             border: 1px solid rgba(100, 255, 218, 0.2);
         }
@@ -131,11 +148,11 @@
     <!-- Social Sidebar -->
     <div class="side-element left-sidebar">
         <div class="sidebar-content">
-            <a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="nav-link text-2xl text-gray-400"><i class="fab fa-linkedin"></i></a>
-            <a href="https://huggingface.co/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400">🤗</a>
-            <a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl text-gray-400"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.instagram.com/kishan_.rathod/" target="_blank" class="nav-link text-2xl text-gray-400"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="nav-link text-2xl text-gray-400" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://leetcode.com/u/ZXO2yYfahk/" target="_blank" class="nav-link text-2xl text-gray-400" title="LeetCode"><i class="fas fa-code"></i></a>
+            <a href="https://huggingface.co/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="Hugging Face">🤗</a>
+            <a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl text-gray-400" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
 
@@ -148,299 +165,380 @@
         </div>
     </div>
 
-    <header class="bg-navy/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-6">
+    <header class="bg-navy/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <a href="#" class="text-2xl font-bold text-teal">Kishan K</a>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="nav-link text-sm uppercase tracking-widest">About</a>
-                    <a href="#experience" class="nav-link text-sm uppercase tracking-widest">Experience</a>
-                    <a href="#projects" class="nav-link text-sm uppercase tracking-widest">Projects</a>
-                    <a href="#contact" class="nav-link text-sm uppercase tracking-widest">Contact</a>
-                    <a href="resume.pdf" target="_blank" class="border border-teal text-teal py-2 px-5 rounded hover:bg-teal/10 transition">Resume</a>
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-teal">Kishan K</a>
                 </div>
-                <button id="mobile-menu-button" class="md:hidden text-teal text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-6">
+                        <a href="#about" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">About</a>
+                        <a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
+                        <a href="#projects" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Projects</a>
+                        <a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
+                        <a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
+                        <a href="kishan_k_resume.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+                    </div>
+                </nav>
+                 <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-light-navy focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden bg-light-navy p-6 space-y-4 text-center">
-            <a href="#about" class="block nav-link">About</a>
-            <a href="#experience" class="block nav-link">Experience</a>
-            <a href="#projects" class="block nav-link">Projects</a>
-            <a href="#contact" class="block nav-link">Contact</a>
+        <div id="mobile-menu" class="md:hidden hidden bg-light-navy">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
+                <a href="#contact" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                <a href="kishan_k_resume.pdf" target="_blank" class="resume-button block w-full mt-2 border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+            </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero -->
-        <section id="home" class="min-h-screen flex items-center pt-20">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-2/3">
-                        <p class="text-teal font-mono mb-4 reveal">Hi, my name is</p>
-                        <h1 class="text-5xl md:text-7xl font-bold text-gray-100 mb-2 reveal">Kishan K.</h1>
-                        <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6 reveal">I build intelligent solutions.</h2>
-                        <p class="max-w-xl text-lg text-gray-400 mb-10 reveal">
-                            AI Engineer specializing in Python, machine learning, and cloud development. I build and deploy scalable AI pipelines, automation systems, and full-stack applications with a focus on explainable AI research.
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                    <div class="md:w-3/5 text-center md:text-left">
+                        <p class="text-teal text-lg font-mono reveal">Hi, my name is</p>
+                        <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-gray-100 mt-2 reveal">Kishan K.</h1>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-400 mt-2 reveal">I build intelligent solutions.</h2>
+                        <p class="mt-6 max-w-xl text-lg text-gray-400 reveal">
+                            I'm an <strong>AI & Software Engineer</strong> specializing in Python, machine learning, and cloud development. I build and deploy scalable AI pipelines, full-stack applications, and intelligent automation systems. 
                         </p>
-                        <div class="reveal">
-                            <a href="#projects" class="border-2 border-teal text-teal font-bold py-4 px-8 rounded hover:bg-teal/10 transition">View My Work</a>
+                        <div class="mt-8 reveal flex flex-wrap gap-4 justify-center md:justify-start">
+                            <a href="#projects" class="border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">View Projects</a>
+                            <a href="mailto:kishan.k.naik.ai@gmail.com" class="bg-teal text-navy font-bold py-3 px-8 rounded-md hover:opacity-90 transition duration-300">Get In Touch</a>
                         </div>
                     </div>
-                    <div class="md:w-1/3 mt-12 md:mt-0 flex justify-center reveal">
-                        <div class="relative w-64 h-64 group">
-                            <div class="absolute inset-0 border-2 border-teal rounded-lg translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
-                            <div class="relative w-full h-full bg-light-navy rounded-lg flex items-center justify-center overflow-hidden border border-teal/20">
-                                <i class="fas fa-user-astronaut text-8xl text-teal/30"></i>
+                    <div class="md:w-2/5 mt-10 md:mt-0 flex justify-center reveal">
+                         <div class="relative group">
+                            <div class="absolute -inset-1 bg-teal rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-lg border-2 border-teal overflow-hidden flex items-center justify-center bg-light-navy shadow-2xl">
+                                <img src="KiSHAN.jpg" alt="Kishan K" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="hidden items-center justify-center w-full h-full">
+                                    <i class="fas fa-user-circle text-8xl text-teal/40"></i>
+                                </div>
                             </div>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About & Skills -->
+        <!-- About Section -->
         <section id="about" class="py-24">
-            <div class="container mx-auto px-6">
-                <div class="flex items-center mb-12 reveal">
-                    <h2 class="text-3xl font-bold text-gray-200"><span class="text-teal font-mono text-xl mr-2">01.</span> About Me</h2>
-                    <div class="h-px bg-gray-700 flex-grow ml-6"></div>
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <div class="flex items-center gap-4 mb-12 reveal">
+                    <h2 class="text-3xl font-bold text-gray-100">About Me</h2>
+                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    <div class="reveal">
-                        <p class="text-gray-400 text-lg mb-6">
-                            I'm an AI and Software Engineer with a B.E. in Artificial Intelligence and Machine Learning from <span class="text-teal">Ramaiah Institute of Technology</span>. My expertise spans the entire development lifecycle—from explainable AI research to deploying robust production-ready applications.
-                        </p>
-                        <div class="bg-light-navy p-6 rounded-lg border-l-4 border-teal">
-                            <h3 class="text-gray-100 font-bold mb-2">Education</h3>
-                            <p class="text-teal">Ramaiah Institute of Technology, Bengaluru</p>
-                            <p class="text-sm">B.E. AI & ML | 2021 - 2025</p>
-                            <p class="text-sm mt-1">CGPA: <span class="text-gray-100 font-bold">8.6/10</span></p>
-                        </div>
-                    </div>
-                    <div class="reveal">
-                        <h3 class="text-gray-100 font-bold mb-6">Technical Skills</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="text-xs uppercase tracking-widest text-gray-500 mb-2">AI & GenAI</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">Gemini (Flash/Pro)</span> <span class="skill-tag">OpenAI API</span>
-                                    <span class="skill-tag">TensorFlow</span> <span class="skill-tag">PyTorch</span>
-                                    <span class="skill-tag">Transformers</span> <span class="skill-tag">ViT</span>
-                                    <span class="skill-tag">CNNs</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-xs uppercase tracking-widest text-gray-500 mb-2">Backend & Cloud</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">Python (AsyncIO)</span> <span class="skill-tag">FastAPI</span>
-                                    <span class="skill-tag">Django</span> <span class="skill-tag">Flask</span>
-                                    <span class="skill-tag">Docker</span> <span class="skill-tag">AWS (RDS/S3)</span>
-                                    <span class="skill-tag">Azure</span> <span class="skill-tag">PostgreSQL</span>
-                                    <span class="skill-tag">MongoDB</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-xs uppercase tracking-widest text-gray-500 mb-2">MLOps & Tools</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">GitHub Actions</span> <span class="skill-tag">MLflow</span>
-                                    <span class="skill-tag">DVC</span> <span class="skill-tag">LangChain</span>
-                                    <span class="skill-tag">Tableau</span> <span class="skill-tag">Power BI</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience -->
-        <section id="experience" class="py-24 bg-light-navy/30">
-            <div class="container mx-auto px-6">
-                <div class="flex items-center mb-16 reveal">
-                    <h2 class="text-3xl font-bold text-gray-200"><span class="text-teal font-mono text-xl mr-2">02.</span> Experience</h2>
-                    <div class="h-px bg-gray-700 flex-grow ml-6"></div>
-                </div>
-                <div class="max-w-4xl mx-auto space-y-12 relative border-l-2 border-gray-800 pl-8 ml-4">
-                    <!-- Sumedha -->
-                    <div class="reveal timeline-item">
-                        <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
-                        <p class="text-sm font-mono text-gray-500 mb-4">Feb 2025 - Present</p>
-                        <ul class="space-y-3 text-gray-400">
-                            <li class="flex items-start"><i class="fas fa-caret-right text-teal mt-1 mr-3"></i> Developing RAG solutions using LLMs to automate MCQ generation and requirement-response workflows in the VLSI domain.</li>
-                            <li class="flex items-start"><i class="fas fa-caret-right text-teal mt-1 mr-3"></i> Building multi-agent AI systems to enhance content personalization and learner engagement.</li>
-                        </ul>
-                    </div>
-                    <!-- Pragami -->
-                    <div class="reveal timeline-item">
-                        <h3 class="text-xl font-bold text-gray-100">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
-                        <p class="text-sm font-mono text-gray-500 mb-4">Jan 2025 - Feb 2025</p>
-                        <ul class="space-y-3 text-gray-400">
-                            <li class="flex items-start"><i class="fas fa-caret-right text-teal mt-1 mr-3"></i> Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
-                            <li class="flex items-start"><i class="fas fa-caret-right text-teal mt-1 mr-3"></i> Conducted research on lung disease prediction with MRI data, applying advanced data analysis techniques.</li>
-                        </ul>
-                    </div>
-                    <!-- Unified Mentor -->
-                    <div class="reveal timeline-item">
-                        <h3 class="text-xl font-bold text-gray-100">Data Science Intern <span class="text-teal">@ Unified Mentor</span></h3>
-                        <p class="text-sm font-mono text-gray-500 mb-4">Jul 2024 - Sept 2024</p>
-                        <ul class="space-y-3 text-gray-400">
-                            <li class="flex items-start"><i class="fas fa-caret-right text-teal mt-1 mr-3"></i> Analyzed business and financial datasets (Amazon, Stock Market, Aviation), providing actionable insights using Python and Tableau.</li>
-                        </ul>
-                    </div>
-                    <!-- Codsoft -->
-                    <div class="reveal timeline-item">
-                        <h3 class="text-xl font-bold text-gray-100">AI Engineer Intern <span class="text-teal">@ Codsoft</span></h3>
-                        <p class="text-sm font-mono text-gray-500 mb-4">Jan 2024 - Feb 2024</p>
-                        <ul class="space-y-3 text-gray-400">
-                            <li class="flex items-start"><i class="fas fa-caret-right text-teal mt-1 mr-3"></i> Implemented SMS Spam Detection (NLP), Movie Recommendation systems, and Customer Churn prediction models.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projects" class="py-24">
-            <div class="container mx-auto px-6">
-                <div class="flex items-center mb-16 reveal">
-                    <h2 class="text-3xl font-bold text-gray-200"><span class="text-teal font-mono text-xl mr-2">03.</span> Notable Projects</h2>
-                    <div class="h-px bg-gray-700 flex-grow ml-6"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- RAG Project -->
-                    <div class="project-card p-8 rounded-lg flex flex-col reveal">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="far fa-folder text-teal text-4xl"></i>
-                            <a href="https://github.com/kishanaik5/RAG_FASTAPI_APP" class="text-gray-400 hover:text-teal text-xl"><i class="fab fa-github"></i></a>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-100 mb-4">RAG Solution for Educational Content Automation</h3>
-                        <p class="text-gray-400 mb-6">An AI-powered RAG system using Transformers to automate MCQ generation for VLSI technical education and documentation.</p>
-                        <div class="mt-auto flex flex-wrap font-mono text-xs text-teal">
-                            <span class="mr-4">FastAPI</span> <span class="mr-4">Gemini</span> <span class="mr-4">MongoDB Atlas</span> <span class="mr-4">AWS</span>
-                        </div>
-                    </div>
-                    <!-- Productivity System -->
-                    <div class="project-card p-8 rounded-lg flex flex-col reveal">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="far fa-folder text-teal text-4xl"></i>
-                            <a href="https://github.com/kishanaik5/Managers-APP" class="text-gray-400 hover:text-teal text-xl"><i class="fab fa-github"></i></a>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-100 mb-4">Productivity Management System</h3>
-                        <p class="text-gray-400 mb-6">Full-stack task-tracking system for manager-employee workflows. Optimized MongoDB queries for real-time performance.</p>
-                        <div class="mt-auto flex flex-wrap font-mono text-xs text-teal">
-                            <span class="mr-4">Node.js</span> <span class="mr-4">React</span> <span class="mr-4">MongoDB Atlas</span> <span class="mr-4">Google TTS</span>
-                        </div>
-                    </div>
-                    <!-- Waste Segregation -->
-                    <div class="project-card p-8 rounded-lg flex flex-col reveal">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="far fa-folder text-teal text-4xl"></i>
-                            <a href="https://github.com/ariyaltharun/waste-segregation-using-deeplearning" class="text-gray-400 hover:text-teal text-xl"><i class="fab fa-github"></i></a>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-100 mb-4">Domestic Waste Segregation</h3>
-                        <p class="text-gray-400 mb-6">IoT-based smart waste segregation using Inception ResNet V2, achieving 92.5% test accuracy with a React/Flask UI.</p>
-                        <div class="mt-auto flex flex-wrap font-mono text-xs text-teal">
-                            <span class="mr-4">PyTorch</span> <span class="mr-4">Flask</span> <span class="mr-4">ReactJS</span> <span class="mr-4">ESP-32</span>
-                        </div>
-                    </div>
-                    <!-- Mental Health -->
-                    <div class="project-card p-8 rounded-lg flex flex-col reveal">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="far fa-folder text-teal text-4xl"></i>
-                            <span class="text-xs font-mono text-teal">Smart India Hackathon</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-100 mb-4">Mental Health Chatbot</h3>
-                        <p class="text-gray-400 mb-6">AI chatbot leveraging RNN-LSTM and Transformers for empathetic, context-aware mental health conversations.</p>
-                        <div class="mt-auto flex flex-wrap font-mono text-xs text-teal">
-                            <span class="mr-4">TensorFlow</span> <span class="mr-4">Transformers</span> <span class="mr-4">NLTK</span> <span class="mr-4">Flask</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Publications & Certs -->
-        <section class="py-24 bg-light-navy/20">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    <!-- Publications -->
-                    <div class="reveal">
-                        <div class="flex items-center mb-10">
-                            <h2 class="text-2xl font-bold text-gray-200">Publications</h2>
-                            <div class="h-px bg-gray-700 flex-grow ml-6"></div>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="bg-navy p-6 rounded border border-gray-800">
-                                <h4 class="text-gray-100 font-bold">Predicting Alzheimer's Disease: DL Performance Evaluation</h4>
-                                <p class="text-sm text-teal font-mono">IEEE Bangalore Section, 2024</p>
-                            </div>
-                            <div class="bg-navy p-6 rounded border border-gray-800">
-                                <h4 class="text-gray-100 font-bold">Enhancing Predictive Maintenance with SHAP and LIME</h4>
-                                <p class="text-sm text-teal font-mono">ICAI-ARSSS, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Certifications -->
-                    <div class="reveal">
-                        <div class="flex items-center mb-10">
-                            <h2 class="text-2xl font-bold text-gray-200">Certifications</h2>
-                            <div class="h-px bg-gray-700 flex-grow ml-6"></div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="text-sm text-gray-400"><i class="fas fa-certificate text-teal mr-2"></i> Python Pro Bootcamp (Udemy)</div>
-                            <div class="text-sm text-gray-400"><i class="fas fa-certificate text-teal mr-2"></i> ML & GenAI with Python (Udemy)</div>
-                            <div class="text-sm text-gray-400"><i class="fas fa-certificate text-teal mr-2"></i> Data Science Bootcamp (Udemy)</div>
-                            <div class="text-sm text-gray-400"><i class="fas fa-certificate text-teal mr-2"></i> MS Azure Cloud Intro (Coursera)</div>
-                            <div class="text-sm text-gray-400"><i class="fas fa-certificate text-teal mr-2"></i> AWS Cloud Support (Coursera)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="py-32 text-center">
-            <div class="container mx-auto px-6 max-w-2xl reveal">
-                <p class="text-teal font-mono mb-4 text-xl">What's Next?</p>
-                <h2 class="text-5xl font-bold text-gray-100 mb-6">Get In Touch</h2>
-                <p class="text-gray-400 mb-12">
-                    I am actively seeking full-time AI & Software Engineer roles. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-                </p>
-                <a href="mailto:kishan.k.naik.ai@gmail.com" class="border-2 border-teal text-teal font-bold py-4 px-10 rounded hover:bg-teal/10 transition">Say Hello</a>
                 
-                <div class="mt-16 text-gray-400 flex flex-col items-center">
-                    <p class="mb-2">Reach out directly:</p>
-                    <p class="text-teal font-mono">+91 6360333428</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-4 reveal">
+                        <p class="text-lg text-gray-400 leading-relaxed">
+                            Hello! I'm Kishan, an AI and Software Engineer with a strong foundation from <strong>Ramaiah Institute of Technology</strong>. I focus on the entire development lifecycle—from conceptualizing an idea to deploying robust, scalable applications. 
+                        </p>
+                        <p class="text-lg text-gray-400 leading-relaxed">
+                            Currently, I am at <strong>Silo Fortune</strong>, where I architect GenAI microservices and Applied AI solutions for agriculture. I thrive on technical challenges and am eager to contribute my expertise in turning complex requirements into high-impact software through explainable AI research and robust engineering.
+                        </p>
+
+                        <div class="bg-light-navy rounded-lg p-6 mt-8 border-l-4 border-teal">
+                            <h3 class="text-xl font-bold text-gray-100 mb-2">Education</h3>
+                            <p class="text-teal font-bold">Ramaiah Institute of Technology, Bengaluru</p>
+                            <p class="text-gray-200">B.E. in Artificial Intelligence and Machine Learning</p>
+                            <p class="text-sm text-gray-400">2021 - 2025 | <span class="text-teal">CGPA: 8.6/10</span></p>
+                        </div>
+                    </div>
+
+                    <div class="reveal">
+                        <h3 class="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2">
+                            <i class="fas fa-terminal text-teal"></i> Technical Skills
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-sm font-mono text-gray-300 mb-2">Programming & AI</h4>
+                                <div class="flex flex-wrap">
+                                    <span class="skill-tag">Python (AsyncIO)</span>
+                                    <span class="skill-tag">SQL</span>
+                                    <span class="skill-tag">Gemini (Flash/Pro)</span>
+                                    <span class="skill-tag">OpenAI API</span>
+                                    <span class="skill-tag">TensorFlow</span>
+                                    <span class="skill-tag">PyTorch</span>
+                                    <span class="skill-tag">Transformers</span>
+                                    <span class="skill-tag">ViT/CNN</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-mono text-gray-300 mb-2">Backend & Cloud</h4>
+                                <div class="flex flex-wrap">
+                                    <span class="skill-tag">FastAPI</span>
+                                    <span class="skill-tag">Django</span>
+                                    <span class="skill-tag">Pydantic</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">AWS (S3/RDS/SageMaker)</span>
+                                    <span class="skill-tag">GCP</span>
+                                    <span class="skill-tag">CI/CD</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-mono text-gray-300 mb-2">Databases & Tools</h4>
+                                <div class="flex flex-wrap">
+                                    <span class="skill-tag">PostgreSQL</span>
+                                    <span class="skill-tag">MongoDB</span>
+                                    <span class="skill-tag">FAISS (Vector DB)</span>
+                                    <span class="skill-tag">LangChain</span>
+                                    <span class="skill-tag">Rasa</span>
+                                    <span class="skill-tag">Tableau</span>
+                                    <span class="skill-tag">Power BI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-24 bg-light-navy/30">
+            <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
+                <div class="flex items-center gap-4 mb-16 reveal">
+                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
+                    <h2 class="text-3xl font-bold text-gray-100">Experience</h2>
+                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
+                </div>
+
+                <div class="relative border-l-2 border-gray-700 pl-10 ml-4">
+                    <!-- Silo Fortune -->
+                    <div class="mb-16 timeline-item reveal">
+                        <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
+                        <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
+                        <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+                            <li>Architected the <strong>Kisaan Sampurna CV Service</strong>, a scalable FastAPI microservice using <strong>Google Gemini 2.5/3.0</strong> for real-time crop disease diagnosis and GenAI localization.</li>
+                            <li>Engineered production architecture with <strong>PostgreSQL</strong> schema isolation, <strong>AWS S3</strong> integration, and <strong>Docker</strong> pipelines.</li>
+                            <li>Optimized Conflux AI Plugin for e-commerce integration, implementing secure multi-step authentication.</li>
+                            <li>Developed Applied AI services including NLP chatbots (Rasa/LangChain) and Soil Prediction Models.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Sumedha -->
+                    <div class="mb-16 timeline-item reveal">
+                        <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
+                        <p class="text-sm font-mono text-gray-400 mb-4">Feb 2025 - Aug 2025 | Hyderabad</p>
+                        <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+                            <li>Developed <strong>RAG solutions</strong> using LLMs to automate MCQ generation and requirement-response workflows in the VLSI domain.</li>
+                            <li>Built multi-agent AI systems that enhanced content personalization and learner engagement.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Pragami -->
+                    <div class="timeline-item reveal">
+                        <h3 class="text-xl font-bold text-gray-100">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
+                        <p class="text-sm font-mono text-gray-400 mb-4">Jan 2025 - Feb 2025 | Bengaluru</p>
+                        <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+                            <li>Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
+                            <li>Conducted research on lung disease prediction using MRI data.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <div class="flex items-center gap-4 mb-12 reveal">
+                    <h2 class="text-3xl font-bold text-gray-100">Things I've Built</h2>
+                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project 1: NLP Health -->
+                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="far fa-folder-open text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/code-samplings/NLP-HEALTH-TRACKER" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100 group-hover:text-teal">NLP Health Tracker</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based fitness dashboard integrating NLP for activity logging. Features a React/Material-UI interface with Node.js backend using Nutritionix APIs.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: RAG VLSI -->
+                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-microchip text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/kishanaik5/RAG_FASTAPI_APP" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">AI Automation for VLSI</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Engineered a RAG system using Transformers to automate MCQ generation for VLSI education. Integrated MongoDB and deployed on AWS EC2/S3.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">Python, Transformers, MongoDB, AWS, Prompt Eng.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Productivity System -->
+                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-tasks text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/kishanaik5/Managers-APP" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Productivity Management</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Task-tracking system for manager–employee workflows. Optimized MongoDB queries for real-time performance and integrated Google TTS APIs.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Waste Segregation -->
+                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-recycle text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/ariyaltharun/waste-segregation-using-deeplearning" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation (DL)</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based smart solution using Inception ResNet V2, achieving 92.5% accuracy. Built a Flask/React UI for model testing and data upload.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32 (IoT)</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 5: SIH Chatbot -->
+                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-comments text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <i class="fas fa-lock text-gray-500 text-xl" title="Private Repo"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Mental Health Chatbot</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Smart India Hackathon project. A user-centric AI chatbot leveraging RNN-LSTM and Transformers for context-aware empathetic conversations.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">Python, TensorFlow, NLTK, Transformers, Flask</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="py-24 bg-light-navy/20">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <div class="flex items-center gap-4 mb-12 reveal">
+                    <h2 class="text-3xl font-bold text-gray-100">Publications</h2>
+                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
+                        <span class="text-teal font-mono text-xs uppercase mb-2 block">IEEE Bangalore Section, 2024</span>
+                        <h3 class="text-lg font-bold text-gray-100 mb-2">Performance Evaluation of Deep Learning Models for Predicting Alzheimer's Disease</h3>
+                        <p class="text-sm text-gray-400">Research focused on the comparative analysis of DL architectures for early detection and prediction.</p>
+                    </div>
+                    <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
+                        <span class="text-teal font-mono text-xs uppercase mb-2 block">ICAI – ARSSS, 2025</span>
+                        <h3 class="text-lg font-bold text-gray-100 mb-2">Enhancing Predictive Maintenance with SHAP and LIME: A Framework for Explainable AI</h3>
+                        <p class="text-sm text-gray-400">Developed a framework to make complex predictive maintenance models interpretable using XAI techniques.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="py-24">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl text-center">
+                <h2 class="text-2xl font-bold text-gray-100 mb-10 reveal">Certifications</h2>
+                <div class="flex flex-wrap justify-center gap-4 reveal">
+                    <span class="px-6 py-3 bg-light-navy border border-gray-700 rounded-full text-sm text-gray-300 hover:border-teal transition-colors">100 Days of Code: Python Pro</span>
+                    <span class="px-6 py-3 bg-light-navy border border-gray-700 rounded-full text-sm text-gray-300 hover:border-teal transition-colors">ML, Data Science & GenAI</span>
+                    <span class="px-6 py-3 bg-light-navy border border-gray-700 rounded-full text-sm text-gray-300 hover:border-teal transition-colors">Full Data Science & NLP Bootcamp</span>
+                    <span class="px-6 py-3 bg-light-navy border border-gray-700 rounded-full text-sm text-gray-300 hover:border-teal transition-colors">MS Azure Cloud Services</span>
+                    <span class="px-6 py-3 bg-light-navy border border-gray-700 rounded-full text-sm text-gray-300 hover:border-teal transition-colors">AWS Cloud Support Associate</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-24">
+            <div class="container mx-auto px-6 lg:px-8 text-center max-w-2xl">
+                <p class="text-teal font-mono reveal">04. What's Next?</p>
+                <h3 class="text-5xl font-bold text-gray-100 mt-4 reveal">Get In Touch</h3>
+                <p class="text-gray-400 mt-6 leading-relaxed reveal text-lg">
+                    I am currently focused on building production-ready AI systems and advancing explainable AI. My inbox is always open for collaborations or opportunities!
+                </p>
+                <div class="mt-12 reveal">
+                     <a href="mailto:kishan.k.naik.ai@gmail.com" class="border-2 border-teal text-teal font-bold py-4 px-10 rounded-md hover:bg-teal/10 transition duration-300 text-lg">Say Hello</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="py-10 text-center bg-navy border-t border-gray-800/50">
-        <div class="flex justify-center space-x-6 mb-6 md:hidden">
-            <a href="https://github.com/kishanaik5" class="text-xl text-gray-400 hover:text-teal"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/kishan-k-823049259" class="text-xl text-gray-400 hover:text-teal"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:kishan.k.naik.ai@gmail.com" class="text-xl text-gray-400 hover:text-teal"><i class="far fa-envelope"></i></a>
+    <footer class="bg-navy border-t border-gray-800">
+        <div class="container mx-auto py-12 px-6 lg:px-8 text-center text-gray-500">
+             <div class="flex justify-center space-x-6 mb-8 lg:hidden">
+                <a href="https://github.com/kishanaik5" class="nav-link text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/kishan-k-823049259" class="nav-link text-2xl hover:text-teal"><i class="fab fa-linkedin"></i></a>
+                <a href="https://leetcode.com/u/ZXO2yYfahk/" class="nav-link text-2xl hover:text-teal" title="LeetCode"><i class="fas fa-code"></i></a>
+                <a href="https://huggingface.co/kishanaik5" class="nav-link text-2xl hover:text-teal">🤗</a>
+                <a href="mailto:kishan.k.naik.ai@gmail.com" class="nav-link text-2xl hover:text-teal"><i class="far fa-envelope"></i></a>
+            </div>
+            <p class="text-sm font-mono mb-2">Designed & Built by <span class="text-teal">Kishan K.</span></p>
+            <p class="text-xs">Built with Tailwind CSS & ScrollReveal | © 2026</p>
         </div>
-        <p class="text-sm text-gray-500 font-mono">Designed & Built by Kishan K &copy; 2025</p>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ScrollReveal animations
         ScrollReveal().reveal('.reveal', {
             delay: 150,
-            distance: '30px',
+            distance: '40px',
             origin: 'bottom',
+            opacity: 0,
             duration: 800,
             easing: 'cubic-bezier(0.5, 0, 0, 1)',
             interval: 100
         });
-
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
     </script>
 </body>
 
