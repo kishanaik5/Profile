@@ -492,8 +492,33 @@
                 <p class="text-gray-400 mt-6 leading-relaxed reveal text-lg">
                     I am currently focused on building production-ready AI systems and advancing explainable AI. My inbox is always open for collaborations or opportunities!
                 </p>
-                <div class="mt-12 reveal">
-                     <a href="mailto:kishan.k.naik.ai@gmail.com" class="border-2 border-teal text-teal font-bold py-4 px-10 rounded-md hover:bg-teal/10 transition duration-300 text-lg">Say Hello</a>
+                <!-- Multi-Action Say Hello Button -->
+                <div class="mt-12 reveal flex justify-center">
+                    <div class="relative group inline-block">
+                        <!-- Main Trigger -->
+                        <button class="border-2 border-teal text-teal font-bold py-4 px-10 rounded-md bg-transparent transition duration-300 text-lg group-hover:bg-teal group-hover:text-navy cursor-default">
+                            Say Hello
+                        </button>
+                        
+                        <!-- Hover Pop-up Options -->
+                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 flex gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:-translate-y-2 transition-all duration-300">
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/916360333428" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <!-- Email -->
+                            <a href="mailto:kishan.k.naik.ai@gmail.com" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Email">
+                                <i class="far fa-envelope"></i>
+                            </a>
+                            <!-- Call -->
+                            <a href="tel:+916360333428" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Call">
+                                <i class="fas fa-phone-alt"></i>
+                            </a>
+                            
+                            <!-- Down Arrow Tooltip -->
+                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-teal"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -543,4 +568,3 @@
 </body>
 
 </html>
-
