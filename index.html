@@ -54,7 +54,9 @@
         .project-card, .pub-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background-color: #112240;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .project-card:hover, .pub-card:hover {
@@ -65,7 +67,7 @@
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -30px;
+            left: -31px;
             top: 5px;
             width: 20px;
             height: 20px;
@@ -293,9 +295,10 @@
                                     <span class="skill-tag">MongoDB</span>
                                     <span class="skill-tag">FAISS (Vector DB)</span>
                                     <span class="skill-tag">LangChain</span>
-                                    <span class="skill-tag">Rasa</span>
-                                    <span class="skill-tag">Tableau</span>
-                                    <span class="skill-tag">Power BI</span>
+                                    <span class="skill-tag">LlamaIndex</span>
+                                    <span class="skill-tag">Redis</span>
+                                    <span class="skill-tag">Streamlit</span>
+                                    <span class="skill-tag">Alembic</span>
                                 </div>
                             </div>
                         </div>
@@ -319,10 +322,9 @@
                         <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
                         <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
                         <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                            <li>Architected the <strong>Kisaan Sampurna CV Service</strong>, a scalable FastAPI microservice using <strong>Google Gemini 2.5/3.0</strong> for real-time crop disease diagnosis and GenAI localization.</li>
-                            <li>Engineered production architecture with <strong>PostgreSQL</strong> schema isolation, <strong>AWS S3</strong> integration, and <strong>Docker</strong> pipelines.</li>
-                            <li>Optimized Conflux AI Plugin for e-commerce integration, implementing secure multi-step authentication.</li>
-                            <li>Developed Applied AI services including NLP chatbots (Rasa/LangChain) and Soil Prediction Models.</li>
+                            <li>Architected the <strong>Kisaan Sampurna</strong> multimodal pipeline, merging CV disease detection with <strong>Gemini 2.5 Flash</strong> for real-time advisories in <strong>12+ languages</strong> (92%+ precision).</li>
+                            <li>Orchestrated a production-grade <strong>FastAPI microservices ecosystem</strong> with PostgreSQL isolation, <strong>Redis</strong> caching, and Docker CI/CD, handling 10,000+ daily requests.</li>
+                            <li>Optimized Conflux AI Plugin for e-commerce integration, implementing secure multi-step authentication and plugin-based routing.</li>
                         </ul>
                     </div>
 
@@ -331,8 +333,8 @@
                         <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
                         <p class="text-sm font-mono text-gray-400 mb-4">Feb 2025 - Aug 2025 | Hyderabad</p>
                         <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                            <li>Developed <strong>RAG solutions</strong> using LLMs to automate MCQ generation and requirement-response workflows in the VLSI domain.</li>
-                            <li>Built multi-agent AI systems that enhanced content personalization and learner engagement.</li>
+                            <li>Streamlined multimodal extraction pipelines using <strong>GCP Vision</strong> and <strong>AWS S3</strong> to process 10,000+ pages of VLSI documentation.</li>
+                            <li>Engineered automated <strong>RAG systems</strong> with <strong>LlamaIndex</strong> and <strong>FAISS</strong>, reducing manual content creation time by <strong>60%</strong> and boosting engagement by 15%.</li>
                         </ul>
                     </div>
 
@@ -342,7 +344,7 @@
                         <p class="text-sm font-mono text-gray-400 mb-4">Jan 2025 - Feb 2025 | Bengaluru</p>
                         <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
                             <li>Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
-                            <li>Conducted research on lung disease prediction using MRI data.</li>
+                            <li>Conducted research on lung disease prediction and interpretable models for healthcare datasets.</li>
                         </ul>
                     </div>
                 </div>
@@ -358,105 +360,123 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Project 0: Knowledge Based Agri Agent (NEW) -->
-                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                    <!-- Project: Yield & Weather Forecast Agent -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-cloud-sun text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://tinyurl.com/yield-weather-agent" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Yield & Weather Agent</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Architected a FastAPI backend integrating Agromonitoring and Google Maps APIs. Implemented a rule-based normalization engine and IST date-based caching in PostgreSQL to minimize latency.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, Redis, Docker, Agromonitoring API</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 1: Agri-Expert Agent -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-seedling text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/Agriculture-disease-prediciton-and-treatment-practices-using-knowledge-based-agent" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://tinyurl.com/github-agri-repo" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Knowledge-Based Agri-Expert</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">An intelligent system for crop disease prediction and automated treatment recommendation. Combines Deep Learning for diagnosis with a Knowledge-Based Agent to provide specific agricultural expert practices.</p>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Agri-Expert Agent</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Diagnostic system using DL and Knowledge-Based Agents to automate identification of 360+ crop varieties and diseases in 10 languages with 94% precision.</p>
                         </div>
                         <div>
-                            <p class="text-xs text-teal font-mono mt-4">Python, ML Agents, Expert Systems, Computer Vision</p>
+                            <p class="text-xs text-teal font-mono mt-4">Python, Computer Vision, DL, ML Agents, Expert Systems</p>
                         </div>
                     </div>
 
-                    <!-- Project 1: NLP Health -->
-                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                    <!-- Project 2: Kissan Sampurna Web -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
-                                <i class="far fa-folder-open text-teal text-4xl"></i>
+                                <i class="fas fa-mobile-alt text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/code-samplings/NLP-HEALTH-TRACKER" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://tinyurl.com/github-kissansampurna-repo" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://tinyurl.com/kissansampurna-website-url" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Kissan Sampurna Web</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">React Native frontend for agricultural ecosystem, enabling seamless crop image uploads and LLM-driven advisories with &lt; 2s response times.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">React Native, Node.js, Vite, AWS S3, Tailwind CSS</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: RAG VLSI -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-microchip text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://tinyurl.com/github-RAG-VLSI" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">RAG for VLSI Automation</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Constructed an AI-powered RAG system using Transformers to automate generation of 2,000+ technical MCQs, accelerating content creation by 3x.</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">Python, HuggingFace, MongoDB, AWS S3, Prompt Eng.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: NLP Health Tracker -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-heartbeat text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://tinyurl.com/github-health-tracker" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
                             <h3 class="text-xl font-bold mb-3 text-gray-100">NLP Health Tracker</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based fitness dashboard integrating NLP for activity logging. Features a React/Material-UI interface with Node.js backend using Nutritionix APIs.</p>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based dashboard integrating NLP for activity logging, processing 500+ complex food queries while reducing data entry time by 40%.</p>
                         </div>
                         <div>
                             <p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p>
                         </div>
                     </div>
 
-                    <!-- Project 2: RAG VLSI -->
-                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-microchip text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/RAG_FASTAPI_APP" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">AI Automation for VLSI</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Engineered a RAG system using Transformers to automate MCQ generation for VLSI education. Integrated MongoDB and deployed on AWS EC2/S3.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs text-teal font-mono mt-4">Python, Transformers, MongoDB, AWS, Prompt Eng.</p>
-                        </div>
-                    </div>
-
-                    <!-- Project 3: Productivity System -->
-                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                    <!-- Project: Productivity Management System -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-tasks text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/Managers-APP" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://tinyurl.com/github-PM-Website" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
                             <h3 class="text-xl font-bold mb-3 text-gray-100">Productivity Management</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Task-tracking system for manager–employee workflows. Optimized MongoDB queries for real-time performance and integrated Google TTS APIs.</p>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">A full-stack MERN task-tracking system for manager–employee workflows, achieving real-time data synchronization with &lt;50ms latency while supporting over 50+ concurrent active users.</p>
                         </div>
                         <div>
                             <p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p>
                         </div>
                     </div>
 
-                    <!-- Project 4: Waste Segregation -->
-                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
+                    <!-- Project 5: Waste Segregation -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-recycle text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/ariyaltharun/waste-segregation-using-deeplearning" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://tinyurl.com/github-DL-Waste-CV-Model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation (DL)</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based smart solution using Inception ResNet V2, achieving 92.5% accuracy. Built a Flask/React UI for model testing and data upload.</p>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation IoT</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based solution utilizing Inception ResNet V2, successfully achieving 92.5% test accuracy across 6 distinct waste categories for environmental impact.</p>
                         </div>
                         <div>
-                            <p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32 (IoT)</p>
-                        </div>
-                    </div>
-
-                    <!-- Project 5: SIH Chatbot -->
-                    <div class="project-card rounded-lg shadow-lg p-8 flex flex-col justify-between reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-comments text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <i class="fas fa-lock text-gray-500 text-xl" title="Private Repo"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Mental Health Chatbot</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Smart India Hackathon project. A user-centric AI chatbot leveraging RNN-LSTM and Transformers for context-aware empathetic conversations.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs text-teal font-mono mt-4">Python, TensorFlow, NLTK, Transformers, Flask</p>
+                            <p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p>
                         </div>
                     </div>
                 </div>
@@ -475,12 +495,12 @@
                     <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
                         <span class="text-teal font-mono text-xs uppercase mb-2 block">IEEE Bangalore Section, 2024</span>
                         <h3 class="text-lg font-bold text-gray-100 mb-2">Performance Evaluation of Deep Learning Models for Predicting Alzheimer's Disease</h3>
-                        <p class="text-sm text-gray-400">Research focused on the comparative analysis of DL architectures for early detection and prediction.</p>
+                        <p class="text-sm text-gray-400">Research focused on the comparative analysis of DL architectures for early detection and prediction using neuroimaging data.</p>
                     </div>
                     <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
                         <span class="text-teal font-mono text-xs uppercase mb-2 block">ICAI – ARSSS, 2025</span>
                         <h3 class="text-lg font-bold text-gray-100 mb-2">Enhancing Predictive Maintenance with SHAP and LIME: A Framework for Explainable AI</h3>
-                        <p class="text-sm text-gray-400">Developed a framework to make complex predictive maintenance models interpretable using XAI techniques.</p>
+                        <p class="text-sm text-gray-400">Developed a framework to make complex predictive maintenance models interpretable using XAI techniques for industrial applications.</p>
                     </div>
                 </div>
             </div>
