@@ -179,7 +179,17 @@
                         <a href="#projects" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Projects</a>
                         <a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
                         <a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
-                        <a href="kishan_k_resume.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+                        
+                        <!-- Resume Dropdown Desktop -->
+                        <div class="relative group">
+                            <button class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
+                                Resume <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 bg-light-navy border border-gray-700 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                <a href="kishan_k_resume.pdf" target="_blank" class="block px-4 py-3 text-sm text-gray-300 hover:bg-teal/10 hover:text-teal border-b border-gray-700/50">Full Resume</a>
+                                <a href="kishan_k.pdf" target="_blank" class="block px-4 py-3 text-sm text-gray-300 hover:bg-teal/10 hover:text-teal">Professional Resume</a>
+                            </div>
+                        </div>
                     </div>
                 </nav>
                  <div class="md:hidden">
@@ -190,13 +200,21 @@
             </div>
         </div>
         <div id="mobile-menu" class="md:hidden hidden bg-light-navy">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+            <div class="px-2 pt-2 pb-6 space-y-1 sm:px-3 text-center">
                 <a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
                 <a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
                 <a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
                 <a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
                 <a href="#contact" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-                <a href="kishan_k_resume.pdf" target="_blank" class="resume-button block w-full mt-2 border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+                
+                <!-- Mobile Resume Options -->
+                <div class="mt-4 pt-4 border-t border-gray-700">
+                    <p class="text-teal text-xs font-mono uppercase tracking-widest mb-2">Resume Versions</p>
+                    <div class="flex flex-col gap-2 px-4">
+                        <a href="kishan_k_resume.pdf" target="_blank" class="resume-button block w-full border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Full Resume</a>
+                        <a href="kishan_k.pdf" target="_blank" class="resume-button block w-full border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Professional Resume</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
