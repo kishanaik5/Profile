@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +16,6 @@
             font-family: 'Roboto', sans-serif;
             background-color: #0a192f;
         }
-
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
         }
@@ -29,7 +27,6 @@
         .bg-navy {
             background-color: #0a192f;
         }
-
         .bg-light-navy {
             background-color: #112240;
         }
@@ -37,11 +34,9 @@
         .border-teal {
             border-color: #64ffda;
         }
-
         .nav-link {
             transition: color 0.3s, transform 0.3s;
         }
-
         .nav-link:hover {
             color: #64ffda;
             transform: translateY(-2px);
@@ -50,7 +45,6 @@
         .resume-button {
              transition: background-color 0.3s, color 0.3s;
         }
-
         .project-card, .pub-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background-color: #112240;
@@ -58,7 +52,6 @@
             flex-direction: column;
             justify-content: space-between;
         }
-
         .project-card:hover, .pub-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 30px -15px rgba(2,12,27,0.7);
@@ -75,7 +68,6 @@
             background-color: #64ffda;
             border: 3px solid #0a192f;
         }
-
         /* Fixed Side Elements */
         .side-element {
             position: fixed;
@@ -83,32 +75,27 @@
             z-index: 10;
             display: none;
         }
-
         @media (min-width: 1024px) {
             .side-element {
                 display: block;
             }
         }
-
         .left-sidebar {
             left: 40px;
             right: auto;
             width: 40px;
         }
-
         .right-sidebar {
             right: 40px;
             left: auto;
             width: 40px;
         }
-
         .sidebar-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
         }
-
         .sidebar-content::after {
             content: "";
             display: block;
@@ -130,7 +117,6 @@
             color: #64ffda;
             transform: translateY(-3px);
         }
-
         .skill-tag {
             background-color: rgba(100, 255, 218, 0.1);
             color: #64ffda;
@@ -143,9 +129,7 @@
         }
     </style>
 </head>
-
 <body class="bg-navy text-gray-300">
-
     <!-- Social Sidebar -->
     <div class="side-element left-sidebar">
         <div class="sidebar-content">
@@ -156,7 +140,6 @@
             <a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl text-gray-400" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
-
     <!-- Email Sidebar -->
     <div class="side-element right-sidebar">
         <div class="sidebar-content">
@@ -165,7 +148,6 @@
             </a>
         </div>
     </div>
-
     <header class="bg-navy/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md">
         <div class="container mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -218,7 +200,6 @@
             </div>
         </div>
     </header>
-
     <main class="pt-20">
         <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center">
@@ -250,7 +231,6 @@
                 </div>
             </div>
         </section>
-
         <!-- About Section -->
         <section id="about" class="py-24">
             <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
@@ -267,7 +247,6 @@
                         <p class="text-lg text-gray-400 leading-relaxed">
                             Currently, I am at <strong>Silo Fortune</strong>, where I architect GenAI microservices and Applied AI solutions for agriculture. I thrive on technical challenges and am eager to contribute my expertise in turning complex requirements into high-impact software through explainable AI research and robust engineering.
                         </p>
-
                         <div class="bg-light-navy rounded-lg p-6 mt-8 border-l-4 border-teal">
                             <h3 class="text-xl font-bold text-gray-100 mb-2">Education</h3>
                             <p class="text-teal font-bold">Ramaiah Institute of Technology, Bengaluru</p>
@@ -275,7 +254,6 @@
                             <p class="text-sm text-gray-400">2021 - 2025 | <span class="text-teal">CGPA: 8.6/10</span></p>
                         </div>
                     </div>
-
                     <div class="reveal">
                         <h3 class="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2">
                             <i class="fas fa-terminal text-teal"></i> Technical Skills
@@ -324,7 +302,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Experience Section -->
         <section id="experience" class="py-24 bg-light-navy/30">
             <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
@@ -333,19 +310,19 @@
                     <h2 class="text-3xl font-bold text-gray-100">Experience</h2>
                     <div class="h-[1px] bg-gray-700 flex-grow"></div>
                 </div>
-
                 <div class="relative border-l-2 border-gray-700 pl-10 ml-4">
-                    <!-- Silo Fortune -->
+                    <!-- Silo Fortune — updated bullets -->
                     <div class="mb-16 timeline-item reveal">
                         <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
                         <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
                         <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                            <li>Architected the <strong>Kisaan Sampurna</strong> multimodal pipeline, merging CV disease detection with <strong>Gemini 2.5 Flash</strong> for real-time advisories in <strong>12+ languages</strong> (92%+ precision).</li>
-                            <li>Orchestrated a production-grade <strong>FastAPI microservices ecosystem</strong> with PostgreSQL isolation, <strong>Redis</strong> caching, and Docker CI/CD, handling 10,000+ daily requests.</li>
-                            <li>Optimized Conflux AI Plugin for e-commerce integration, implementing secure multi-step authentication and plugin-based routing.</li>
+                            <li>Architected <strong>Kisaan Sampurna</strong> — a multimodal GenAI pipeline (Gemini 2.5 Flash + Computer Vision) delivering crop disease advisories in <strong>12 Indian languages</strong> with <strong>92%+ precision</strong>, handling <strong>10,000+ daily API requests</strong>.</li>
+                            <li>Built <strong>Real-Time Mandi Price API</strong> serving price data for <strong>7,000+ agricultural markets</strong> with nearest-mandi auto-resolution using Haversine formula in SQL, multilingual support, and dual-source data (PostgreSQL + AWS S3).</li>
+                            <li>Engineered <strong>AI Farm Intelligence System</strong> converting satellite indices (NDVI, NRI, EVI) into 432 farm condition fingerprints, generating 15-section advisories in <strong>13 languages</strong> via two-level LLM cache — deployed on <strong>AWS ECS Fargate</strong> with Jenkins CI/CD.</li>
+                            <li>Built <strong>AI Crop Stage Prediction</strong> pipeline reading 5 years of satellite imagery to detect growth cycles for 21 crops across 80+ sub-stages, with parallel asyncio Gemini calls for knowledge generation.</li>
+                            <li>Orchestrated production-grade <strong>FastAPI microservices</strong> with PostgreSQL service isolation, Redis caching, and Docker CI/CD — reducing downtime by <strong>40%</strong>.</li>
                         </ul>
                     </div>
-
                     <!-- Sumedha -->
                     <div class="mb-16 timeline-item reveal">
                         <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
@@ -355,7 +332,6 @@
                             <li>Engineered automated <strong>RAG systems</strong> with <strong>LlamaIndex</strong> and <strong>FAISS</strong>, reducing manual content creation time by <strong>60%</strong> and boosting engagement by 15%.</li>
                         </ul>
                     </div>
-
                     <!-- Pragami -->
                     <div class="timeline-item reveal">
                         <h3 class="text-xl font-bold text-white">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
@@ -368,7 +344,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Projects Section -->
         <section id="projects" class="py-24">
             <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
@@ -376,8 +351,65 @@
                     <h2 class="text-3xl font-bold text-gray-100">Things I've Built</h2>
                     <div class="h-[1px] bg-gray-700 flex-grow"></div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- NEW: Real-Time Mandi Price API -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-store text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/kishanaik5/mandi_price_forecast_predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Real-Time Mandi Price API</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                FastAPI backend serving price data for 7,000+ agricultural markets across India. Nearest-mandi auto-resolution using Haversine formula in SQL, 12-language support, dual-source data (PostgreSQL + AWS S3 Parquet), and cascade dropdowns under 5ms via in-memory cache.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, AWS S3, Docker, SQLAlchemy, JWT</p>
+                        </div>
+                    </div>
+
+                    <!-- NEW: AI Crop Stage Prediction -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-satellite text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/kishanaik5/Crop_stages_prediction_model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">AI Crop Stage Prediction</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                5-layer pipeline reading 5 years of satellite imagery (NDVI, EVI, NDMI) to detect crop growth cycles for 21 crops across 80+ sub-stages. Generates pest/disease advisories via parallel asyncio Gemini calls. Delivered in 10 Indian languages via cache-first translation.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini 2.0 Flash, AgroMonitoring API, PostgreSQL, AWS S3</p>
+                        </div>
+                    </div>
+
+                    <!-- NEW: AI Farm Intelligence System -->
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <i class="fas fa-broadcast-tower text-teal text-4xl"></i>
+                                <div class="flex gap-4">
+                                    <a href="https://github.com/kishanaik5/Yield-and-weather-forecast-suggestions-by-Rule-based-agent" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">AI Farm Intelligence System</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Satellite indices (NDVI, NRI, EVI, DSWI) → deterministic bucketing → 432 condition fingerprints → 15-section advisory in 13 languages. Two-level LLM cache drives cost to near-zero. 6 satellite overlay images stored on AWS S3. Deployed on AWS ECS Fargate + Jenkins CI/CD.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini, AWS S3, AWS ECS Fargate, PostgreSQL, Jenkins</p>
+                        </div>
+                    </div>
+
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
@@ -397,7 +429,6 @@
                             <p class="text-xs text-teal font-mono mt-4">FastAPI, Celery, YOLOv8, DeepSORT, Redis, AWS S3</p>
                         </div>
                     </div>
-
                     
                     <!-- Project: Yield & Weather Forecast Agent -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
@@ -415,7 +446,6 @@
                             <p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, Redis, Docker, Agromonitoring API</p>
                         </div>
                     </div>
-
                     <!-- Project: Agri-Expert Agent -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
@@ -432,7 +462,6 @@
                             <p class="text-xs text-teal font-mono mt-4">Python, Computer Vision, DL, ML Agents, Expert Systems</p>
                         </div>
                     </div>
-
                     <!-- Project: Kissan Sampurna Web -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
@@ -450,7 +479,6 @@
                             <p class="text-xs text-teal font-mono mt-4">React Native, Node.js, Vite, AWS S3, Tailwind CSS</p>
                         </div>
                     </div>
-
                     <!-- Project: RAG VLSI -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
@@ -467,7 +495,6 @@
                             <p class="text-xs text-teal font-mono mt-4">Python, HuggingFace, MongoDB, AWS S3, Prompt Eng.</p>
                         </div>
                     </div>
-
                     <!-- Project: NLP Health Tracker -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
@@ -484,7 +511,6 @@
                             <p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p>
                         </div>
                     </div>
-
                     <!-- Project: Productivity Management System -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
@@ -501,7 +527,6 @@
                             <p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p>
                         </div>
                     </div>
-
                     <!-- Project: Waste Segregation -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
@@ -521,7 +546,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Publications Section -->
         <section id="publications" class="py-24 bg-light-navy/20">
             <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
@@ -529,7 +553,6 @@
                     <h2 class="text-3xl font-bold text-gray-100">Publications</h2>
                     <div class="h-[1px] bg-gray-700 flex-grow"></div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
                         <span class="text-teal font-mono text-xs uppercase mb-2 block">IEEE Bangalore Section, 2024</span>
@@ -544,7 +567,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Certifications Section -->
         <section id="certifications" class="py-24">
             <div class="container mx-auto px-6 lg:px-8 max-w-6xl text-center">
@@ -570,31 +592,14 @@
                 <!-- Multi-Action Say Hello Button -->
                 <div class="mt-12 reveal flex justify-center">
                     <div class="relative group inline-block">
-                        <!-- Main Trigger -->
                         <button class="border-2 border-teal text-teal font-bold py-4 px-10 rounded-md bg-transparent transition duration-300 text-lg group-hover:bg-teal group-hover:text-navy cursor-default">
                             Say Hello
                         </button>
-                        
-                        <!-- Hover Pop-up Options -->
                         <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 flex gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:-translate-y-2 transition-all duration-300">
-                            <!-- LinkedIn DM -->
-                            <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="LinkedIn Message">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <!-- WhatsApp -->
-                            <a href="https://wa.me/916360333428" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="WhatsApp">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
-                            <!-- Email -->
-                            <a href="mailto:kishan.k.naik.ai@gmail.com" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Email">
-                                <i class="far fa-envelope"></i>
-                            </a>
-                            <!-- Call -->
-                            <a href="tel:+916360333428" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Call">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
-                            
-                            <!-- Down Arrow Tooltip -->
+                            <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="LinkedIn Message"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://wa.me/916360333428" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="mailto:kishan.k.naik.ai@gmail.com" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Email"><i class="far fa-envelope"></i></a>
+                            <a href="tel:+916360333428" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Call"><i class="fas fa-phone-alt"></i></a>
                             <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-teal"></div>
                         </div>
                     </div>
@@ -602,7 +607,6 @@
             </div>
         </section>
     </main>
-
     <footer class="bg-navy border-t border-gray-800">
         <div class="container mx-auto py-12 px-6 lg:px-8 text-center text-gray-500">
              <div class="flex justify-center space-x-6 mb-8 lg:hidden">
@@ -616,12 +620,10 @@
             <p class="text-xs">Built with Tailwind CSS & ScrollReveal | © 2026</p>
         </div>
     </footer>
-
     <script>
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
@@ -632,7 +634,6 @@
                 mobileMenu.classList.add('hidden');
             });
         });
-
         // ScrollReveal animations
         ScrollReveal().reveal('.reveal', {
             delay: 150,
@@ -645,5 +646,4 @@
         });
     </script>
 </body>
-
 </html>
