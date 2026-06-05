@@ -162,8 +162,30 @@
 
         /* ── Project group header ── */
         .group-header { transition: border-color 0.3s; }
-        .cert-card { transition: transform 0.3s ease, border-color 0.3s ease; }
-        .cert-card:hover { transform: translateY(-6px); border-color: #64ffda; }
+        /* ── Certification cards ── */
+        .cert-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: linear-gradient(90deg, #64ffda, transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .cert-card:hover { transform: translateY(-6px); border-color: #64ffda; box-shadow: 0 20px 30px -15px rgba(2,12,27,0.7); }
+        .cert-card:hover::before { transform: scaleX(1); }
+        .cert-logo { width: 44px; height: 44px; object-fit: contain; }
+        .cert-platform { font-family: 'Poppins', sans-serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
+        .cert-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #64ffda; transition: gap 0.25s ease; }
+        .cert-link:hover { gap: 11px; }
+        body.light .cert-card::before { background: linear-gradient(90deg,#1a4a8a,transparent); }
+        body.light .cert-link { color: #1a4a8a; }
     </style>
 </head>
 <body class="bg-navy text-gray-300">
@@ -617,47 +639,70 @@
         <!-- Certifications Section -->
         <section id="certifications" class="py-24">
             <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex items-center gap-4 mb-12 reveal">
+                <div class="flex items-center gap-4 mb-3 reveal">
                     <h2 class="text-3xl font-bold text-gray-100">Certifications</h2>
                     <div class="h-[1px] bg-gray-700 flex-grow"></div>
                 </div>
-                <!--
-                  NOTE: replace each "ADD_ID" below with your real Credential ID.
-                  Platform icons use Font Awesome brand icons (CDN). If an issuer is
-                  wrong, swap the <i> class: fa-udemy / fa-aws / fa-microsoft /
-                  fa-google / fa-coursera / fa-linkedin etc.
-                -->
+                <p class="text-gray-400 mb-12 reveal max-w-2xl">Hands-on coursework across Python, ML/GenAI and cloud — verified credentials from Udemy, Microsoft and AWS.</p>
+        
+                <!-- Each card: swap href="#" for the real credential/verification URL -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+                    <!-- Udemy 1 -->
                     <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <i class="fab fa-udemy text-teal text-4xl mb-4"></i>
-                        <h3 class="text-base font-bold text-gray-100 mb-1">100 Days of Code: Python Pro</h3>
-                        <p class="text-xs font-mono text-gray-400 mb-3">Udemy</p>
-                        <p class="text-xs font-mono text-gray-500 mt-auto">Credential ID: <span class="text-teal">ADD_ID</span></p>
+                        <div class="h-12 flex items-center justify-center mb-4">
+                            <img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                            <i class="fab fa-udemy text-teal text-4xl" style="display:none;"></i>
+                        </div>
+                        <span class="cert-platform text-gray-400 mb-2">Udemy</span>
+                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">100 Days of Code: Python Pro</h3>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
+        
+                    <!-- Udemy 2 -->
                     <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <i class="fab fa-udemy text-teal text-4xl mb-4"></i>
-                        <h3 class="text-base font-bold text-gray-100 mb-1">ML, Data Science & GenAI</h3>
-                        <p class="text-xs font-mono text-gray-400 mb-3">Udemy</p>
-                        <p class="text-xs font-mono text-gray-500 mt-auto">Credential ID: <span class="text-teal">ADD_ID</span></p>
+                        <div class="h-12 flex items-center justify-center mb-4">
+                            <img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                            <i class="fab fa-udemy text-teal text-4xl" style="display:none;"></i>
+                        </div>
+                        <span class="cert-platform text-gray-400 mb-2">Udemy</span>
+                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">ML, Data Science &amp; GenAI</h3>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
+        
+                    <!-- Udemy 3 -->
                     <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <i class="fab fa-udemy text-teal text-4xl mb-4"></i>
-                        <h3 class="text-base font-bold text-gray-100 mb-1">Full Data Science & NLP Bootcamp</h3>
-                        <p class="text-xs font-mono text-gray-400 mb-3">Udemy</p>
-                        <p class="text-xs font-mono text-gray-500 mt-auto">Credential ID: <span class="text-teal">ADD_ID</span></p>
+                        <div class="h-12 flex items-center justify-center mb-4">
+                            <img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                            <i class="fab fa-udemy text-teal text-4xl" style="display:none;"></i>
+                        </div>
+                        <span class="cert-platform text-gray-400 mb-2">Udemy</span>
+                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">Full Data Science &amp; NLP Bootcamp</h3>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
+        
+                    <!-- Microsoft Azure -->
                     <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <i class="fab fa-microsoft text-teal text-4xl mb-4"></i>
-                        <h3 class="text-base font-bold text-gray-100 mb-1">MS Azure Cloud Services</h3>
-                        <p class="text-xs font-mono text-gray-400 mb-3">Microsoft</p>
-                        <p class="text-xs font-mono text-gray-500 mt-auto">Credential ID: <span class="text-teal">ADD_ID</span></p>
+                        <div class="h-12 flex items-center justify-center mb-4">
+                            <img src="https://cdn.simpleicons.org/microsoft/0078D4" alt="Microsoft logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                            <i class="fab fa-microsoft text-teal text-4xl" style="display:none;"></i>
+                        </div>
+                        <span class="cert-platform text-gray-400 mb-2">Microsoft</span>
+                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">MS Azure Cloud Services</h3>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
+        
+                    <!-- AWS -->
                     <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <i class="fab fa-aws text-teal text-4xl mb-4"></i>
-                        <h3 class="text-base font-bold text-gray-100 mb-1">AWS Cloud Support Associate</h3>
-                        <p class="text-xs font-mono text-gray-400 mb-3">Amazon Web Services</p>
-                        <p class="text-xs font-mono text-gray-500 mt-auto">Credential ID: <span class="text-teal">ADD_ID</span></p>
+                        <div class="h-12 flex items-center justify-center mb-4">
+                            <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" alt="AWS logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                            <i class="fab fa-aws text-teal text-4xl" style="display:none;"></i>
+                        </div>
+                        <span class="cert-platform text-gray-400 mb-2">Amazon Web Services</span>
+                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">AWS Cloud Support Associate</h3>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
                     </div>
+        
                 </div>
             </div>
         </section>
