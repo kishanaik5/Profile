@@ -52,11 +52,12 @@
         body.light .text-gray-500 { color: #6b87a0 !important; }
         body.light .bg-navy       { background-color: #dce4ef !important; }
         body.light .bg-light-navy { background-color: #c8d5e3 !important; }
-        body.light .bg-navy\/80   { background-color: rgba(220,228,239,0.90) !important; }
-        body.light .bg-light-navy\/30 { background-color: rgba(200,213,227,0.45) !important; }
-        body.light .bg-light-navy\/20 { background-color: rgba(200,213,227,0.35) !important; }
+        body.light .bg-navy/80   { background-color: rgba(220,228,239,0.90) !important; }
+        body.light .bg-light-navy/30 { background-color: rgba(200,213,227,0.45) !important; }
+        body.light .bg-light-navy/20 { background-color: rgba(200,213,227,0.35) !important; }
         body.light .project-card,
-        body.light .pub-card      { background-color: #c8d5e3 !important; }
+        body.light .pub-card,
+        body.light .exp-card      { background-color: #c8d5e3 !important; }
         body.light .border-gray-700 { border-color: #96aec4 !important; }
         body.light .border-gray-800 { border-color: #96aec4 !important; }
         body.light .bg-gray-700   { background-color: #96aec4 !important; }
@@ -114,26 +115,93 @@
 
         .resume-button { transition: background-color 0.3s, color 0.3s; }
 
-        .project-card, .pub-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Enhanced Card Hover Design */
+        .project-card, .pub-card, .exp-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
             background-color: #112240;
+            border: 1px solid transparent;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
-        .project-card:hover, .pub-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px -15px rgba(2,12,27,0.7);
+        .project-card:hover, .pub-card:hover, .exp-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px -15px rgba(2,12,27,0.8);
+            border-color: rgba(100, 255, 218, 0.3);
+            background-color: #172a45;
+        }
+        body.light .project-card:hover, body.light .pub-card:hover, body.light .exp-card:hover {
+            border-color: rgba(26, 74, 138, 0.3);
+            background-color: #b5c7d8 !important;
         }
 
+        .timeline-item {
+            position: relative;
+        }
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -31px; top: 5px;
-            width: 20px; height: 20px;
+            left: -41px; top: 24px;
+            width: 16px; height: 16px;
             border-radius: 50%;
             background-color: #64ffda;
-            border: 3px solid #0a192f;
+            border: 3px solid #060d1f;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover::before {
+            background-color: #ffffff;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px #64ffda;
+        }
+        body.light .timeline-item::before {
+            background-color: #1a4a8a;
+            border-color: #dce4ef;
+        }
+        body.light .timeline-item:hover::before {
+            background-color: #0f172a;
+            box-shadow: 0 0 10px #1a4a8a;
+        }
+
+        /* ── Continuous Scrolling Marquee (Certifications Headline) ── */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-wrapper {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            background: rgba(17, 34, 64, 0.3);
+            padding: 24px 0;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        body.light .marquee-wrapper {
+            background: rgba(200, 213, 227, 0.3);
+            border-color: rgba(26, 74, 138, 0.15);
+        }
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+        .marquee-item {
+            margin: 0 40px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: #64ffda;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: color 0.3s ease;
+        }
+        body.light .marquee-item {
+            color: #1a4a8a;
         }
 
         .side-element { position: fixed; bottom: 0; z-index: 10; display: none; }
@@ -162,30 +230,6 @@
 
         /* ── Project group header ── */
         .group-header { transition: border-color 0.3s; }
-        /* ── Certification cards ── */
-        .cert-card {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .cert-card::before {
-            content: '';
-            position: absolute;
-            inset: 0 0 auto 0;
-            height: 3px;
-            background: linear-gradient(90deg, #64ffda, transparent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-        .cert-card:hover { transform: translateY(-6px); border-color: #64ffda; box-shadow: 0 20px 30px -15px rgba(2,12,27,0.7); }
-        .cert-card:hover::before { transform: scaleX(1); }
-        .cert-logo { width: 44px; height: 44px; object-fit: contain; }
-        .cert-platform { font-family: 'Poppins', sans-serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
-        .cert-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #64ffda; transition: gap 0.25s ease; }
-        .cert-link:hover { gap: 11px; }
-        body.light .cert-card::before { background: linear-gradient(90deg,#1a4a8a,transparent); }
-        body.light .cert-link { color: #1a4a8a; }
     </style>
 </head>
 <body class="bg-navy text-gray-300">
@@ -223,6 +267,8 @@
                         <a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
                         <a href="#certifications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Certifications</a>
                         <a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
+                        
+                        <!-- Simple Direct Resume Link Desktop (No Dropdown) -->
                         <a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
                             Resume <i class="fas fa-file-arrow-down text-xs"></i>
                         </a>
@@ -243,6 +289,8 @@
                 <a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
                 <a href="#certifications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
                 <a href="#contact" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                
+                <!-- Simple Direct Resume Link Mobile -->
                 <div class="mt-4 pt-4 border-t border-gray-700 px-4">
                     <a href="kishan_k.pdf" target="_blank" class="resume-button block w-full border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
                 </div>
@@ -295,7 +343,7 @@
                             Hello! I'm Kishan, a <strong>Software Engineer (AI/ML)</strong> with a strong foundation from <strong>Ramaiah Institute of Technology</strong>. I work across the full lifecycle — from research and modeling to deploying robust, scalable systems in production.
                         </p>
                         <p class="text-lg text-gray-400 leading-relaxed">
-                            Currently at <strong>Silo Fortune</strong>, I build production AI for agriculture and livestock — computer-vision crop diagnostics, satellite intelligence (NDVI/EVI/NDWI), weather-driven recommendations, and multilingual LLM advisory generation across <strong>12+ Indian languages</strong> — on cloud-native FastAPI services with multi-level caching that drives recurring inference costs to near-zero.
+                            Currently at <strong>Silo Fortune</strong>, I build production AI for agriculture and livestock — computer-vision crop diagnostics, satellite intelligence (NDVI, EVI, NDWI), weather-driven recommendations, and multilingual LLM advisory generation across <strong>12+ Indian languages</strong> — on cloud-native FastAPI services with multi-level caching that drives recurring inference costs to near-zero.
                         </p>
                         <div class="bg-light-navy rounded-lg p-6 mt-8 border-l-4 border-teal">
                             <h3 class="text-xl font-bold text-gray-100 mb-2">Education</h3>
@@ -364,31 +412,37 @@
                 </div>
                 <div class="relative border-l-2 border-gray-700 pl-10 ml-4">
                     <div class="mb-16 timeline-item reveal">
-                        <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
-                        <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
-                        <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                            <li>Architected <strong>Kisaan Sampurna</strong> — a multimodal GenAI pipeline (Gemini 2.5 Flash + Computer Vision) delivering crop disease advisories in <strong>12 Indian languages</strong> with <strong>92%+ precision</strong>, handling <strong>10,000+ daily API requests</strong>.</li>
-                            <li>Built <strong>Real-Time Mandi Price API</strong> serving price data for <strong>7,000+ agricultural markets</strong> with nearest-mandi auto-resolution using Haversine formula in SQL, multilingual support, and dual-source data (PostgreSQL + AWS S3).</li>
-                            <li>Engineered <strong>AI Farm Intelligence System</strong> converting satellite indices (NDVI, NRI, EVI) into 432 farm condition fingerprints, generating 15-section advisories in <strong>13 languages</strong> via two-level LLM cache — deployed on <strong>AWS ECS Fargate</strong> with Jenkins CI/CD.</li>
-                            <li>Built <strong>AI Crop Stage Prediction</strong> pipeline reading 5 years of satellite imagery to detect growth cycles for 21 crops across 80+ sub-stages, with parallel asyncio Gemini calls for knowledge generation.</li>
-                            <li>Orchestrated production-grade <strong>FastAPI microservices</strong> with PostgreSQL service isolation, Redis caching, and Docker CI/CD — reducing downtime by <strong>40%</strong>.</li>
-                        </ul>
+                        <div class="exp-card p-8 rounded-lg shadow-lg">
+                            <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
+                            <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
+                            <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+                                <li>Architected <strong>Kisaan Sampurna</strong> — a multimodal GenAI pipeline (Gemini 2.5 Flash + Computer Vision) delivering crop disease advisories in <strong>12 Indian languages</strong> with <strong>92%+ precision</strong>, handling <strong>10,000+ daily API requests</strong>.</li>
+                                <li>Built <strong>Real-Time Mandi Price API</strong> serving price data for <strong>7,000+ agricultural markets</strong> with nearest-mandi auto-resolution using Haversine formula in SQL, multilingual support, and dual-source data (PostgreSQL + AWS S3).</li>
+                                <li>Engineered <strong>AI Farm Intelligence System</strong> converting satellite indices (NDVI, NRI, EVI) into 432 farm condition fingerprints, generating 15-section advisories in <strong>13 languages</strong> via two-level LLM cache — deployed on <strong>AWS ECS Fargate</strong> with Jenkins CI/CD.</li>
+                                <li>Built <strong>AI Crop Stage Prediction</strong> pipeline reading 5 years of satellite imagery to detect growth cycles for 21 crops across 80+ sub-stages, with parallel asyncio Gemini calls for knowledge generation.</li>
+                                <li>Orchestrated production-grade <strong>FastAPI microservices</strong> with PostgreSQL service isolation, Redis caching, and Docker CI/CD — reducing downtime by <strong>40%</strong>.</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="mb-16 timeline-item reveal">
-                        <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
-                        <p class="text-sm font-mono text-gray-400 mb-4">Feb 2025 - Aug 2025 | Hyderabad</p>
-                        <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                            <li>Engineered a scalable data-extraction pipeline using <strong>GCP Vision</strong> and <strong>AWS S3</strong> to process <strong>10,000+ pages</strong> of VLSI documentation, with RAG-based automated MCQ generation.</li>
-                            <li>Architected a hybrid retrieval framework with <strong>LlamaIndex</strong> and <strong>FAISS</strong> using re-ranking strategies — improving learner engagement by <strong>15%</strong> and reducing latency by <strong>50%</strong>.</li>
-                        </ul>
+                        <div class="exp-card p-8 rounded-lg shadow-lg">
+                            <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
+                            <p class="text-sm font-mono text-gray-400 mb-4">Feb 2025 - Aug 2025 | Hyderabad</p>
+                            <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+                                <li>Engineered a scalable data-extraction pipeline using <strong>GCP Vision</strong> and <strong>AWS S3</strong> to process <strong>10,000+ pages</strong> of VLSI documentation, with RAG-based automated MCQ generation.</li>
+                                <li>Architected a hybrid retrieval framework with <strong>LlamaIndex</strong> and <strong>FAISS</strong> using re-ranking strategies — improving learner engagement by <strong>15%</strong> and reducing latency by <strong>50%</strong>.</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="timeline-item reveal">
-                        <h3 class="text-xl font-bold text-white">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
-                        <p class="text-sm font-mono text-gray-400 mb-4">Jan 2025 - Feb 2025 | Bengaluru</p>
-                        <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                            <li>Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
-                            <li>Conducted research on lung disease prediction and interpretable models for healthcare datasets.</li>
-                        </ul>
+                        <div class="exp-card p-8 rounded-lg shadow-lg">
+                            <h3 class="text-xl font-bold text-white">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
+                            <p class="text-sm font-mono text-gray-400 mb-4">Jan 2025 - Feb 2025 | Bengaluru</p>
+                            <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+                                <li>Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
+                                <li>Conducted research on lung disease prediction and interpretable models for healthcare datasets.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -414,38 +468,44 @@
                     <a href="https://play.google.com/store/apps/details?id=com.kissansampurna.app&hl=en_IN" target="_blank" class="text-teal text-sm font-mono hover:underline flex items-center gap-2 ml-9 sm:ml-0"><i class="fab fa-google-play"></i> Google Play</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                    <!-- Project 1: Mandi Price Explorer -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-store text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/mandi_price_forecast_predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/kishanaik5/mandi-price-explorer" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    <a href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Real-Time Mandi Price API</h3>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Mandi Price Explorer</h3>
                             <p class="text-gray-400 text-sm leading-relaxed mb-4">FastAPI backend serving price data for 7,000+ agricultural markets across India. Nearest-mandi auto-resolution using Haversine formula in SQL, 12-language support, dual-source data (PostgreSQL + AWS S3 Parquet), and cascade dropdowns under 5ms via in-memory cache.</p>
                         </div>
                         <div><p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, AWS S3, Docker, SQLAlchemy, JWT</p></div>
                     </div>
+                    <!-- Project 2: Crop Stage Predictor -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-satellite text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/Crop_stages_prediction_model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/kishanaik5/crop-stage-predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    <a href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">AI Crop Stage Prediction</h3>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Stage Predictor</h3>
                             <p class="text-gray-400 text-sm leading-relaxed mb-4">5-layer pipeline reading 5 years of satellite imagery (NDVI, EVI, NDMI) to detect crop growth cycles for 21 crops across 80+ sub-stages. Generates pest/disease advisories via parallel asyncio Gemini calls. Delivered in 10 Indian languages via cache-first translation.</p>
                         </div>
                         <div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini 2.0 Flash, AgroMonitoring API, PostgreSQL, AWS S3</p></div>
                     </div>
+                    <!-- Project 3: AI Farm Intelligence System -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-broadcast-tower text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/Yield-and-weather-forecast-suggestions-by-Rule-based-agent" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/kishanaik5/farm-intelligence-weather-advisor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    <a href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
                             <h3 class="text-xl font-bold mb-3 text-gray-100">AI Farm Intelligence System</h3>
@@ -453,15 +513,17 @@
                         </div>
                         <div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini, AWS S3, AWS ECS Fargate, PostgreSQL, Jenkins</p></div>
                     </div>
+                    <!-- Project 4: Crop Disease Scanner -->
                     <div class="project-card rounded-lg shadow-lg p-8 reveal">
                         <div>
                             <div class="flex justify-between items-center mb-6">
                                 <i class="fas fa-seedling text-teal text-4xl"></i>
                                 <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/github-agri-repo" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+                                    <a href="https://github.com/kishanaik5/crop-disease-scanner" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    <a href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Intelligent Crop Diagnostic System</h3>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Disease Scanner</h3>
                             <p class="text-gray-400 text-sm leading-relaxed mb-4">Diagnostic system identifying 360+ crop varieties in 10 languages with 94% precision using Knowledge-Based Agents and Gemini pro (APIs) models.</p>
                         </div>
                         <div><p class="text-xs text-teal font-mono mt-4">Python, Computer Vision, DL, ML Agents, Expert Systems</p></div>
@@ -479,19 +541,6 @@
                             <p class="text-gray-400 text-sm leading-relaxed mb-4">React Native frontend for agricultural ecosystem, enabling seamless crop image uploads and LLM-driven advisories with &lt; 2s response times.</p>
                         </div>
                         <div><p class="text-xs text-teal font-mono mt-4">React Native, Node.js, Vite, AWS S3, Tailwind CSS</p></div>
-                    </div>
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-cloud-sun text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/yield-weather-agent" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Yield & Weather Agent</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Architected a FastAPI backend integrating Agromonitoring and Google Maps APIs. Implemented a rule-based normalization engine and IST date-based caching in PostgreSQL to minimize latency.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, Redis, Docker, Agromonitoring API</p></div>
                     </div>
                 </div>
 
@@ -650,77 +699,61 @@
             </div>
         </section>
 
-        <!-- Certifications Section -->
-        <section id="certifications" class="py-24">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex items-center gap-4 mb-3 reveal">
-                    <h2 class="text-3xl font-bold text-gray-100">Certifications</h2>
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                </div>
-                <p class="text-gray-400 mb-12 reveal max-w-2xl">Hands-on coursework across Python, ML/GenAI and cloud — verified credentials from Udemy, Microsoft and AWS.</p>
-
-                <!-- Each card: swap href="#" for the real credential/verification URL -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <!-- Udemy 1 -->
-                    <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <div class="h-12 flex items-center justify-center mb-4">
-                            <img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                            <i class="fab fa-udemy text-teal text-4xl" style="display:none;"></i>
-                        </div>
-                        <span class="cert-platform text-gray-400 mb-2">Udemy</span>
-                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">100 Days of Code: Python Pro</h3>
-                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
+        <!-- Certifications Section (Smooth Infinite Marquee Headline with Native Vector Icons) -->
+        <section id="certifications" class="py-24 overflow-hidden">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-100 reveal">Certifications</h2>
+            </div>
+            
+            <div class="marquee-wrapper">
+                <div class="marquee-content animate-marquee">
+                    <!-- Set 1 -->
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+                        <span>100 Days of Code: Python Pro</span>
                     </div>
-
-                    <!-- Udemy 2 -->
-                    <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <div class="h-12 flex items-center justify-center mb-4">
-                            <img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                            <i class="fab fa-udemy text-teal text-4xl" style="display:none;"></i>
-                        </div>
-                        <span class="cert-platform text-gray-400 mb-2">Udemy</span>
-                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">ML, Data Science &amp; GenAI</h3>
-                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+                        <span>ML, Data Science &amp; GenAI</span>
                     </div>
-
-                    <!-- Udemy 3 -->
-                    <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <div class="h-12 flex items-center justify-center mb-4">
-                            <img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                            <i class="fab fa-udemy text-teal text-4xl" style="display:none;"></i>
-                        </div>
-                        <span class="cert-platform text-gray-400 mb-2">Udemy</span>
-                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">Full Data Science &amp; NLP Bootcamp</h3>
-                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+                        <span>Full Data Science &amp; NLP Bootcamp</span>
                     </div>
-
-                    <!-- Microsoft Azure -->
-                    <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <div class="h-12 flex items-center justify-center mb-4">
-                            <img src="https://cdn.simpleicons.org/microsoft/0078D4" alt="Microsoft logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                            <i class="fab fa-microsoft text-teal text-4xl" style="display:none;"></i>
-                        </div>
-                        <span class="cert-platform text-gray-400 mb-2">Microsoft</span>
-                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">MS Azure Cloud Services</h3>
-                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" class="w-7 h-7 object-contain" alt="AWS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-aws text-3xl" style="color: #FF9900; display: none;"></i>
+                        <span>AWS Cloud Support Associate</span>
                     </div>
-
-                    <!-- AWS -->
-                    <div class="cert-card bg-light-navy border border-gray-700 rounded-lg p-6 reveal flex flex-col items-center text-center">
-                        <div class="h-12 flex items-center justify-center mb-4">
-                            <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" alt="AWS logo" class="cert-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                            <i class="fab fa-aws text-teal text-4xl" style="display:none;"></i>
-                        </div>
-                        <span class="cert-platform text-gray-400 mb-2">Amazon Web Services</span>
-                        <h3 class="text-base font-bold text-gray-100 mb-5 leading-snug">AWS Cloud Support Associate</h3>
-                        <a href="#" target="_blank" rel="noopener" class="cert-link mt-auto">View credential <i class="fas fa-arrow-right text-xs"></i></a>
+                    
+                    <!-- Set 2 (Duplicate for endless loop) -->
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+                        <span>100 Days of Code: Python Pro</span>
                     </div>
-
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+                        <span>ML, Data Science &amp; GenAI</span>
+                    </div>
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+                        <span>Full Data Science &amp; NLP Bootcamp</span>
+                    </div>
+                    <div class="marquee-item">
+                        <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" class="w-7 h-7 object-contain" alt="AWS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fab fa-aws text-3xl" style="color: #FF9900; display: none;"></i>
+                        <span>AWS Cloud Support Associate</span>
+                    </div>
                 </div>
             </div>
         </section>
-
+        
         <!-- Contact Section -->
         <section id="contact" class="py-24">
             <div class="container mx-auto px-6 lg:px-8 text-center max-w-2xl">
