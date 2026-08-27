@@ -262,6 +262,7 @@
                 <nav class="hidden md:block">
                     <div class="ml-10 flex items-center space-x-6">
                         <a href="#about" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">About</a>
+                        <a href="#services" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Services</a>
                         <a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
                         <a href="#projects" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Projects</a>
                         <a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
@@ -284,6 +285,7 @@
         <div id="mobile-menu" class="md:hidden hidden bg-light-navy">
             <div class="px-2 pt-2 pb-6 space-y-1 sm:px-3 text-center">
                 <a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#services" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Services</a>
                 <a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
                 <a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
                 <a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
@@ -398,6 +400,48 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-24">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <div class="flex items-center gap-4 mb-4 reveal">
+                    <h2 class="text-3xl font-bold text-gray-100">Available For</h2>
+                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
+                </div>
+                <p class="text-gray-400 max-w-2xl mb-12 reveal">Open to part-time contract and freelance work alongside full-time employment. Here's what I build.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <i class="fas fa-comments text-teal text-4xl mb-6 block"></i>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">RAG &amp; LLM Applications</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Chatbots and copilots grounded in your own documents or data — retrieval pipelines, agent orchestration, and prompt/eval tooling using LangChain, LangGraph, or LlamaIndex.</p>
+                        </div>
+                        <div><p class="text-xs text-teal font-mono mt-4">LangChain · LangGraph · RAG · FAISS · Gemini/OpenAI</p></div>
+                    </div>
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <i class="fas fa-camera-retro text-teal text-4xl mb-6 block"></i>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Computer Vision Pipelines</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Detection, tracking, and classification pipelines for images or video — from model selection and fine-tuning through to a deployable, async-friendly service.</p>
+                        </div>
+                        <div><p class="text-xs text-teal font-mono mt-4">YOLOv8 · DeepSORT · PyTorch · OpenCV</p></div>
+                    </div>
+                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
+                        <div>
+                            <i class="fas fa-server text-teal text-4xl mb-6 block"></i>
+                            <h3 class="text-xl font-bold mb-3 text-gray-100">Backend &amp; Cloud Systems</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Production-ready APIs and backend services — async processing, caching, and cloud deployment built to handle real traffic, not just a demo.</p>
+                        </div>
+                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI · PostgreSQL · Redis · Docker · AWS</p></div>
+                    </div>
+                </div>
+                <div class="mt-10 reveal">
+                    <a href="mailto:kishan.k.naik.ai@gmail.com?subject=Project%20inquiry" class="inline-flex items-center gap-2 border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">
+                        Discuss a project <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
                 </div>
             </div>
         </section>
