@@ -249,6 +249,117 @@ padding: 4px 9px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
 }
 .pg-action-btn:hover { color: #64ffda; border-color: rgba(100,255,218,0.4); }
 
+/* ── Playground tabs ── */
+.pg-tabbar {
+display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+}
+.pg-tab {
+display: inline-flex; align-items: center; gap: 8px;
+background: rgba(100,255,218,0.05); color: #94a3b8;
+border: 1px solid rgba(100,255,218,0.15);
+border-radius: 8px; padding: 9px 14px;
+font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 500;
+cursor: pointer; transition: all 0.25s ease; white-space: nowrap;
+}
+.pg-tab i { font-size: 0.9rem; }
+.pg-tab:hover { color: #e2e8f0; border-color: rgba(100,255,218,0.35); }
+.pg-tab.active { background: rgba(100,255,218,0.12); color: #64ffda; border-color: #64ffda; }
+body.light .pg-tab { background: rgba(26,74,138,0.05); border-color: rgba(26,74,138,0.15); color: #526d87; }
+body.light .pg-tab:hover { color: #1e2d3d; border-color: rgba(26,74,138,0.35); }
+body.light .pg-tab.active { background: rgba(26,74,138,0.12); color: #1a4a8a; border-color: #1a4a8a; }
+.pg-panel { display: none; }
+.pg-panel.active { display: block; }
+@media (max-width: 640px) {
+.pg-tabbar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+.pg-tab span { display: inline; }
+}
+
+/* ── Rule-based Agent Widget ── */
+#agent-fab {
+position: fixed; bottom: 22px; right: 22px; z-index: 90;
+width: 58px; height: 58px; border-radius: 50%;
+background: linear-gradient(135deg, #64ffda, #38b8a0);
+color: #060d1f; border: none; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+font-size: 1.5rem;
+box-shadow: 0 8px 24px -6px rgba(100,255,218,0.5);
+transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+#agent-fab:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 30px -6px rgba(100,255,218,0.6); }
+#agent-fab .agent-fab-badge {
+position: absolute; top: -3px; right: -3px;
+width: 14px; height: 14px; border-radius: 50%;
+background: #ff5c5c; border: 2px solid #060d1f;
+display: none;
+}
+#agent-fab .agent-fab-badge.show { display: block; }
+body.light #agent-fab .agent-fab-badge { border-color: #dce4ef; }
+
+#agent-panel {
+position: fixed; bottom: 90px; right: 22px; z-index: 90;
+width: 360px; max-width: calc(100vw - 32px);
+height: 480px; max-height: calc(100vh - 140px);
+background: #0a1730; border: 1px solid rgba(100,255,218,0.2);
+border-radius: 14px; overflow: hidden;
+display: none; flex-direction: column;
+box-shadow: 0 25px 60px -12px rgba(0,0,0,0.7);
+}
+#agent-panel.open { display: flex; }
+body.light #agent-panel { background: #eef2f7; border-color: rgba(26,74,138,0.25); }
+
+#agent-header {
+display: flex; align-items: center; justify-content: space-between;
+padding: 14px 16px; background: rgba(100,255,218,0.06);
+border-bottom: 1px solid rgba(100,255,218,0.15);
+}
+#agent-header-title { display: flex; align-items: center; gap: 10px; color: #e2e8f0; font-family: 'Poppins', sans-serif; }
+#agent-header-title .agent-avatar {
+width: 32px; height: 32px; border-radius: 50%;
+background: linear-gradient(135deg, #64ffda, #38b8a0);
+display: flex; align-items: center; justify-content: center;
+color: #060d1f; font-size: 0.95rem; flex-shrink: 0;
+}
+#agent-header-title .agent-title-text { display: flex; flex-direction: column; line-height: 1.2; }
+#agent-header-title .agent-title-text strong { font-size: 0.88rem; font-weight: 600; }
+#agent-header-title .agent-title-text span { font-size: 0.68rem; color: #64ffda; display: flex; align-items: center; gap: 5px; }
+.agent-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #64ffda; display: inline-block; box-shadow: 0 0 6px #64ffda; }
+#agent-close { color: #94a3b8; background: transparent; border: none; cursor: pointer; font-size: 1rem; width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: color 0.2s, background 0.2s; }
+#agent-close:hover { color: #64ffda; background: rgba(100,255,218,0.1); }
+
+#agent-messages {
+flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px;
+}
+.agent-msg { max-width: 85%; font-size: 0.85rem; line-height: 1.5; padding: 10px 13px; border-radius: 12px; animation: agentFadeIn 0.25s ease; }
+@keyframes agentFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.agent-msg.bot { align-self: flex-start; background: rgba(100,255,218,0.08); color: #e2e8f0; border-bottom-left-radius: 3px; }
+.agent-msg.user { align-self: flex-end; background: #64ffda; color: #060d1f; border-bottom-right-radius: 3px; font-weight: 500; }
+body.light .agent-msg.bot { background: rgba(26,74,138,0.08); color: #1e2d3d; }
+.agent-msg a { color: inherit; text-decoration: underline; }
+
+.agent-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
+.agent-chip {
+font-size: 0.72rem; color: #64ffda; background: rgba(100,255,218,0.08);
+border: 1px solid rgba(100,255,218,0.25); border-radius: 20px;
+padding: 6px 12px; cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.agent-chip:hover { background: rgba(100,255,218,0.18); }
+body.light .agent-chip { color: #1a4a8a; background: rgba(26,74,138,0.08); border-color: rgba(26,74,138,0.25); }
+
+#agent-input-row { display: flex; gap: 8px; padding: 12px; border-top: 1px solid rgba(100,255,218,0.12); }
+#agent-input {
+flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(148,163,184,0.25);
+border-radius: 8px; padding: 9px 12px; color: #e2e8f0; font-size: 0.85rem; outline: none;
+}
+#agent-input:focus { border-color: #64ffda; }
+body.light #agent-input { background: #fff; color: #1e2d3d; border-color: rgba(26,74,138,0.25); }
+#agent-send { background: #64ffda; color: #060d1f; border: none; border-radius: 8px; width: 38px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; }
+#agent-send:hover { opacity: 0.85; }
+
+@media (max-width: 480px) {
+#agent-panel { right: 16px; left: 16px; width: auto; bottom: 84px; height: 62vh; }
+#agent-fab { right: 16px; bottom: 16px; width: 52px; height: 52px; font-size: 1.35rem; }
+}
+
 /* ── Live demo modal ── */
 #demo-modal {
 position: fixed; inset: 0; z-index: 100;
@@ -765,16 +876,20 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <h2 class="text-3xl font-bold text-gray-100">Playground</h2>
 <div class="h-[1px] bg-gray-700 flex-grow"></div>
 </div>
-<p class="text-gray-400 mb-12 max-w-3xl reveal">Live, running Hugging Face Spaces — embedded right here, no tab-switching required. Scroll down to try each one, or hit the demo icon on any project card above to pop it open inline.</p>
+<p class="text-gray-400 mb-8 max-w-3xl reveal">Live, running Hugging Face Spaces — embedded right here, no tab-switching required. Pick one below, or hit the demo icon on any project card above to pop it open inline.</p>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-<div class="playground-card rounded-lg shadow-lg p-6 reveal">
-<div class="flex items-center gap-3 mb-4">
-<i class="fas fa-store text-teal text-2xl"></i>
-<h3 class="text-lg font-bold text-gray-100">Mandi Price Explorer</h3>
+<div class="reveal">
+<div id="pg-tabs" class="pg-tabbar" role="tablist">
+<button type="button" class="pg-tab active" data-target="pg-mandi" role="tab" aria-selected="true"><i class="fas fa-store"></i><span>Mandi Price Explorer</span></button>
+<button type="button" class="pg-tab" data-target="pg-cropstage" role="tab" aria-selected="false"><i class="fas fa-satellite"></i><span>Crop Stage Predictor</span></button>
+<button type="button" class="pg-tab" data-target="pg-farmintel" role="tab" aria-selected="false"><i class="fas fa-broadcast-tower"></i><span>Farm Intelligence</span></button>
+<button type="button" class="pg-tab" data-target="pg-diseasescan" role="tab" aria-selected="false"><i class="fas fa-seedling"></i><span>Disease Scanner</span></button>
 </div>
-<div class="playground-frame-wrap" data-space-url="https://kishanaik5-mandi-price-explorer.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer">
+
+<div class="playground-card rounded-lg shadow-lg p-6">
+
+<div id="pg-mandi" class="pg-panel active">
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-mandi-price-explorer.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" data-lazy="true">
 <div class="pg-loading">
 <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
 <span class="pg-status-text">loading space…</span>
@@ -788,12 +903,8 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 
-<div class="playground-card rounded-lg shadow-lg p-6 reveal">
-<div class="flex items-center gap-3 mb-4">
-<i class="fas fa-satellite text-teal text-2xl"></i>
-<h3 class="text-lg font-bold text-gray-100">Crop Stage Predictor</h3>
-</div>
-<div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-stage-predictor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor">
+<div id="pg-cropstage" class="pg-panel">
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-stage-predictor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" data-lazy="true">
 <div class="pg-loading">
 <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
 <span class="pg-status-text">loading space…</span>
@@ -807,12 +918,8 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 
-<div class="playground-card rounded-lg shadow-lg p-6 reveal">
-<div class="flex items-center gap-3 mb-4">
-<i class="fas fa-broadcast-tower text-teal text-2xl"></i>
-<h3 class="text-lg font-bold text-gray-100">AI Farm Intelligence System</h3>
-</div>
-<div class="playground-frame-wrap" data-space-url="https://kishanaik5-farm-intelligence-weather-advisor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor">
+<div id="pg-farmintel" class="pg-panel">
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-farm-intelligence-weather-advisor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" data-lazy="true">
 <div class="pg-loading">
 <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
 <span class="pg-status-text">loading space…</span>
@@ -826,12 +933,8 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 
-<div class="playground-card rounded-lg shadow-lg p-6 reveal">
-<div class="flex items-center gap-3 mb-4">
-<i class="fas fa-seedling text-teal text-2xl"></i>
-<h3 class="text-lg font-bold text-gray-100">Crop Disease Scanner</h3>
-</div>
-<div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-disease-scanner.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner">
+<div id="pg-diseasescan" class="pg-panel">
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-disease-scanner.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" data-lazy="true">
 <div class="pg-loading">
 <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
 <span class="pg-status-text">loading space…</span>
@@ -846,7 +949,8 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 
 </div>
-<p class="text-xs text-gray-500 mt-8 reveal">Spaces load lazily as they scroll into view and stay running in the background while you browse the rest of the page — no need to leave the site to try them.</p>
+</div>
+<p class="text-xs text-gray-500 mt-6 reveal">The active Space loads on first view and keeps running in the background as you switch tabs or browse the rest of the page — no need to leave the site to try it.</p>
 </div>
 </section>
 
@@ -988,6 +1092,31 @@ Say Hello
 </div>
 </div>
 
+<!-- Rule-Based Agent Widget -->
+<button id="agent-fab" aria-label="Open assistant">
+<i class="fas fa-robot"></i>
+<span class="agent-fab-badge show" id="agent-fab-badge"></span>
+</button>
+
+<div id="agent-panel" role="dialog" aria-label="Portfolio assistant">
+<div id="agent-header">
+<div id="agent-header-title">
+<div class="agent-avatar"><i class="fas fa-robot"></i></div>
+<div class="agent-title-text">
+<strong>Kishan's Assistant</strong>
+<span><span class="agent-status-dot"></span> Rule-based · runs in your browser</span>
+</div>
+</div>
+<button id="agent-close" aria-label="Close assistant"><i class="fas fa-times"></i></button>
+</div>
+<div id="agent-messages"></div>
+<div class="agent-chips" id="agent-chips"></div>
+<div id="agent-input-row">
+<input id="agent-input" type="text" placeholder="Ask about experience, projects, resume…" autocomplete="off" />
+<button id="agent-send" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+
 <script>
 // ── Mobile menu ──
 const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -1120,25 +1249,220 @@ loader.querySelector('.pg-fallback-link').style.display = 'inline-flex';
 }, WAKE_TIMEOUT_MS);
 }
 
-const pgObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-const wrap = entry.target;
-if (!wrap.querySelector('iframe')) {
+// ── Playground: tabbed panels, lazy-mount on first activation ──
+function activatePlaygroundTab(targetId) {
+document.querySelectorAll('.pg-tab').forEach(t => {
+const isActive = t.getAttribute('data-target') === targetId;
+t.classList.toggle('active', isActive);
+t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+});
+document.querySelectorAll('.pg-panel').forEach(p => {
+p.classList.toggle('active', p.id === targetId);
+});
+const panel = document.getElementById(targetId);
+if (panel) {
+const wrap = panel.querySelector('.playground-frame-wrap');
+if (wrap && !wrap.querySelector('iframe')) {
 mountPlaygroundFrame(wrap);
 }
-pgObserver.unobserve(wrap);
+}
+}
+document.querySelectorAll('.pg-tab').forEach(tab => {
+tab.addEventListener('click', () => activatePlaygroundTab(tab.getAttribute('data-target')));
+});
+// mount the first (default-active) panel once it scrolls into view
+const pgSection = document.getElementById('playground');
+if (pgSection) {
+const pgSectionObserver = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+const activePanel = document.querySelector('.pg-panel.active');
+if (activePanel) {
+const wrap = activePanel.querySelector('.playground-frame-wrap');
+if (wrap && !wrap.querySelector('iframe')) mountPlaygroundFrame(wrap);
+}
+pgSectionObserver.unobserve(pgSection);
 }
 });
 }, { rootMargin: '200px 0px' });
-document.querySelectorAll('.playground-frame-wrap').forEach(el => pgObserver.observe(el));
+pgSectionObserver.observe(pgSection);
+}
 
 document.querySelectorAll('.pg-reload-btn').forEach(btn => {
 btn.addEventListener('click', () => {
-const wrap = btn.closest('.playground-card').querySelector('.playground-frame-wrap');
+const wrap = btn.closest('.pg-panel').querySelector('.playground-frame-wrap');
 if (wrap) mountPlaygroundFrame(wrap);
 });
 });
+
+// ── Rule-Based Agent Widget ──
+(function () {
+const KB = {
+name: "Kishan K",
+role: "Software Engineer (AI/ML)",
+email: "kishan.k.naik.ai@gmail.com",
+resume: "kishan_k.pdf",
+github: "https://github.com/kishanaik5",
+linkedin: "https://linkedin.com/in/kishan-k-823049259",
+huggingface: "https://huggingface.co/kishanaik5",
+whatsapp: "https://wa.me/916360333428"
+};
+
+const RULES = [
+{
+id: "greeting",
+keywords: ["hi", "hello", "hey", "yo", "sup", "hola"],
+reply: "Hey! I'm a simple rule-based assistant for " + KB.name + "'s portfolio — no LLM behind me, just keyword matching. Ask me about experience, projects, skills, the Playground, or how to get in touch.",
+chips: ["Experience", "Projects", "Skills", "Contact"]
+},
+{
+id: "experience",
+keywords: ["experience", "work", "job", "career", "silo", "narvia", "sumedha", "pragami", "company", "companies"],
+reply: "Kishan is currently a Software Engineer (AI/ML) at <strong>Silo Fortune</strong> (Oct 2025–Present), building production AI for agriculture — crop diagnostics, satellite intelligence, and multilingual advisories. He's also part-time as a Forward Deployed Engineer for <strong>Narvia Design</strong> (Aug 2026–Present), a luxury design studio, where he built and shipped their site solo. Before that: AI-Automation Intern at Sumedha Design Systems, and ML Intern at Pragami Solutions. Full details are in the Experience section above.",
+chips: ["Skills", "Projects", "Resume"]
+},
+{
+id: "skills",
+keywords: ["skill", "skills", "tech", "technology", "stack", "language", "languages", "tools", "genai", "llm", "python"],
+reply: "Core stack: <strong>GenAI/LLM</strong> — Gemini, OpenAI, LangChain, LangGraph, RAG, AI Agents. <strong>AI/ML</strong> — NLP, Computer Vision, PyTorch, TensorFlow, YOLOv8. <strong>Backend</strong> — FastAPI, Django, PostgreSQL, Redis, AsyncIO. <strong>Cloud/MLOps</strong> — AWS (S3/ECS/SageMaker), Docker, GCP, Jenkins. Full breakdown in the About section.",
+chips: ["Experience", "Projects"]
+},
+{
+id: "projects",
+keywords: ["project", "projects", "built", "portfolio work", "kisaan", "sentinel", "gau", "mandi", "crop"],
+reply: "Highlights: <strong>Kisaan Sampurna</strong> (agricultural advisory platform on Google Play), <strong>Sentinel</strong> (agentic research copilot for Indian equities), <strong>Gau Sampurna</strong> (CV-based sperm motility analysis), and several standalone tools like the Mandi Price Explorer and Crop Disease Scanner. Scroll to 'Things I've Built' for the full list, or try them live in the Playground below.",
+chips: ["Playground", "Skills", "Contact"]
+},
+{
+id: "playground",
+keywords: ["playground", "demo", "demos", "live", "try", "space", "spaces", "huggingface", "hugging face"],
+reply: "The Playground section has 4 live Hugging Face Spaces you can try right on this page — Mandi Price Explorer, Crop Stage Predictor, AI Farm Intelligence System, and Crop Disease Scanner. They're on the free tier, so if one's been idle a while it may take ~20–30s to wake up — there's a direct 'Open on Hugging Face' fallback link if that happens.",
+chips: ["Projects", "Contact"]
+},
+{
+id: "education",
+keywords: ["education", "college", "degree", "cgpa", "university", "ramaiah", "study", "studied"],
+reply: "B.E. in Artificial Intelligence and Machine Learning from Ramaiah Institute of Technology, Bengaluru (2021–2025), CGPA 8.6/10.",
+chips: ["Experience", "Publications"]
+},
+{
+id: "publications",
+keywords: ["publication", "publications", "paper", "papers", "research", "ieee", "published"],
+reply: "Two publications: 'Performance Evaluation of Deep Learning Models for Predicting Alzheimer's Disease' (IEEE Bangalore, 2024), and 'Enhancing Predictive Maintenance with SHAP and LIME' (ICAI–ARSSS, 2025). See the Publications section for abstracts.",
+chips: ["Experience", "Contact"]
+},
+{
+id: "resume",
+keywords: ["resume", "cv", "download"],
+reply: 'You can download the resume directly: <a href="' + KB.resume + '" target="_blank">Open Resume (PDF)</a>',
+chips: ["Contact", "Experience"]
+},
+{
+id: "contact",
+keywords: ["contact", "email", "reach", "hire", "recruit", "recruiter", "call", "phone", "whatsapp", "linkedin", "connect", "available", "hiring", "freelance"],
+reply: 'Best ways to reach Kishan: <a href="mailto:' + KB.email + '">' + KB.email + '</a>, <a href="' + KB.linkedin + '" target="_blank">LinkedIn</a>, or <a href="' + KB.whatsapp + '" target="_blank">WhatsApp</a>. He\'s open to full-time roles as well as part-time/freelance work.',
+chips: ["Resume", "Experience"]
+},
+{
+id: "github",
+keywords: ["github", "code", "repo", "repository", "source"],
+reply: 'GitHub: <a href="' + KB.github + '" target="_blank">' + KB.github + '</a> — most projects link out to their repos from the Projects section too.',
+chips: ["Projects", "Contact"]
+},
+{
+id: "about-agent",
+keywords: ["who are you", "what are you", "are you ai", "are you a bot", "rule based", "rule-based", "how do you work"],
+reply: "I'm a simple rule-based FAQ widget — plain keyword matching over a small knowledge base about this portfolio, no LLM or external API calls. Everything runs client-side in your browser.",
+chips: ["Experience", "Skills", "Projects"]
+}
+];
+
+const FALLBACK = "I didn't catch a matching topic — I'm rule-based, so I only recognize specific keywords. Try one of the buttons below, or ask about experience, skills, projects, education, publications, resume, or contact.";
+
+function findReply(text) {
+const lower = text.toLowerCase();
+let best = null;
+let bestScore = 0;
+for (const rule of RULES) {
+let score = 0;
+for (const kw of rule.keywords) {
+if (lower.includes(kw)) score += kw.length; // longer/more specific matches win
+}
+if (score > bestScore) { bestScore = score; best = rule; }
+}
+return best;
+}
+
+const messagesEl = document.getElementById('agent-messages');
+const chipsEl = document.getElementById('agent-chips');
+const inputEl = document.getElementById('agent-input');
+const sendBtn = document.getElementById('agent-send');
+const fab = document.getElementById('agent-fab');
+const badge = document.getElementById('agent-fab-badge');
+const panel = document.getElementById('agent-panel');
+const closeBtn = document.getElementById('agent-close');
+
+function addMessage(text, who) {
+const div = document.createElement('div');
+div.className = 'agent-msg ' + who;
+div.innerHTML = text;
+messagesEl.appendChild(div);
+messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function setChips(labels) {
+chipsEl.innerHTML = '';
+labels.forEach(label => {
+const chip = document.createElement('button');
+chip.type = 'button';
+chip.className = 'agent-chip';
+chip.textContent = label;
+chip.addEventListener('click', () => handleUserText(label));
+chipsEl.appendChild(chip);
+});
+}
+
+function handleUserText(text) {
+if (!text.trim()) return;
+addMessage(text, 'user');
+inputEl.value = '';
+const rule = findReply(text);
+setTimeout(() => {
+if (rule) {
+addMessage(rule.reply, 'bot');
+setChips(rule.chips || []);
+} else {
+addMessage(FALLBACK, 'bot');
+setChips(["Experience", "Skills", "Projects", "Contact"]);
+}
+}, 300);
+}
+
+let initialized = false;
+function initAgent() {
+if (initialized) return;
+initialized = true;
+addMessage("Hi, I'm a rule-based assistant for " + KB.name + "'s portfolio. Ask me about experience, projects, skills, the Playground, or how to get in touch — or tap a suggestion below.", 'bot');
+setChips(["Experience", "Projects", "Skills", "Playground", "Contact"]);
+}
+
+fab.addEventListener('click', () => {
+panel.classList.toggle('open');
+badge.classList.remove('show');
+if (panel.classList.contains('open')) {
+initAgent();
+inputEl.focus();
+}
+});
+closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+sendBtn.addEventListener('click', () => handleUserText(inputEl.value));
+inputEl.addEventListener('keydown', (e) => {
+if (e.key === 'Enter') handleUserText(inputEl.value);
+});
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') panel.classList.remove('open');
+});
+})();
 </script>
 </body>
 </html>
