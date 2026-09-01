@@ -571,7 +571,11 @@ transform: translateX(0);
       <span class="text-[10px] font-mono uppercase text-gray-500 font-semibold tracking-wider px-2">Navigation</span>
     </div>
     <nav id="docs-nav" class="space-y-1">
-      <a href="#about" class="sidebar-nav-item active">
+      <a href="#home" class="sidebar-nav-item active">
+        <i class="fas fa-house text-teal/80 w-5 text-center text-sm"></i>
+        <span>Home</span>
+      </a>
+      <a href="#about" class="sidebar-nav-item">
         <i class="fas fa-user text-teal/80 w-5 text-center text-sm"></i>
         <span>About</span>
       </a>
@@ -1451,7 +1455,7 @@ const playgroundView = document.getElementById('playground-view');
 const topPlaygroundLink = document.getElementById('top-playground-link');
 
 function handleRoute() {
-  const hash = window.location.hash || '#about';
+  const hash = window.location.hash || '';
   
   if (hash === '#playground') {
     // Show dedicated Playground view
@@ -1476,14 +1480,16 @@ function handleRoute() {
       topPlaygroundLink.classList.remove('text-teal', 'border-teal/50', 'bg-teal/10');
     }
 
-    // Scroll smoothly to target section
-    if (hash && hash !== '#') {
+    // Scroll to target section or start at top by default
+    if (hash && hash !== '#' && hash !== '#home') {
       const target = document.querySelector(hash);
       if (target) {
         setTimeout(() => {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
       }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 }
@@ -1497,7 +1503,7 @@ const sections = document.querySelectorAll('#portfolio-view section, #footer');
 
 window.addEventListener('scroll', () => {
   if (window.location.hash === '#playground') return;
-  let current = '';
+  let current = 'home';
   sections.forEach(section => {
     const sectionTop = section.offsetTop - 120;
     const sectionHeight = section.clientHeight;
