@@ -222,14 +222,32 @@ border: 1px solid rgba(100,255,218,0.15);
 }
 .playground-frame-wrap .pg-loading {
 position: absolute; inset: 0;
-display: flex; align-items: center; justify-content: center;
+display: flex; flex-direction: column; align-items: center; justify-content: center;
 color: #64ffda; font-family: 'Poppins', sans-serif; font-size: 0.85rem;
-gap: 8px; background: #0a1730;
+gap: 10px; background: #0a1730; text-align: center; padding: 16px;
+transition: opacity 0.3s ease;
 }
+.pg-loading .pg-dots { display: flex; gap: 8px; }
 .pg-dot { width: 6px; height: 6px; border-radius: 50%; background: #64ffda; animation: pgpulse 1.2s infinite ease-in-out; }
 .pg-dot:nth-child(2) { animation-delay: 0.2s; }
 .pg-dot:nth-child(3) { animation-delay: 0.4s; }
 @keyframes pgpulse { 0%,80%,100% { opacity: 0.25; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.1); } }
+.pg-loading .pg-sub { color: #94a3b8; font-size: 0.75rem; max-width: 260px; line-height: 1.4; }
+.pg-loading .pg-fallback-link {
+margin-top: 4px; color: #64ffda; font-size: 0.75rem; text-decoration: underline;
+display: inline-flex; align-items: center; gap: 6px;
+}
+.pg-loading .pg-fallback-link:hover { color: #ffffff; }
+.playground-actions {
+display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+margin-top: 10px;
+}
+.pg-action-btn {
+font-size: 0.72rem; color: #94a3b8; display: inline-flex; align-items: center; gap: 5px;
+background: transparent; border: 1px solid rgba(148,163,184,0.25); border-radius: 5px;
+padding: 4px 9px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+}
+.pg-action-btn:hover { color: #64ffda; border-color: rgba(100,255,218,0.4); }
 
 /* ── Live demo modal ── */
 #demo-modal {
@@ -262,8 +280,16 @@ display: flex; align-items: center; justify-content: center;
 transition: color 0.2s, background 0.2s;
 }
 #demo-modal-close:hover { color: #64ffda; background: rgba(100,255,218,0.1); }
+#demo-modal-header-actions { display: flex; align-items: center; gap: 8px; }
+#demo-modal-fallback {
+font-size: 0.72rem; color: #94a3b8; display: inline-flex; align-items: center; gap: 5px;
+text-decoration: none; border: 1px solid rgba(148,163,184,0.25); border-radius: 5px;
+padding: 5px 10px; transition: color 0.2s, border-color 0.2s;
+}
+#demo-modal-fallback:hover { color: #64ffda; border-color: rgba(100,255,218,0.4); }
 #demo-modal-body { position: relative; width: 100%; aspect-ratio: 16/10; background: #060d1f; }
 #demo-modal-body iframe { border: 0; width: 100%; height: 100%; }
+#demo-modal-body .pg-loading { position: absolute; inset: 0; }
 .demo-open-btn { cursor: pointer; background: none; border: none; padding: 0; }
 </style>
 </head>
@@ -526,7 +552,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-store text-teal text-4xl"></i>
 <div class="flex gap-4">
 <a href="https://github.com/kishanaik5/mandi-price-explorer" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/mandi-price-explorer','Mandi Price Explorer')"><i class="fas fa-external-link-alt"></i></button>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://kishanaik5-mandi-price-explorer.hf.space','Mandi Price Explorer','https://huggingface.co/spaces/kishanaik5/mandi-price-explorer')"><i class="fas fa-external-link-alt"></i></button>
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Mandi Price Explorer</h3>
@@ -542,7 +568,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-satellite text-teal text-4xl"></i>
 <div class="flex gap-4">
 <a href="https://github.com/kishanaik5/crop-stage-predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/crop-stage-predictor','Crop Stage Predictor')"><i class="fas fa-external-link-alt"></i></button>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://kishanaik5-crop-stage-predictor.hf.space','Crop Stage Predictor','https://huggingface.co/spaces/kishanaik5/crop-stage-predictor')"><i class="fas fa-external-link-alt"></i></button>
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Stage Predictor</h3>
@@ -558,7 +584,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-broadcast-tower text-teal text-4xl"></i>
 <div class="flex gap-4">
 <a href="https://github.com/kishanaik5/farm-intelligence-weather-advisor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor','AI Farm Intelligence System')"><i class="fas fa-external-link-alt"></i></button>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://kishanaik5-farm-intelligence-weather-advisor.hf.space','AI Farm Intelligence System','https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor')"><i class="fas fa-external-link-alt"></i></button>
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">AI Farm Intelligence System</h3>
@@ -574,7 +600,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-seedling text-teal text-4xl"></i>
 <div class="flex gap-4">
 <a href="https://github.com/kishanaik5/crop-disease-scanner" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/crop-disease-scanner','Crop Disease Scanner')"><i class="fas fa-external-link-alt"></i></button>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://kishanaik5-crop-disease-scanner.hf.space','Crop Disease Scanner','https://huggingface.co/spaces/kishanaik5/crop-disease-scanner')"><i class="fas fa-external-link-alt"></i></button>
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Disease Scanner</h3>
@@ -748,8 +774,17 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-store text-teal text-2xl"></i>
 <h3 class="text-lg font-bold text-gray-100">Mandi Price Explorer</h3>
 </div>
-<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer">
-<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-mandi-price-explorer.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer">
+<div class="pg-loading">
+<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+<span class="pg-status-text">loading space…</span>
+<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+</div>
+</div>
+<div class="playground-actions">
+<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
 </div>
 </div>
 
@@ -758,8 +793,17 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-satellite text-teal text-2xl"></i>
 <h3 class="text-lg font-bold text-gray-100">Crop Stage Predictor</h3>
 </div>
-<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor">
-<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-stage-predictor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor">
+<div class="pg-loading">
+<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+<span class="pg-status-text">loading space…</span>
+<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+</div>
+</div>
+<div class="playground-actions">
+<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
 </div>
 </div>
 
@@ -768,8 +812,17 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-broadcast-tower text-teal text-2xl"></i>
 <h3 class="text-lg font-bold text-gray-100">AI Farm Intelligence System</h3>
 </div>
-<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor">
-<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-farm-intelligence-weather-advisor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor">
+<div class="pg-loading">
+<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+<span class="pg-status-text">loading space…</span>
+<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+</div>
+</div>
+<div class="playground-actions">
+<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
 </div>
 </div>
 
@@ -778,8 +831,17 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <i class="fas fa-seedling text-teal text-2xl"></i>
 <h3 class="text-lg font-bold text-gray-100">Crop Disease Scanner</h3>
 </div>
-<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner">
-<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+<div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-disease-scanner.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner">
+<div class="pg-loading">
+<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+<span class="pg-status-text">loading space…</span>
+<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+</div>
+</div>
+<div class="playground-actions">
+<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
 </div>
 </div>
 
@@ -917,7 +979,10 @@ Say Hello
 <div id="demo-modal-inner">
 <div id="demo-modal-header">
 <div id="demo-modal-title"><i class="fas fa-play-circle text-teal"></i> <span id="demo-modal-title-text">Live Demo</span></div>
+<div id="demo-modal-header-actions">
+<a id="demo-modal-fallback" href="#" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on Hugging Face</a>
 <button id="demo-modal-close" onclick="closeDemo()" aria-label="Close"><i class="fas fa-times"></i></button>
+</div>
 </div>
 <div id="demo-modal-body"></div>
 </div>
@@ -961,15 +1026,52 @@ opacity: 0, duration: 800,
 easing: 'cubic-bezier(0.5, 0, 0, 1)', interval: 100
 });
 
-// ── Live demo modal (inline HF Space, no tab switch) ──
-function openDemo(url, title) {
+// ── Live demo modal (inline HF Space, no tab switch, with wake-up handling) ──
+const WAKE_TIMEOUT_MS = 5000; // how long to wait before showing "waking up" messaging
+let demoWakeTimer = null;
+
+function buildLoadingMarkup(hfPageUrl) {
+return '<div class="pg-loading">' +
+'<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>' +
+'<span class="pg-status-text">loading space…</span>' +
+'<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>' +
+'<a class="pg-fallback-link" href="' + hfPageUrl + '" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>' +
+'</div>';
+}
+
+function openDemo(url, title, hfPageUrl) {
+hfPageUrl = hfPageUrl || url;
 document.getElementById('demo-modal-title-text').textContent = title;
+document.getElementById('demo-modal-fallback').href = hfPageUrl;
 const body = document.getElementById('demo-modal-body');
-body.innerHTML = '<iframe src="' + url + '" loading="lazy" allow="clipboard-write; microphone" title="' + title + '"></iframe>';
+body.innerHTML = buildLoadingMarkup(hfPageUrl);
+
+const iframe = document.createElement('iframe');
+iframe.src = url;
+iframe.loading = 'lazy';
+iframe.title = title;
+iframe.allow = 'clipboard-write; microphone';
+iframe.addEventListener('load', () => {
+const loader = body.querySelector('.pg-loading');
+if (loader) loader.remove();
+});
+body.appendChild(iframe);
+
+clearTimeout(demoWakeTimer);
+demoWakeTimer = setTimeout(() => {
+const loader = body.querySelector('.pg-loading');
+if (loader) {
+loader.querySelector('.pg-status-text').textContent = 'waking up the space…';
+loader.querySelector('.pg-sub').style.display = 'block';
+loader.querySelector('.pg-fallback-link').style.display = 'inline-flex';
+}
+}, WAKE_TIMEOUT_MS);
+
 document.getElementById('demo-modal').classList.add('open');
 document.body.style.overflow = 'hidden';
 }
 function closeDemo() {
+clearTimeout(demoWakeTimer);
 document.getElementById('demo-modal').classList.remove('open');
 document.getElementById('demo-modal-body').innerHTML = '';
 document.body.style.overflow = '';
@@ -982,12 +1084,18 @@ if (e.key === 'Escape') closeDemo();
 });
 
 // ── Playground: lazy-load Spaces as they scroll into view, keep running in background ──
-const pgObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-const wrap = entry.target;
+function mountPlaygroundFrame(wrap) {
 const url = wrap.getAttribute('data-space-url');
-if (url && !wrap.querySelector('iframe')) {
+const hfPage = wrap.getAttribute('data-hf-page') || url;
+if (!url) return;
+
+// reset overlay
+const existingLoader = wrap.querySelector('.pg-loading');
+if (existingLoader) existingLoader.remove();
+const existingFrame = wrap.querySelector('iframe');
+if (existingFrame) existingFrame.remove();
+wrap.insertAdjacentHTML('afterbegin', buildLoadingMarkup(hfPage));
+
 const iframe = document.createElement('iframe');
 iframe.src = url;
 iframe.loading = 'lazy';
@@ -1001,12 +1109,36 @@ const loader = wrap.querySelector('.pg-loading');
 if (loader) loader.remove();
 });
 wrap.appendChild(iframe);
+
+setTimeout(() => {
+const loader = wrap.querySelector('.pg-loading');
+if (loader) {
+loader.querySelector('.pg-status-text').textContent = 'waking up the space…';
+loader.querySelector('.pg-sub').style.display = 'block';
+loader.querySelector('.pg-fallback-link').style.display = 'inline-flex';
+}
+}, WAKE_TIMEOUT_MS);
+}
+
+const pgObserver = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+const wrap = entry.target;
+if (!wrap.querySelector('iframe')) {
+mountPlaygroundFrame(wrap);
 }
 pgObserver.unobserve(wrap);
 }
 });
 }, { rootMargin: '200px 0px' });
 document.querySelectorAll('.playground-frame-wrap').forEach(el => pgObserver.observe(el));
+
+document.querySelectorAll('.pg-reload-btn').forEach(btn => {
+btn.addEventListener('click', () => {
+const wrap = btn.closest('.playground-card').querySelector('.playground-frame-wrap');
+if (wrap) mountPlaygroundFrame(wrap);
+});
+});
 </script>
 </body>
 </html>
