@@ -399,36 +399,151 @@ body.light .pg-tab.active { background: rgba(26,74,138,0.12); color: #1a4a8a; bo
 /* ── Rule-based Agent Widget ── */
 #agent-fab {
 position: fixed; bottom: 22px; right: 22px; z-index: 90;
-width: 78px; height: 78px; border-radius: 12px;
-background: transparent;
-color: #060d1f; border: 2px solid #64ffda; cursor: pointer;
+width: 62px; height: 62px; border-radius: 16px;
+background: rgba(11, 25, 48, 0.95);
+backdrop-filter: blur(8px);
+border: 1.5px solid rgba(100, 255, 218, 0.35);
+cursor: pointer;
 display: flex; align-items: center; justify-content: center;
-padding: 4px; overflow: hidden;
-box-shadow: 0 8px 24px -6px rgba(100,255,218,0.45);
-transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-#agent-fab img {
-width: 100%; height: 100%; object-fit: contain; display: block;
+box-shadow: 0 10px 25px -5px rgba(2, 12, 27, 0.8), 0 0 15px -2px rgba(100, 255, 218, 0.25);
+transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 #agent-fab:hover {
-transform: translateY(-3px) scale(1.04);
-border-color: #ffffff;
-box-shadow: 0 12px 30px -6px rgba(100,255,218,0.65);
+transform: translateY(-4px) scale(1.06);
+border-color: #64ffda;
+box-shadow: 0 14px 30px -5px rgba(2, 12, 27, 0.9), 0 0 24px 2px rgba(100, 255, 218, 0.45);
 }
-#agent-fab .agent-fab-animation {
-width: 46px;
-height: 46px;
-display: block;
-object-fit: contain;
+
+body.light #agent-fab {
+background: rgba(220, 228, 239, 0.95);
+border-color: rgba(26, 74, 138, 0.35);
+box-shadow: 0 10px 25px -5px rgba(30, 60, 90, 0.2), 0 0 15px -2px rgba(26, 74, 138, 0.15);
+}
+body.light #agent-fab:hover {
+border-color: #1a4a8a;
+box-shadow: 0 14px 30px -5px rgba(30, 60, 90, 0.25), 0 0 22px 2px rgba(26, 74, 138, 0.3);
+}
+
+/* ── Pure CSS Vector Bot ── */
+.vector-bot {
+position: relative;
+width: 38px;
+height: 40px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+animation: botFloat 3s infinite ease-in-out;
 pointer-events: none;
+user-select: none;
 }
+
+@keyframes botFloat {
+0%, 100% { transform: translateY(0px); }
+50% { transform: translateY(-4px); }
+}
+
+.bot-antenna {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: -1px;
+}
+.bot-antenna-dot {
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: #64ffda;
+box-shadow: 0 0 8px #64ffda;
+animation: antennaPulse 1.8s infinite ease-in-out;
+}
+@keyframes antennaPulse {
+0%, 100% { transform: scale(0.9); opacity: 0.75; box-shadow: 0 0 4px #64ffda; }
+50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 10px #64ffda, 0 0 16px rgba(100,255,218,0.6); }
+}
+.bot-antenna-stem {
+width: 2px;
+height: 5px;
+background: #64ffda;
+opacity: 0.8;
+}
+
+.bot-head-wrapper {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.bot-ear {
+width: 3.5px;
+height: 10px;
+background: #64ffda;
+border-radius: 2px;
+opacity: 0.8;
+box-shadow: 0 0 6px rgba(100,255,218,0.4);
+}
+.bot-ear.left { margin-right: -1px; }
+.bot-ear.right { margin-left: -1px; }
+
+.bot-head {
+width: 32px;
+height: 24px;
+background: linear-gradient(145deg, #132a4a, #0c1a32);
+border: 1.5px solid #64ffda;
+border-radius: 9px;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: inset 0 1px 2px rgba(255,255,255,0.15), 0 0 10px -2px rgba(100,255,218,0.3);
+position: relative;
+overflow: hidden;
+}
+
+.bot-visor {
+width: 24px;
+height: 14px;
+background: #030814;
+border-radius: 6px;
+border: 1px solid rgba(100, 255, 218, 0.35);
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+padding: 0 2px;
+position: relative;
+}
+
+.bot-eye {
+width: 5px;
+height: 6px;
+background: #64ffda;
+border-radius: 2px;
+box-shadow: 0 0 6px #64ffda, 0 0 10px rgba(100,255,218,0.5);
+animation: botBlink 3.8s infinite;
+}
+@keyframes botBlink {
+0%, 46%, 50%, 96%, 100% { transform: scaleY(1); }
+48%, 98% { transform: scaleY(0.1); }
+}
+
+/* Light mode overrides for vector bot */
+body.light .bot-antenna-dot { background: #1a4a8a; box-shadow: 0 0 8px #1a4a8a; }
+body.light .bot-antenna-stem { background: #1a4a8a; }
+body.light .bot-ear { background: #1a4a8a; box-shadow: 0 0 6px rgba(26,74,138,0.4); }
+body.light .bot-head {
+background: linear-gradient(145deg, #dce4ef, #b8cadc);
+border-color: #1a4a8a;
+box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 0 10px -2px rgba(26,74,138,0.3);
+}
+body.light .bot-visor { background: #1e2d3d; border-color: rgba(26,74,138,0.4); }
+body.light .bot-eye { background: #64ffda; box-shadow: 0 0 6px #64ffda; }
+
 #agent-fab .agent-fab-badge {
 position: absolute; top: -3px; right: -3px;
-width: 14px; height: 14px; border-radius: 50%;
+width: 13px; height: 13px; border-radius: 50%;
 background: #ff5c5c; border: 2px solid #060d1f;
 display: none;
+box-shadow: 0 0 6px rgba(255,92,92,0.8);
 }
 #agent-fab .agent-fab-badge.show { display: block; }
 body.light #agent-fab .agent-fab-badge { border-color: #dce4ef; }
@@ -966,6 +1081,113 @@ Open-source notification infrastructure that provides a single API for routing n
 </div>
 </div>
 
+<!-- ════════ Gau Sampurna ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-cow text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Gau Sampurna</h3>
+<p class="text-sm text-gray-400">AI-Powered Sperm Motility Analysis · Livestock Fertility</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-microscope text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/sperm-mobility-project" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Sperm Motility Analysis</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Architected a containerized microservice for automated semen analysis. Engineered a high-performance ML pipeline integrating YOLOv8 for detection and DeepSORT for kinetic tracking via asynchronous Celery workers.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Celery, YOLOv8, DeepSORT, Redis, AWS S3</p></div>
+</div>
+</div>
+
+<!-- ════════ Sumedha Design Systems (Internship) ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-microchip text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Sumedha Design Systems</h3>
+<p class="text-sm text-gray-400">AI-Automation Internship · VLSI Documentation Automation</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-microchip text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-RAG-VLSI" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">RAG for VLSI Automation</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Constructed an AI-powered RAG system using Transformers to automate generation of 2,000+ technical MCQs, accelerating content creation by 3x.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">Python, HuggingFace, MongoDB, AWS S3, Prompt Eng.</p></div>
+</div>
+</div>
+
+<!-- ════════ Other Projects ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-layer-group text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Other Projects</h3>
+<p class="text-sm text-gray-400">Full-stack, ML &amp; research builds</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-heartbeat text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-health-tracker" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">NLP Health Tracker</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based dashboard integrating NLP for activity logging, processing 500+ complex food queries while reducing data entry time by 40%.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p></div>
+</div>
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-tasks text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-PM-Website" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Productivity Management</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">A full-stack MERN task-tracking system for manager–employee workflows, achieving real-time data synchronization with &lt;50ms latency while supporting over 50+ concurrent active users.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p></div>
+</div>
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-recycle text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-DL-Waste-CV-Model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation IoT</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based solution utilizing Inception ResNet V2, achieving 92.5% test accuracy across 6 distinct waste categories for environmental impact.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Publications Section -->
 <section id="publications" class="py-24">
 <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
 <div class="flex items-center gap-4 mb-12 reveal">
@@ -1090,115 +1312,6 @@ Say Hello
 </footer>
 </div>
 
-<!-- ════════ Gau Sampurna ════════ -->
-<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-<div class="flex items-center gap-3">
-<i class="fas fa-cow text-teal text-2xl"></i>
-<div>
-<h3 class="text-2xl font-bold text-gray-100">Gau Sampurna</h3>
-<p class="text-sm text-gray-400">AI-Powered Sperm Motility Analysis · Livestock Fertility</p>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-<div class="project-card rounded-lg shadow-lg p-8 reveal">
-<div>
-<div class="flex justify-between items-center mb-6">
-<i class="fas fa-microscope text-teal text-4xl"></i>
-<div class="flex gap-4">
-<a href="https://tinyurl.com/sperm-mobility-project" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-</div>
-</div>
-<h3 class="text-xl font-bold mb-3 text-gray-100">Sperm Motility Analysis</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Architected a containerized microservice for automated semen analysis. Engineered a high-performance ML pipeline integrating YOLOv8 for detection and DeepSORT for kinetic tracking via asynchronous Celery workers.</p>
-</div>
-<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Celery, YOLOv8, DeepSORT, Redis, AWS S3</p></div>
-</div>
-</div>
-
-<!-- ════════ Sumedha Design Systems (Internship) ════════ -->
-<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-<div class="flex items-center gap-3">
-<i class="fas fa-microchip text-teal text-2xl"></i>
-<div>
-<h3 class="text-2xl font-bold text-gray-100">Sumedha Design Systems</h3>
-<p class="text-sm text-gray-400">AI-Automation Internship · VLSI Documentation Automation</p>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-<div class="project-card rounded-lg shadow-lg p-8 reveal">
-<div>
-<div class="flex justify-between items-center mb-6">
-<i class="fas fa-microchip text-teal text-4xl"></i>
-<div class="flex gap-4">
-<a href="https://tinyurl.com/github-RAG-VLSI" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-</div>
-</div>
-<h3 class="text-xl font-bold mb-3 text-gray-100">RAG for VLSI Automation</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Constructed an AI-powered RAG system using Transformers to automate generation of 2,000+ technical MCQs, accelerating content creation by 3x.</p>
-</div>
-<div><p class="text-xs text-teal font-mono mt-4">Python, HuggingFace, MongoDB, AWS S3, Prompt Eng.</p></div>
-</div>
-</div>
-
-<!-- ════════ Other Projects ════════ -->
-<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-<div class="flex items-center gap-3">
-<i class="fas fa-layer-group text-teal text-2xl"></i>
-<div>
-<h3 class="text-2xl font-bold text-gray-100">Other Projects</h3>
-<p class="text-sm text-gray-400">Full-stack, ML &amp; research builds</p>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="project-card rounded-lg shadow-lg p-8 reveal">
-<div>
-<div class="flex justify-between items-center mb-6">
-<i class="fas fa-heartbeat text-teal text-4xl"></i>
-<div class="flex gap-4">
-<a href="https://tinyurl.com/github-health-tracker" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-</div>
-</div>
-<h3 class="text-xl font-bold mb-3 text-gray-100">NLP Health Tracker</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based dashboard integrating NLP for activity logging, processing 500+ complex food queries while reducing data entry time by 40%.</p>
-</div>
-<div><p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p></div>
-</div>
-<div class="project-card rounded-lg shadow-lg p-8 reveal">
-<div>
-<div class="flex justify-between items-center mb-6">
-<i class="fas fa-tasks text-teal text-4xl"></i>
-<div class="flex gap-4">
-<a href="https://tinyurl.com/github-PM-Website" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-</div>
-</div>
-<h3 class="text-xl font-bold mb-3 text-gray-100">Productivity Management</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">A full-stack MERN task-tracking system for manager–employee workflows, achieving real-time data synchronization with &lt;50ms latency while supporting over 50+ concurrent active users.</p>
-</div>
-<div><p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p></div>
-</div>
-<div class="project-card rounded-lg shadow-lg p-8 reveal">
-<div>
-<div class="flex justify-between items-center mb-6">
-<i class="fas fa-recycle text-teal text-4xl"></i>
-<div class="flex gap-4">
-<a href="https://tinyurl.com/github-DL-Waste-CV-Model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-</div>
-</div>
-<h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation IoT</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based solution utilizing Inception ResNet V2, achieving 92.5% test accuracy across 6 distinct waste categories for environmental impact.</p>
-</div>
-<div><p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p></div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- Publications Section -->
-
-
 <!-- ════════════ DEDICATED PLAYGROUND VIEW ════════════ -->
 <div id="playground-view" class="view-container pt-24 pb-16">
 <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
@@ -1309,7 +1422,22 @@ Say Hello
 
 <!-- Rule-Based Agent Widget -->
 <button id="agent-fab" aria-label="Open assistant">
-<img src="among_us.svg" alt="" class="agent-fab-animation" aria-hidden="true">
+<div class="vector-bot" aria-hidden="true">
+<div class="bot-antenna">
+<div class="bot-antenna-dot"></div>
+<div class="bot-antenna-stem"></div>
+</div>
+<div class="bot-head-wrapper">
+<div class="bot-ear left"></div>
+<div class="bot-head">
+<div class="bot-visor">
+<div class="bot-eye"></div>
+<div class="bot-eye"></div>
+</div>
+</div>
+<div class="bot-ear right"></div>
+</div>
+</div>
 <span class="agent-fab-badge show" id="agent-fab-badge"></span>
 </button>
 
@@ -1569,8 +1697,8 @@ chips: ["Experience", "Projects"]
 },
 {
 id: "projects",
-keywords: ["project", "projects", "built", "portfolio work", "kisaan", "sentinel", "gau", "mandi", "crop"],
-reply: "Highlights: <strong>Kisaan Sampurna</strong> (agricultural advisory platform on Google Play), <strong>Sentinel</strong> (agentic research copilot for Indian equities), <strong>Gau Sampurna</strong> (CV-based sperm motility analysis), and several standalone tools like the Mandi Price Explorer and Crop Disease Scanner. Scroll to 'Things I've Built' for the full list, or try them live in the Playground below.",
+keywords: ["project", "projects", "built", "portfolio work", "kisaan", "sentinel", "notifkit", "gau", "mandi", "crop"],
+reply: "Highlights: <strong>Kisaan Sampurna</strong> (agricultural advisory platform on Google Play), <strong>Sentinel</strong> (agentic research copilot for Indian equities), <strong>NotifKit</strong> (open-source notification infrastructure), <strong>Gau Sampurna</strong> (CV-based sperm motility analysis), and several standalone tools like the Mandi Price Explorer and Crop Disease Scanner. Scroll to 'Things I've Built' for the full list, or try them live in the Playground below.",
 chips: ["Playground", "Skills", "Contact"]
 },
 {
