@@ -1,891 +1,1012 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan K — Software Engineer (AI/ML)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <style>
-        /* ── Smooth scroll for all devices ── */
-        html { scroll-behavior: smooth; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kishan K — Software Engineer (AI/ML)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/scrollreveal"></script>
+<style>
+html { scroll-behavior: smooth; }
+body {
+font-family: 'Roboto', sans-serif;
+background-color: #060d1f;
+transition: background-color 0.4s ease, color 0.4s ease;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Poppins', sans-serif;
+}
+:root {
+--bg-navy: #060d1f;
+--bg-light-navy: #112240;
+--text-primary: #e2e8f0;
+--text-secondary:#94a3b8;
+--card-bg: #112240;
+--border-color: #1e3a5f;
+}
+body.light {
+--bg-navy: #dce4ef;
+--bg-light-navy: #c8d5e3;
+--text-primary: #1e2d3d;
+--text-secondary:#3d5068;
+--card-bg: #c8d5e3;
+--border-color: #96aec4;
+background-color: #dce4ef;
+color: #3d5068;
+}
+body.light .text-gray-100 { color: #1e2d3d !important; }
+body.light .text-gray-200 { color: #253c52 !important; }
+body.light .text-gray-300 { color: #3d5068 !important; }
+body.light .text-gray-400 { color: #526d87 !important; }
+body.light .text-gray-500 { color: #6b87a0 !important; }
+body.light .bg-navy { background-color: #dce4ef !important; }
+body.light .bg-light-navy { background-color: #c8d5e3 !important; }
+body.light .bg-navy\/80 { background-color: rgba(220,228,239,0.90) !important; }
+body.light .bg-light-navy\/30 { background-color: rgba(200,213,227,0.45) !important; }
+body.light .bg-light-navy\/20 { background-color: rgba(200,213,227,0.35) !important; }
+body.light .project-card,
+body.light .pub-card,
+body.light .exp-card,
+body.light .playground-card { background-color: #c8d5e3 !important; }
+body.light .border-gray-700 { border-color: #96aec4 !important; }
+body.light .border-gray-800 { border-color: #96aec4 !important; }
+body.light .bg-gray-700 { background-color: #96aec4 !important; }
+body.light header { box-shadow: 0 1px 12px rgba(30,60,90,0.1); }
+body.light .email-link { color: #526d87; }
+body.light footer { border-color: #96aec4; }
+body.light .text-teal { color: #1a4a8a !important; }
+body.light .skill-tag { background-color: rgba(26,74,138,0.08) !important; color: #1a4a8a !important; border-color: rgba(26,74,138,0.25) !important; }
+body.light .border-teal { border-color: #1a4a8a !important; }
+body.light .border-l-4 { border-color: #1a4a8a !important; }
+body.light #theme-toggle { border-color: rgba(26,74,138,0.35) !important; color: #1a4a8a !important; background: rgba(26,74,138,0.08) !important; }
+body.light .nav-link:hover { color: #1a4a8a !important; }
+body.light .resume-button { color: #1a4a8a !important; border-color: #1a4a8a !important; }
+body.light .email-link:hover { color: #1a4a8a !important; }
+body.light .bg-teal { background-color: #1a4a8a !important; }
+body.light li::marker { color: #1a4a8a !important; }
+body.light .bg-teal.text-navy { background-color: #1a4a8a !important; color: #ffffff !important; }
+body.light .text-white { color: #1e2d3d !important; }
+#theme-toggle {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 32px;
+height: 32px;
+background: rgba(100,255,218,0.08);
+border: 1px solid rgba(100,255,218,0.25);
+color: #64ffda;
+border-radius: 6px;
+cursor: pointer;
+transition: background 0.3s, transform 0.2s;
+flex-shrink: 0;
+}
+#theme-toggle:hover {
+background: rgba(100,255,218,0.18);
+transform: translateY(-1px);
+}
+#theme-toggle i { font-size: 14px; transition: transform 0.4s ease; }
+body.light #theme-toggle {
+background: rgba(15,23,42,0.08);
+border-color: rgba(15,23,42,0.25);
+color: #0f172a;
+}
+.text-teal { color: #64ffda; }
+.bg-navy { background-color: #060d1f; }
+.bg-light-navy { background-color: #112240; }
+.border-teal { border-color: #64ffda; }
+.nav-link { transition: color 0.3s, transform 0.3s; }
+.nav-link:hover { color: #64ffda; transform: translateY(-2px); }
+.resume-button { transition: background-color 0.3s, color 0.3s; }
+.project-card, .pub-card, .exp-card, .playground-card {
+transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+background-color: #112240;
+border: 1px solid transparent;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+.project-card:hover, .pub-card:hover, .exp-card:hover {
+transform: translateY(-12px);
+box-shadow: 0 20px 40px -15px rgba(2,12,27,0.8);
+border-color: rgba(100, 255, 218, 0.3);
+background-color: #172a45;
+}
+body.light .project-card:hover, body.light .pub-card:hover, body.light .exp-card:hover {
+border-color: rgba(26, 74, 138, 0.3);
+background-color: #b5c7d8 !important;
+}
+.timeline-item {
+position: relative;
+}
+.timeline-item::before {
+content: '';
+position: absolute;
+left: -41px; top: 24px;
+width: 16px; height: 16px;
+border-radius: 50%;
+background-color: #64ffda;
+border: 3px solid #060d1f;
+z-index: 2;
+transition: all 0.3s ease;
+}
+.timeline-item:hover::before {
+background-color: #ffffff;
+transform: scale(1.3);
+box-shadow: 0 0 10px #64ffda;
+}
+body.light .timeline-item::before {
+background-color: #1a4a8a;
+border-color: #dce4ef;
+}
+body.light .timeline-item:hover::before {
+background-color: #0f172a;
+box-shadow: 0 0 10px #1a4a8a;
+}
+@keyframes marquee {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+.marquee-wrapper {
+overflow: hidden;
+width: 100%;
+position: relative;
+background: rgba(17, 34, 64, 0.3);
+padding: 24px 0;
+border-top: 1px solid rgba(100, 255, 218, 0.1);
+border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+}
+body.light .marquee-wrapper {
+background: rgba(200, 213, 227, 0.3);
+border-color: rgba(26, 74, 138, 0.15);
+}
+.marquee-content {
+display: flex;
+width: max-content;
+animation: marquee 25s linear infinite;
+}
+.marquee-content:hover {
+animation-play-state: paused;
+}
+.marquee-item {
+margin: 0 40px;
+font-size: 1.1rem;
+font-family: 'Poppins', sans-serif;
+font-weight: 500;
+color: #64ffda;
+display: flex;
+align-items: center;
+gap: 12px;
+transition: color 0.3s ease;
+}
+body.light .marquee-item {
+color: #1a4a8a;
+}
+.side-element { position: fixed; bottom: 0; z-index: 10; display: none; }
+@media (min-width: 1024px) { .side-element { display: block; } }
+.left-sidebar { left: 40px; right: auto; width: 40px; }
+.right-sidebar { right: 40px; left: auto; width: 40px; }
+.sidebar-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.sidebar-content::after {
+content: ""; display: block; width: 1px; height: 90px;
+background-color: #8892b0; margin-top: 20px;
+}
+.email-link {
+writing-mode: vertical-rl; color: #8892b0;
+font-family: 'Poppins', sans-serif; letter-spacing: 0.1em;
+font-size: 14px; transition: color 0.3s, transform 0.3s;
+}
+.email-link:hover { color: #64ffda; transform: translateY(-3px); }
+.skill-tag {
+background-color: rgba(100,255,218,0.1); color: #64ffda;
+padding: 4px 12px; border-radius: 4px; font-size: 0.85rem;
+margin: 4px; display: inline-block;
+border: 1px solid rgba(100,255,218,0.2);
+}
+.group-header { transition: border-color 0.3s; }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #060d1f;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-        }
+/* ── Playground ── */
+.playground-card iframe { border: 0; width: 100%; }
+.playground-frame-wrap {
+position: relative;
+width: 100%;
+aspect-ratio: 16 / 10;
+background: #060d1f;
+border-radius: 8px;
+overflow: hidden;
+border: 1px solid rgba(100,255,218,0.15);
+}
+.playground-frame-wrap .pg-loading {
+position: absolute; inset: 0;
+display: flex; align-items: center; justify-content: center;
+color: #64ffda; font-family: 'Poppins', sans-serif; font-size: 0.85rem;
+gap: 8px; background: #0a1730;
+}
+.pg-dot { width: 6px; height: 6px; border-radius: 50%; background: #64ffda; animation: pgpulse 1.2s infinite ease-in-out; }
+.pg-dot:nth-child(2) { animation-delay: 0.2s; }
+.pg-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pgpulse { 0%,80%,100% { opacity: 0.25; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.1); } }
 
-        /* ── Dark theme (default) ── */
-        :root {
-            --bg-navy:       #060d1f;
-            --bg-light-navy: #112240;
-            --text-primary:  #e2e8f0;
-            --text-secondary:#94a3b8;
-            --card-bg:       #112240;
-            --border-color:  #1e3a5f;
-        }
-
-        /* ── Light theme ── */
-        body.light {
-            --bg-navy:       #dce4ef;
-            --bg-light-navy: #c8d5e3;
-            --text-primary:  #1e2d3d;
-            --text-secondary:#3d5068;
-            --card-bg:       #c8d5e3;
-            --border-color:  #96aec4;
-            background-color: #dce4ef;
-            color: #3d5068;
-        }
-        body.light .text-gray-100 { color: #1e2d3d !important; }
-        body.light .text-gray-200 { color: #253c52 !important; }
-        body.light .text-gray-300 { color: #3d5068 !important; }
-        body.light .text-gray-400 { color: #526d87 !important; }
-        body.light .text-gray-500 { color: #6b87a0 !important; }
-        body.light .bg-navy       { background-color: #dce4ef !important; }
-        body.light .bg-light-navy { background-color: #c8d5e3 !important; }
-        body.light .bg-navy/80   { background-color: rgba(220,228,239,0.90) !important; }
-        body.light .bg-light-navy/30 { background-color: rgba(200,213,227,0.45) !important; }
-        body.light .bg-light-navy/20 { background-color: rgba(200,213,227,0.35) !important; }
-        body.light .project-card,
-        body.light .pub-card,
-        body.light .exp-card      { background-color: #c8d5e3 !important; }
-        body.light .border-gray-700 { border-color: #96aec4 !important; }
-        body.light .border-gray-800 { border-color: #96aec4 !important; }
-        body.light .bg-gray-700   { background-color: #96aec4 !important; }
-        body.light header         { box-shadow: 0 1px 12px rgba(30,60,90,0.1); }
-        body.light .email-link    { color: #526d87; }
-        body.light footer         { border-color: #96aec4; }
-
-        /* teal → dark blue in light mode */
-        body.light .text-teal     { color: #1a4a8a !important; }
-        body.light .skill-tag     { background-color: rgba(26,74,138,0.08) !important; color: #1a4a8a !important; border-color: rgba(26,74,138,0.25) !important; }
-        body.light .border-teal   { border-color: #1a4a8a !important; }
-        body.light .border-l-4    { border-color: #1a4a8a !important; }
-        body.light #theme-toggle  { border-color: rgba(26,74,138,0.35) !important; color: #1a4a8a !important; background: rgba(26,74,138,0.08) !important; }
-        body.light .nav-link:hover { color: #1a4a8a !important; }
-        body.light .resume-button { color: #1a4a8a !important; border-color: #1a4a8a !important; }
-        body.light .email-link:hover { color: #1a4a8a !important; }
-        body.light .bg-teal       { background-color: #1a4a8a !important; }
-        body.light li::marker     { color: #1a4a8a !important; }
-        body.light .bg-teal.text-navy { background-color: #1a4a8a !important; color: #ffffff !important; }
-        body.light .text-white    { color: #1e2d3d !important; }
-
-        /* ── Theme toggle button ── */
-        #theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            background: rgba(100,255,218,0.08);
-            border: 1px solid rgba(100,255,218,0.25);
-            color: #64ffda;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            flex-shrink: 0;
-        }
-        #theme-toggle:hover {
-            background: rgba(100,255,218,0.18);
-            transform: translateY(-1px);
-        }
-        #theme-toggle i { font-size: 14px; transition: transform 0.4s ease; }
-        body.light #theme-toggle {
-            background: rgba(15,23,42,0.08);
-            border-color: rgba(15,23,42,0.25);
-            color: #0f172a;
-        }
-
-        .text-teal  { color: #64ffda; }
-        .bg-navy    { background-color: #060d1f; }
-        .bg-light-navy { background-color: #112240; }
-        .border-teal   { border-color: #64ffda; }
-
-        .nav-link { transition: color 0.3s, transform 0.3s; }
-        .nav-link:hover { color: #64ffda; transform: translateY(-2px); }
-
-        .resume-button { transition: background-color 0.3s, color 0.3s; }
-
-        /* Enhanced Card Hover Design */
-        .project-card, .pub-card, .exp-card {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
-            background-color: #112240;
-            border: 1px solid transparent;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .project-card:hover, .pub-card:hover, .exp-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 40px -15px rgba(2,12,27,0.8);
-            border-color: rgba(100, 255, 218, 0.3);
-            background-color: #172a45;
-        }
-        body.light .project-card:hover, body.light .pub-card:hover, body.light .exp-card:hover {
-            border-color: rgba(26, 74, 138, 0.3);
-            background-color: #b5c7d8 !important;
-        }
-
-        .timeline-item {
-            position: relative;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -41px; top: 24px;
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            background-color: #64ffda;
-            border: 3px solid #060d1f;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-        .timeline-item:hover::before {
-            background-color: #ffffff;
-            transform: scale(1.3);
-            box-shadow: 0 0 10px #64ffda;
-        }
-        body.light .timeline-item::before {
-            background-color: #1a4a8a;
-            border-color: #dce4ef;
-        }
-        body.light .timeline-item:hover::before {
-            background-color: #0f172a;
-            box-shadow: 0 0 10px #1a4a8a;
-        }
-
-        /* ── Continuous Scrolling Marquee (Certifications Headline) ── */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .marquee-wrapper {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-            background: rgba(17, 34, 64, 0.3);
-            padding: 24px 0;
-            border-top: 1px solid rgba(100, 255, 218, 0.1);
-            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
-        }
-        body.light .marquee-wrapper {
-            background: rgba(200, 213, 227, 0.3);
-            border-color: rgba(26, 74, 138, 0.15);
-        }
-        .marquee-content {
-            display: flex;
-            width: max-content;
-            animation: marquee 25s linear infinite;
-        }
-        .marquee-content:hover {
-            animation-play-state: paused;
-        }
-        .marquee-item {
-            margin: 0 40px;
-            font-size: 1.1rem;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            color: #64ffda;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: color 0.3s ease;
-        }
-        body.light .marquee-item {
-            color: #1a4a8a;
-        }
-
-        .side-element { position: fixed; bottom: 0; z-index: 10; display: none; }
-        @media (min-width: 1024px) { .side-element { display: block; } }
-        .left-sidebar  { left: 40px; right: auto; width: 40px; }
-        .right-sidebar { right: 40px; left: auto; width: 40px; }
-        .sidebar-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .sidebar-content::after {
-            content: ""; display: block; width: 1px; height: 90px;
-            background-color: #8892b0; margin-top: 20px;
-        }
-
-        .email-link {
-            writing-mode: vertical-rl; color: #8892b0;
-            font-family: 'Poppins', sans-serif; letter-spacing: 0.1em;
-            font-size: 14px; transition: color 0.3s, transform 0.3s;
-        }
-        .email-link:hover { color: #64ffda; transform: translateY(-3px); }
-
-        .skill-tag {
-            background-color: rgba(100,255,218,0.1); color: #64ffda;
-            padding: 4px 12px; border-radius: 4px; font-size: 0.85rem;
-            margin: 4px; display: inline-block;
-            border: 1px solid rgba(100,255,218,0.2);
-        }
-
-        /* ── Project group header ── */
-        .group-header { transition: border-color 0.3s; }
-    </style>
+/* ── Live demo modal ── */
+#demo-modal {
+position: fixed; inset: 0; z-index: 100;
+display: none;
+align-items: center; justify-content: center;
+background: rgba(2,8,20,0.85);
+backdrop-filter: blur(4px);
+padding: 20px;
+}
+#demo-modal.open { display: flex; }
+#demo-modal-inner {
+width: 100%; max-width: 1100px;
+background: #0a1730;
+border: 1px solid rgba(100,255,218,0.25);
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 30px 60px -15px rgba(0,0,0,0.7);
+}
+#demo-modal-header {
+display: flex; align-items: center; justify-content: space-between;
+padding: 12px 18px;
+border-bottom: 1px solid rgba(100,255,218,0.15);
+}
+#demo-modal-title { color: #e2e8f0; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.95rem; display:flex; align-items:center; gap:8px; }
+#demo-modal-close {
+color: #94a3b8; background: transparent; border: none; cursor: pointer;
+font-size: 1.1rem; width: 32px; height: 32px; border-radius: 6px;
+display: flex; align-items: center; justify-content: center;
+transition: color 0.2s, background 0.2s;
+}
+#demo-modal-close:hover { color: #64ffda; background: rgba(100,255,218,0.1); }
+#demo-modal-body { position: relative; width: 100%; aspect-ratio: 16/10; background: #060d1f; }
+#demo-modal-body iframe { border: 0; width: 100%; height: 100%; }
+.demo-open-btn { cursor: pointer; background: none; border: none; padding: 0; }
+</style>
 </head>
 <body class="bg-navy text-gray-300">
-    <!-- Social Sidebar -->
-    <div class="side-element left-sidebar">
-        <div class="sidebar-content">
-            <a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="nav-link text-2xl text-gray-400" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://leetcode.com/u/ZXO2yYfahk/" target="_blank" class="nav-link text-2xl text-gray-400" title="LeetCode"><i class="fas fa-code"></i></a>
-            <a href="https://huggingface.co/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="Hugging Face">🤗</a>
-            <a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl text-gray-400" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </div>
-    <!-- Email Sidebar -->
-    <div class="side-element right-sidebar">
-        <div class="sidebar-content">
-            <a href="mailto:kishan.k.naik.ai@gmail.com" class="email-link">kishan.k.naik.ai@gmail.com</a>
-        </div>
-    </div>
 
-    <header class="bg-navy/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md">
-        <div class="container mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <a href="#" class="text-2xl font-bold text-teal">Kishan K</a>
-                    <button id="theme-toggle" aria-label="Toggle theme">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </div>
-                <nav class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-6">
-                        <a href="#about" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">About</a>
-                        <a href="#services" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Services</a>
-                        <a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
-                        <a href="#projects" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Projects</a>
-                        <a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
-                        <a href="#certifications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Certifications</a>
-                        <a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
-                        
-                        <!-- Simple Direct Resume Link Desktop (No Dropdown) -->
-                        <a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
-                            Resume <i class="fas fa-file-arrow-down text-xs"></i>
-                        </a>
-                    </div>
-                </nav>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-light-navy focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-light-navy">
-            <div class="px-2 pt-2 pb-6 space-y-1 sm:px-3 text-center">
-                <a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
-                <a href="#services" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Services</a>
-                <a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
-                <a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-                <a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
-                <a href="#certifications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
-                <a href="#contact" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-                
-                <!-- Simple Direct Resume Link Mobile -->
-                <div class="mt-4 pt-4 border-t border-gray-700 px-4">
-                    <a href="kishan_k.pdf" target="_blank" class="resume-button block w-full border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<!-- Social Sidebar -->
+<div class="side-element left-sidebar">
+<div class="sidebar-content">
+<a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="GitHub"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="nav-link text-2xl text-gray-400" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+<a href="https://leetcode.com/u/ZXO2yYfahk/" target="_blank" class="nav-link text-2xl text-gray-400" title="LeetCode"><i class="fas fa-code"></i></a>
+<a href="https://huggingface.co/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="Hugging Face">🤗</a>
+<a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl text-gray-400" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
 
-    <main class="pt-20">
-        <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex items-center">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-12">
-                    <div class="md:w-3/5 text-center md:text-left">
-                        <p class="text-teal text-lg font-mono reveal">Hi, my name is</p>
-                        <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-gray-100 mt-2 reveal">Kishan K.</h1>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-400 mt-2 reveal">I build production AI systems.</h2>
-                        <p class="mt-6 max-w-xl text-lg text-gray-400 reveal">
-                            I'm a <strong>Software Engineer (AI/ML)</strong> who builds and ships production <strong>GenAI, LLM, and computer-vision</strong> systems — from multimodal pipelines and RAG to cloud-native FastAPI backends on AWS.
-                        </p>
-                        <div class="mt-8 reveal flex flex-wrap gap-4 justify-center md:justify-start">
-                            <a href="#projects" class="border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">View Projects</a>
-                            <a href="mailto:kishan.k.naik.ai@gmail.com" class="bg-teal text-navy font-bold py-3 px-8 rounded-md hover:opacity-90 transition duration-300">Get In Touch</a>
-                        </div>
-                    </div>
-                    <div class="md:w-2/5 mt-10 md:mt-0 flex justify-center reveal">
-                        <div class="relative group">
-                            <div class="absolute -inset-1 bg-teal rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-lg border-2 border-teal overflow-hidden flex items-center justify-center bg-light-navy shadow-2xl">
-                                <img src="KiSHAN.jpeg" alt="Kishan K" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="hidden items-center justify-center w-full h-full">
-                                    <i class="fas fa-user-circle text-8xl text-teal/40"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- Email Sidebar -->
+<div class="side-element right-sidebar">
+<div class="sidebar-content">
+<a href="mailto:kishan.k.naik.ai@gmail.com" class="email-link">kishan.k.naik.ai@gmail.com</a>
+</div>
+</div>
 
-        <!-- About Section -->
-        <section id="about" class="py-24">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex items-center gap-4 mb-12 reveal">
-                    <h2 class="text-3xl font-bold text-gray-100">About Me</h2>
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div class="space-y-4 reveal">
-                        <p class="text-lg text-gray-400 leading-relaxed">
-                            Hello! I'm Kishan, a <strong>Software Engineer (AI/ML)</strong> with a strong foundation from <strong>Ramaiah Institute of Technology</strong>. I work across the full lifecycle — from research and modeling to deploying robust, scalable systems in production.
-                        </p>
-                        <p class="text-lg text-gray-400 leading-relaxed">
-                            Currently at <strong>Silo Fortune</strong>, I build production AI for agriculture and livestock — computer-vision crop diagnostics, satellite intelligence (NDVI, EVI, NDWI), weather-driven recommendations, and multilingual LLM advisory generation across <strong>12+ Indian languages</strong> — on cloud-native FastAPI services with multi-level caching that drives recurring inference costs to near-zero.
-                        </p>
-                        <div class="bg-light-navy rounded-lg p-6 mt-8 border-l-4 border-teal">
-                            <h3 class="text-xl font-bold text-gray-100 mb-2">Education</h3>
-                            <p class="text-teal font-bold">Ramaiah Institute of Technology, Bengaluru</p>
-                            <p class="text-gray-200">B.E. in Artificial Intelligence and Machine Learning</p>
-                            <p class="text-sm text-gray-400">2021 - 2025 | <span class="text-teal">CGPA: 8.6/10</span></p>
-                        </div>
-                    </div>
-                    <div class="reveal">
-                        <h3 class="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2">
-                            <i class="fas fa-terminal text-teal"></i> Technical Skills
-                        </h3>
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="text-sm font-mono text-gray-300 mb-2">GenAI & LLM Engineering</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">Gemini (Flash/Pro)</span><span class="skill-tag">OpenAI API</span>
-                                    <span class="skill-tag">LLMs</span><span class="skill-tag">Prompt Engineering</span>
-                                    <span class="skill-tag">RAG</span><span class="skill-tag">AI Agents</span>
-                                    <span class="skill-tag">LangChain</span><span class="skill-tag">LangGraph</span>
-                                    <span class="skill-tag">LlamaIndex</span><span class="skill-tag">FAISS</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-mono text-gray-300 mb-2">AI/ML & Deep Learning</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">NLP</span><span class="skill-tag">Computer Vision</span>
-                                    <span class="skill-tag">Deep Learning</span><span class="skill-tag">Transformers</span>
-                                    <span class="skill-tag">ViT/CNN</span><span class="skill-tag">PyTorch</span>
-                                    <span class="skill-tag">TensorFlow</span><span class="skill-tag">YOLOv8</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-mono text-gray-300 mb-2">Backend & Databases</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">FastAPI</span><span class="skill-tag">Django</span>
-                                    <span class="skill-tag">Flask</span><span class="skill-tag">Pydantic</span>
-                                    <span class="skill-tag">SQLAlchemy</span><span class="skill-tag">Alembic</span>
-                                    <span class="skill-tag">AsyncIO</span><span class="skill-tag">PostgreSQL</span>
-                                    <span class="skill-tag">MongoDB</span><span class="skill-tag">Redis</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-mono text-gray-300 mb-2">MLOps, Cloud & Languages</h4>
-                                <div class="flex flex-wrap">
-                                    <span class="skill-tag">Docker</span><span class="skill-tag">GitHub Actions</span>
-                                    <span class="skill-tag">AWS (S3/RDS/SageMaker/ECS)</span><span class="skill-tag">GCP</span>
-                                    <span class="skill-tag">Jenkins</span><span class="skill-tag">Vercel</span>
-                                    <span class="skill-tag">Python</span><span class="skill-tag">C/C++</span>
-                                    <span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<header class="bg-navy/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md">
+<div class="container mx-auto px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex-shrink-0 flex items-center gap-3">
+<a href="#" class="text-2xl font-bold text-teal">Kishan K</a>
+<button id="theme-toggle" aria-label="Toggle theme">
+<i class="fas fa-moon"></i>
+</button>
+</div>
+<nav class="hidden md:block">
+<div class="ml-10 flex items-center space-x-6">
+<a href="#about" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">About</a>
+<a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
+<a href="#projects" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Projects</a>
+<a href="#playground" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Playground</a>
+<a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
+<a href="#certifications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Certifications</a>
+<a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
+<a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
+Resume <i class="fas fa-file-arrow-down text-xs"></i>
+</a>
+</div>
+</nav>
+<div class="md:hidden">
+<button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-light-navy focus:outline-none">
+<i class="fas fa-bars text-2xl"></i>
+</button>
+</div>
+</div>
+</div>
+<div id="mobile-menu" class="md:hidden hidden bg-light-navy">
+<div class="px-2 pt-2 pb-6 space-y-1 sm:px-3 text-center">
+<a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
+<a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+<a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+<a href="#playground" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Playground</a>
+<a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
+<a href="#certifications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
+<a href="#contact" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+<div class="mt-4 pt-4 border-t border-gray-700 px-4">
+<a href="kishan_k.pdf" target="_blank" class="resume-button block w-full border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
+</div>
+</div>
+</div>
+</header>
 
-        <!-- Services Section -->
-        <section id="services" class="py-24">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex items-center gap-4 mb-4 reveal">
-                    <h2 class="text-3xl font-bold text-gray-100">Available For</h2>
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                </div>
-                <p class="text-gray-400 max-w-2xl mb-12 reveal">Open to part-time contract and freelance work alongside full-time employment. Here's what I build.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <i class="fas fa-comments text-teal text-4xl mb-6 block"></i>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">RAG &amp; LLM Applications</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Chatbots and copilots grounded in your own documents or data — retrieval pipelines, agent orchestration, and prompt/eval tooling using LangChain, LangGraph, or LlamaIndex.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">LangChain · LangGraph · RAG · FAISS · Gemini/OpenAI</p></div>
-                    </div>
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <i class="fas fa-camera-retro text-teal text-4xl mb-6 block"></i>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Computer Vision Pipelines</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Detection, tracking, and classification pipelines for images or video — from model selection and fine-tuning through to a deployable, async-friendly service.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">YOLOv8 · DeepSORT · PyTorch · OpenCV</p></div>
-                    </div>
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <i class="fas fa-server text-teal text-4xl mb-6 block"></i>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Backend &amp; Cloud Systems</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Production-ready APIs and backend services — async processing, caching, and cloud deployment built to handle real traffic, not just a demo.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI · PostgreSQL · Redis · Docker · AWS</p></div>
-                    </div>
-                </div>
-                <div class="mt-10 reveal">
-                    <a href="mailto:kishan.k.naik.ai@gmail.com?subject=Project%20inquiry" class="inline-flex items-center gap-2 border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">
-                        Discuss a project <i class="fas fa-arrow-right text-xs"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
+<main class="pt-20">
 
-        <!-- Experience Section -->
-        <section id="experience" class="py-24 bg-light-navy/30">
-            <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
-                <div class="flex items-center gap-4 mb-16 reveal">
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                    <h2 class="text-3xl font-bold text-gray-100">Experience</h2>
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                </div>
-                <div class="relative border-l-2 border-gray-700 pl-10 ml-4">
-                    <div class="mb-16 timeline-item reveal">
-                        <div class="exp-card p-8 rounded-lg shadow-lg">
-                            <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
-                            <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
-                            <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                                <li>Architected <strong>Kisaan Sampurna</strong> — a multimodal GenAI pipeline (Gemini 2.5 Flash + Computer Vision) delivering crop disease advisories in <strong>12 Indian languages</strong> with <strong>92%+ precision</strong>, handling <strong>10,000+ daily API requests</strong>.</li>
-                                <li>Built <strong>Real-Time Mandi Price API</strong> serving price data for <strong>7,000+ agricultural markets</strong> with nearest-mandi auto-resolution using Haversine formula in SQL, multilingual support, and dual-source data (PostgreSQL + AWS S3).</li>
-                                <li>Engineered <strong>AI Farm Intelligence System</strong> converting satellite indices (NDVI, NRI, EVI) into 432 farm condition fingerprints, generating 15-section advisories in <strong>13 languages</strong> via two-level LLM cache — deployed on <strong>AWS ECS Fargate</strong> with Jenkins CI/CD.</li>
-                                <li>Built <strong>AI Crop Stage Prediction</strong> pipeline reading 5 years of satellite imagery to detect growth cycles for 21 crops across 80+ sub-stages, with parallel asyncio Gemini calls for knowledge generation.</li>
-                                <li>Orchestrated production-grade <strong>FastAPI microservices</strong> with PostgreSQL service isolation, Redis caching, and Docker CI/CD — reducing downtime by <strong>40%</strong>.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mb-16 timeline-item reveal">
-                        <div class="exp-card p-8 rounded-lg shadow-lg">
-                            <h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
-                            <p class="text-sm font-mono text-gray-400 mb-4">Feb 2025 - Aug 2025 | Hyderabad</p>
-                            <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                                <li>Engineered a scalable data-extraction pipeline using <strong>GCP Vision</strong> and <strong>AWS S3</strong> to process <strong>10,000+ pages</strong> of VLSI documentation, with RAG-based automated MCQ generation.</li>
-                                <li>Architected a hybrid retrieval framework with <strong>LlamaIndex</strong> and <strong>FAISS</strong> using re-ranking strategies — improving learner engagement by <strong>15%</strong> and reducing latency by <strong>50%</strong>.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="exp-card p-8 rounded-lg shadow-lg">
-                            <h3 class="text-xl font-bold text-white">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
-                            <p class="text-sm font-mono text-gray-400 mb-4">Jan 2025 - Feb 2025 | Bengaluru</p>
-                            <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-                                <li>Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
-                                <li>Conducted research on lung disease prediction and interpretable models for healthcare datasets.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- Hero Section -->
+<section id="home" class="min-h-screen flex items-center">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+<div class="flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="md:w-3/5 text-center md:text-left">
+<p class="text-teal text-lg font-mono reveal">Hi, my name is</p>
+<h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-gray-100 mt-2 reveal">Kishan K.</h1>
+<h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-400 mt-2 reveal">I build production AI systems.</h2>
+<p class="mt-6 max-w-xl text-lg text-gray-400 reveal">
+I'm a <strong>Software Engineer (AI/ML)</strong> who builds and ships production <strong>GenAI, LLM, and computer-vision</strong> systems — from multimodal pipelines and RAG to cloud-native FastAPI backends on AWS.
+</p>
+<div class="mt-8 reveal flex flex-wrap gap-4 justify-center md:justify-start">
+<a href="#projects" class="border border-teal text-teal font-medium py-3 px-8 rounded-md hover:bg-teal/10 transition duration-300">View Projects</a>
+<a href="mailto:kishan.k.naik.ai@gmail.com" class="bg-teal text-navy font-bold py-3 px-8 rounded-md hover:opacity-90 transition duration-300">Get In Touch</a>
+</div>
+</div>
+<div class="md:w-2/5 mt-10 md:mt-0 flex justify-center reveal">
+<div class="relative group">
+<div class="absolute -inset-1 bg-teal rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative w-64 h-64 md:w-80 md:h-80 rounded-lg border-2 border-teal overflow-hidden flex items-center justify-center bg-light-navy shadow-2xl">
+<img src="KiSHAN.jpeg" alt="Kishan K" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+<div class="hidden items-center justify-center w-full h-full">
+<i class="fas fa-user-circle text-8xl text-teal/40"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-24">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex items-center gap-4 mb-12 reveal">
-                    <h2 class="text-3xl font-bold text-gray-100">Things I've Built</h2>
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                </div>
+<!-- About Section -->
+<section id="about" class="py-24">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+<div class="flex items-center gap-4 mb-12 reveal">
+<h2 class="text-3xl font-bold text-gray-100">About Me</h2>
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="space-y-4 reveal">
+<p class="text-lg text-gray-400 leading-relaxed">
+Hello! I'm Kishan, a <strong>Software Engineer (AI/ML)</strong> with a strong foundation from <strong>Ramaiah Institute of Technology</strong>. I work across the full lifecycle — from research and modeling to deploying robust, scalable systems in production.
+</p>
+<p class="text-lg text-gray-400 leading-relaxed">
+Currently at <strong>Silo Fortune</strong>, I build production AI for agriculture and livestock — computer-vision crop diagnostics, satellite intelligence (NDVI, EVI, NDWI), weather-driven recommendations, and multilingual LLM advisory generation across <strong>12+ Indian languages</strong> — on cloud-native FastAPI services with multi-level caching that drives recurring inference costs to near-zero. Alongside this, I work part-time as a Forward Deployed Engineer for <strong>Narvia Design</strong>, a luxury interior/exterior design studio, where I built and shipped their production site end-to-end as sole engineer.
+</p>
+<div class="bg-light-navy rounded-lg p-6 mt-8 border-l-4 border-teal">
+<h3 class="text-xl font-bold text-gray-100 mb-2">Education</h3>
+<p class="text-teal font-bold">Ramaiah Institute of Technology, Bengaluru</p>
+<p class="text-gray-200">B.E. in Artificial Intelligence and Machine Learning</p>
+<p class="text-sm text-gray-400">2021 - 2025 | <span class="text-teal">CGPA: 8.6/10</span></p>
+</div>
+</div>
+<div class="reveal">
+<h3 class="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2">
+<i class="fas fa-terminal text-teal"></i> Technical Skills
+</h3>
+<div class="space-y-6">
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">GenAI & LLM Engineering</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">Gemini (Flash/Pro)</span><span class="skill-tag">OpenAI API</span>
+<span class="skill-tag">LLMs</span><span class="skill-tag">Prompt Engineering</span>
+<span class="skill-tag">RAG</span><span class="skill-tag">AI Agents</span>
+<span class="skill-tag">LangChain</span><span class="skill-tag">LangGraph</span>
+<span class="skill-tag">LlamaIndex</span><span class="skill-tag">FAISS</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">AI/ML & Deep Learning</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">NLP</span><span class="skill-tag">Computer Vision</span>
+<span class="skill-tag">Deep Learning</span><span class="skill-tag">Transformers</span>
+<span class="skill-tag">ViT/CNN</span><span class="skill-tag">PyTorch</span>
+<span class="skill-tag">TensorFlow</span><span class="skill-tag">YOLOv8</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">Backend & Databases</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">FastAPI</span><span class="skill-tag">Django</span>
+<span class="skill-tag">Flask</span><span class="skill-tag">Pydantic</span>
+<span class="skill-tag">SQLAlchemy</span><span class="skill-tag">Alembic</span>
+<span class="skill-tag">AsyncIO</span><span class="skill-tag">PostgreSQL</span>
+<span class="skill-tag">MongoDB</span><span class="skill-tag">Redis</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">MLOps, Cloud & Languages</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">Docker</span><span class="skill-tag">GitHub Actions</span>
+<span class="skill-tag">AWS (S3/RDS/SageMaker/ECS)</span><span class="skill-tag">GCP</span>
+<span class="skill-tag">Jenkins</span><span class="skill-tag">Vercel</span>
+<span class="skill-tag">Python</span><span class="skill-tag">C/C++</span>
+<span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-                <!-- ════════ Kisaan Sampurna ════════ -->
-                <div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-seedling text-teal text-2xl"></i>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-100">Kisaan Sampurna</h3>
-                            <p class="text-sm text-gray-400">AI-Powered Agricultural Advisory Platform · @ Silo Fortune</p>
-                        </div>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.kissansampurna.app&hl=en_IN" target="_blank" class="text-teal text-sm font-mono hover:underline flex items-center gap-2 ml-9 sm:ml-0"><i class="fab fa-google-play"></i> Google Play</a>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                    <!-- Project 1: Mandi Price Explorer -->
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-store text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/mandi-price-explorer" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-                                    <a href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Mandi Price Explorer</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">FastAPI backend serving price data for 7,000+ agricultural markets across India. Nearest-mandi auto-resolution using Haversine formula in SQL, 12-language support, dual-source data (PostgreSQL + AWS S3 Parquet), and cascade dropdowns under 5ms via in-memory cache.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, AWS S3, Docker, SQLAlchemy, JWT</p></div>
-                    </div>
-                    <!-- Project 2: Crop Stage Predictor -->
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-satellite text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/crop-stage-predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-                                    <a href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Stage Predictor</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">5-layer pipeline reading 5 years of satellite imagery (NDVI, EVI, NDMI) to detect crop growth cycles for 21 crops across 80+ sub-stages. Generates pest/disease advisories via parallel asyncio Gemini calls. Delivered in 10 Indian languages via cache-first translation.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini 2.0 Flash, AgroMonitoring API, PostgreSQL, AWS S3</p></div>
-                    </div>
-                    <!-- Project 3: AI Farm Intelligence System -->
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-broadcast-tower text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/farm-intelligence-weather-advisor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-                                    <a href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">AI Farm Intelligence System</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Satellite indices (NDVI, NRI, EVI, DSWI) → deterministic bucketing → 432 condition fingerprints → 15-section advisory in 13 languages. Two-level LLM cache drives cost to near-zero. 6 satellite overlay images stored on AWS S3. Deployed on AWS ECS Fargate + Jenkins CI/CD.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini, AWS S3, AWS ECS Fargate, PostgreSQL, Jenkins</p></div>
-                    </div>
-                    <!-- Project 4: Crop Disease Scanner -->
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-seedling text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://github.com/kishanaik5/crop-disease-scanner" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
-                                    <a href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Disease Scanner</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Diagnostic system identifying 360+ crop varieties in 10 languages with 94% precision using Knowledge-Based Agents and Gemini pro (APIs) models.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">Python, Computer Vision, DL, ML Agents, Expert Systems</p></div>
-                    </div>
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-mobile-alt text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/github-kissansampurna-repo" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                    <a href="https://tinyurl.com/kissansampurna-website-url" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Kissan Sampurna Web</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">React Native frontend for agricultural ecosystem, enabling seamless crop image uploads and LLM-driven advisories with &lt; 2s response times.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">React Native, Node.js, Vite, AWS S3, Tailwind CSS</p></div>
-                    </div>
-                </div>
+<!-- Experience Section -->
+<section id="experience" class="py-24 bg-light-navy/30">
+<div class="container mx-auto px-6 lg:px-8 max-w-4xl">
+<div class="flex items-center gap-4 mb-16 reveal">
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+<h2 class="text-3xl font-bold text-gray-100">Experience</h2>
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+</div>
+<div class="relative border-l-2 border-gray-700 pl-10 ml-4">
 
-                <!-- ════════ Sentinel ════════ -->
-                <div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-chart-line text-teal text-2xl"></i>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-100">Sentinel</h3>
-                            <p class="text-sm text-gray-400">Agentic Research Copilot for Indian Equities · Personal Project</p>
-                        </div>
-                    </div>
-                    <a href="https://github.com/sentinel-ai-lab/sentinel" target="_blank" class="text-teal text-sm font-mono hover:underline flex items-center gap-2 ml-9 sm:ml-0"><i class="fab fa-github"></i> GitHub</a>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-robot text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://github.com/sentinel-ai-lab/sentinel" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Multi-Agent Research Platform</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Multi-agent AI research platform for NSE/BSE-listed companies using LangGraph, RAG, and MCP-based tool orchestration. Implemented hybrid retrieval, reranking, observability, and evaluation pipelines; currently developing QLoRA fine-tuning on Qwen-2.5-7B for grounded, citation-aware financial research.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">LangGraph, LangChain, QLoRA, Qwen 2.5, RAG, FAISS, FastAPI, Langfuse, Docker, AWS</p></div>
-                    </div>
-                </div>
+<div class="mb-16 timeline-item reveal">
+<div class="exp-card p-8 rounded-lg shadow-lg">
+<h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
+<p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
+<ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+<li>Architected <strong>Kisaan Sampurna</strong> — a multimodal GenAI pipeline (Gemini 2.5 Flash + Computer Vision) delivering crop disease advisories in <strong>12 Indian languages</strong> with <strong>92%+ precision</strong>, handling <strong>10,000+ daily API requests</strong>.</li>
+<li>Built <strong>Real-Time Mandi Price API</strong> serving price data for <strong>7,000+ agricultural markets</strong> with nearest-mandi auto-resolution using Haversine formula in SQL, multilingual support, and dual-source data (PostgreSQL + AWS S3).</li>
+<li>Engineered <strong>AI Farm Intelligence System</strong> converting satellite indices (NDVI, NRI, EVI) into 432 farm condition fingerprints, generating 15-section advisories in <strong>13 languages</strong> via two-level LLM cache — deployed on <strong>AWS ECS Fargate</strong> with Jenkins CI/CD.</li>
+<li>Built <strong>AI Crop Stage Prediction</strong> pipeline reading 5 years of satellite imagery to detect growth cycles for 21 crops across 80+ sub-stages, with parallel asyncio Gemini calls for knowledge generation.</li>
+<li>Orchestrated production-grade <strong>FastAPI microservices</strong> with PostgreSQL service isolation, Redis caching, and Docker CI/CD — reducing downtime by <strong>40%</strong>.</li>
+</ul>
+</div>
+</div>
 
-                <!-- ════════ Gau Sampurna ════════ -->
-                <div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-cow text-teal text-2xl"></i>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-100">Gau Sampurna</h3>
-                            <p class="text-sm text-gray-400">AI-Powered Sperm Motility Analysis · Livestock Fertility</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-microscope text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/sperm-mobility-project" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Sperm Motility Analysis</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Architected a containerized microservice for automated semen analysis. Engineered a high-performance ML pipeline integrating YOLOv8 for detection and DeepSORT for kinetic tracking via asynchronous Celery workers.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">FastAPI, Celery, YOLOv8, DeepSORT, Redis, AWS S3</p></div>
-                    </div>
-                </div>
+<div class="mb-16 timeline-item reveal">
+<div class="exp-card p-8 rounded-lg shadow-lg">
+<h3 class="text-xl font-bold text-gray-100">Forward Deployed Engineer <span class="text-teal">@ Narvia Design</span></h3>
+<p class="text-sm font-mono text-gray-400 mb-4">Aug 2026 - Present | Remote · Part-Time / Freelance</p>
+<ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+<li>Embedded directly with a luxury interior/exterior design studio client to design, build, and ship <a href="https://narviadesign.com" target="_blank" class="text-teal hover:underline">narviadesign.com</a> end-to-end as sole engineer, from information architecture through production deployment.</li>
+</ul>
+</div>
+</div>
 
-                <!-- ════════ Sumedha Design Systems (Internship) ════════ -->
-                <div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-microchip text-teal text-2xl"></i>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-100">Sumedha Design Systems</h3>
-                            <p class="text-sm text-gray-400">AI-Automation Internship · VLSI Documentation Automation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-microchip text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/github-RAG-VLSI" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">RAG for VLSI Automation</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Constructed an AI-powered RAG system using Transformers to automate generation of 2,000+ technical MCQs, accelerating content creation by 3x.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">Python, HuggingFace, MongoDB, AWS S3, Prompt Eng.</p></div>
-                    </div>
-                </div>
+<div class="mb-16 timeline-item reveal">
+<div class="exp-card p-8 rounded-lg shadow-lg">
+<h3 class="text-xl font-bold text-gray-100">AI-Automation Intern <span class="text-teal">@ Sumedha Design Systems</span></h3>
+<p class="text-sm font-mono text-gray-400 mb-4">Feb 2025 - Aug 2025 | Hyderabad</p>
+<ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+<li>Engineered a scalable data-extraction pipeline using <strong>GCP Vision</strong> and <strong>AWS S3</strong> to process <strong>10,000+ pages</strong> of VLSI documentation, with RAG-based automated MCQ generation.</li>
+<li>Architected a hybrid retrieval framework with <strong>LlamaIndex</strong> and <strong>FAISS</strong> using re-ranking strategies — improving learner engagement by <strong>15%</strong> and reducing latency by <strong>50%</strong>.</li>
+</ul>
+</div>
+</div>
 
-                <!-- ════════ Other Projects ════════ -->
-                <div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-layer-group text-teal text-2xl"></i>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-100">Other Projects</h3>
-                            <p class="text-sm text-gray-400">Full-stack, ML &amp; research builds</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-heartbeat text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/github-health-tracker" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">NLP Health Tracker</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based dashboard integrating NLP for activity logging, processing 500+ complex food queries while reducing data entry time by 40%.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p></div>
-                    </div>
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-tasks text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/github-PM-Website" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Productivity Management</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">A full-stack MERN task-tracking system for manager–employee workflows, achieving real-time data synchronization with &lt;50ms latency while supporting over 50+ concurrent active users.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p></div>
-                    </div>
-                    <div class="project-card rounded-lg shadow-lg p-8 reveal">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <i class="fas fa-recycle text-teal text-4xl"></i>
-                                <div class="flex gap-4">
-                                    <a href="https://tinyurl.com/github-DL-Waste-CV-Model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation IoT</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based solution utilizing Inception ResNet V2, achieving 92.5% test accuracy across 6 distinct waste categories for environmental impact.</p>
-                        </div>
-                        <div><p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="timeline-item reveal">
+<div class="exp-card p-8 rounded-lg shadow-lg">
+<h3 class="text-xl font-bold text-white">Machine Learning Intern <span class="text-teal">@ Pragami Solutions</span></h3>
+<p class="text-sm font-mono text-gray-400 mb-4">Jan 2025 - Feb 2025 | Bengaluru</p>
+<ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+<li>Delivered a full-stack Productivity Management System to streamline operations for small-scale industries.</li>
+<li>Conducted research on lung disease prediction and interpretable models for healthcare datasets.</li>
+</ul>
+</div>
+</div>
 
-        <!-- Publications Section -->
-        <section id="publications" class="py-24 bg-light-navy/20">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
-                <div class="flex items-center gap-4 mb-12 reveal">
-                    <h2 class="text-3xl font-bold text-gray-100">Publications</h2>
-                    <div class="h-[1px] bg-gray-700 flex-grow"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
-                        <span class="text-teal font-mono text-xs uppercase mb-2 block">IEEE Bangalore Section, 2024</span>
-                        <h3 class="text-lg font-bold text-gray-100 mb-2">Performance Evaluation of Deep Learning Models for Predicting Alzheimer's Disease</h3>
-                        <p class="text-sm text-gray-400">Research focused on the comparative analysis of DL architectures for early detection and prediction using neuroimaging data.</p>
-                    </div>
-                    <div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
-                        <span class="text-teal font-mono text-xs uppercase mb-2 block">ICAI – ARSSS, 2025</span>
-                        <h3 class="text-lg font-bold text-gray-100 mb-2">Enhancing Predictive Maintenance with SHAP and LIME: A Framework for Explainable AI</h3>
-                        <p class="text-sm text-gray-400">Developed a framework to make complex predictive maintenance models interpretable using XAI techniques for industrial applications.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+</div>
+</div>
+</section>
 
-        <!-- Certifications Section (Smooth Infinite Marquee Headline with Native Vector Icons) -->
-        <section id="certifications" class="py-24 overflow-hidden">
-            <div class="container mx-auto px-6 lg:px-8 max-w-6xl text-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-100 reveal">Certifications</h2>
-            </div>
-            
-            <div class="marquee-wrapper">
-                <div class="marquee-content animate-marquee">
-                    <!-- Set 1 -->
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
-                        <span>100 Days of Code: The Complete Python Pro Bootcamp</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
-                        <span>Machine Learning, Data Science & AI Engineering with Python</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
-                        <span>Complete Data Science , Machine Learnning , DL, NLP Bootcamp</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" class="w-7 h-7 object-contain" alt="AWS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-aws text-3xl" style="color: #FF9900; display: none;"></i>
-                        <span>AWS Cloud Support Associate</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/uipath/FA4616" class="w-7 h-7 object-contain" alt="UiPath logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fas fa-robot text-3xl" style="color: #FA4616; display: none;"></i>
-                        <span>UiPath Academy Automation Developer Associate Training</span>
-                    </div>
-                    
-                    <!-- Set 2 (Duplicate for endless loop) -->
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
-                        <span>100 Days of Code: The Complete Python Pro Bootcamp</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
-                        <span>Machine Learning, Data Science & AI Engineering with Python</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
-                        <span>Complete Data Science , Machine Learnning , DL, NLP Bootcamp</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" class="w-7 h-7 object-contain" alt="AWS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fab fa-aws text-3xl" style="color: #FF9900; display: none;"></i>
-                        <span>AWS Cloud Support Associate</span>
-                    </div>
-                    <div class="marquee-item">
-                        <img src="https://cdn.simpleicons.org/uipath/FA4616" class="w-7 h-7 object-contain" alt="UiPath logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <i class="fas fa-robot text-3xl" style="color: #FA4616; display: none;"></i>
-                        <span>UiPath Academy Automation Developer Associate Training</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="py-24">
-            <div class="container mx-auto px-6 lg:px-8 text-center max-w-2xl">
-                <p class="text-teal font-mono reveal">What's Next?</p>
-                <h3 class="text-5xl font-bold text-gray-100 mt-4 reveal">Get In Touch</h3>
-                <p class="text-gray-400 mt-6 leading-relaxed reveal text-lg">
-                    I am currently focused on building production-ready AI systems and advancing explainable AI. My inbox is always open for collaborations or opportunities!
-                </p>
-                <div class="mt-12 reveal flex justify-center">
-                    <div class="relative group inline-block">
-                        <button class="border-2 border-teal text-teal font-bold py-4 px-10 rounded-md bg-transparent transition duration-300 text-lg group-hover:bg-teal group-hover:text-navy cursor-default">
-                            Say Hello
-                        </button>
-                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 flex gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:-translate-y-2 transition-all duration-300">
-                            <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="LinkedIn Message"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://wa.me/916360333428" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                            <a href="mailto:kishan.k.naik.ai@gmail.com" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Email"><i class="far fa-envelope"></i></a>
-                            <a href="tel:+916360333428" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Call"><i class="fas fa-phone-alt"></i></a>
-                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-teal"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<!-- Projects Section -->
+<section id="projects" class="py-24">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+<div class="flex items-center gap-4 mb-12 reveal">
+<h2 class="text-3xl font-bold text-gray-100">Things I've Built</h2>
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+</div>
 
-    <footer class="bg-navy border-t border-gray-800">
-        <div class="container mx-auto py-12 px-6 lg:px-8 text-center text-gray-500">
-            <div class="flex justify-center space-x-6 mb-8 lg:hidden">
-                <a href="https://github.com/kishanaik5" class="nav-link text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/kishan-k-823049259" class="nav-link text-2xl hover:text-teal"><i class="fab fa-linkedin"></i></a>
-                <a href="https://leetcode.com/u/ZXO2yYfahk/" class="nav-link text-2xl hover:text-teal"><i class="fas fa-code"></i></a>
-                <a href="https://huggingface.co/kishanaik5" class="nav-link text-2xl hover:text-teal">🤗</a>
-                <a href="mailto:kishan.k.naik.ai@gmail.com" class="nav-link text-2xl hover:text-teal"><i class="far fa-envelope"></i></a>
-            </div>
-            <p class="text-sm font-mono mb-2">Designed & Built by <span class="text-teal">Kishan K.</span></p>
-            <p class="text-xs">Built with Tailwind CSS & ScrollReveal | © 2026</p>
-        </div>
-    </footer>
+<!-- ════════ Kisaan Sampurna ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-seedling text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Kisaan Sampurna</h3>
+<p class="text-sm text-gray-400">AI-Powered Agricultural Advisory Platform · @ Silo Fortune</p>
+</div>
+</div>
+<a href="https://play.google.com/store/apps/details?id=com.kissansampurna.app&hl=en_IN" target="_blank" class="text-teal text-sm font-mono hover:underline flex items-center gap-2 ml-9 sm:ml-0"><i class="fab fa-google-play"></i> Google Play</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
 
-    <script>
-        // ── Mobile menu ──
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); });
-        });
+<!-- Project 1: Mandi Price Explorer -->
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-store text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://github.com/kishanaik5/mandi-price-explorer" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/mandi-price-explorer','Mandi Price Explorer')"><i class="fas fa-external-link-alt"></i></button>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Mandi Price Explorer</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">FastAPI backend serving price data for 7,000+ agricultural markets across India. Nearest-mandi auto-resolution using Haversine formula in SQL, 12-language support, dual-source data (PostgreSQL + AWS S3 Parquet), and cascade dropdowns under 5ms via in-memory cache.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, AWS S3, Docker, SQLAlchemy, JWT</p></div>
+</div>
 
-        // ── Smooth scroll (works on all devices incl. iOS) ──
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+<!-- Project 2: Crop Stage Predictor -->
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-satellite text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://github.com/kishanaik5/crop-stage-predictor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/crop-stage-predictor','Crop Stage Predictor')"><i class="fas fa-external-link-alt"></i></button>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Crop Stage Predictor</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">5-layer pipeline reading 5 years of satellite imagery (NDVI, EVI, NDMI) to detect crop growth cycles for 21 crops across 80+ sub-stages. Generates pest/disease advisories via parallel asyncio Gemini calls. Delivered in 10 Indian languages via cache-first translation.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini 2.0 Flash, AgroMonitoring API, PostgreSQL, AWS S3</p></div>
+</div>
 
-        // ── Dark / Light theme toggle ──
-        const toggle = document.getElementById('theme-toggle');
-        const icon   = toggle.querySelector('i');
-        let isDark = true;
+<!-- Project 3: AI Farm Intelligence System -->
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-broadcast-tower text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://github.com/kishanaik5/farm-intelligence-weather-advisor" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor','AI Farm Intelligence System')"><i class="fas fa-external-link-alt"></i></button>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">AI Farm Intelligence System</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Satellite indices (NDVI, NRI, EVI, DSWI) → deterministic bucketing → 432 condition fingerprints → 15-section advisory in 13 languages. Two-level LLM cache drives cost to near-zero. 6 satellite overlay images stored on AWS S3. Deployed on AWS ECS Fargate + Jenkins CI/CD.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini, AWS S3, AWS ECS Fargate, PostgreSQL, Jenkins</p></div>
+</div>
 
-        toggle.addEventListener('click', () => {
-            isDark = !isDark;
-            document.body.classList.toggle('light', !isDark);
-            icon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-            icon.style.transform = isDark ? 'rotate(0deg)' : 'rotate(180deg)';
-        });
+<!-- Project 4: Crop Disease Scanner -->
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-seedling text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://github.com/kishanaik5/crop-disease-scanner" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal" title="GitHub Repository"><i class="fab fa-github"></i></a>
+<button type="button" class="demo-open-btn nav-link text-gray-400 text-2xl hover:text-teal" title="Live Demo" onclick="openDemo('https://huggingface.co/spaces/kishanaik5/crop-disease-scanner','Crop Disease Scanner')"><i class="fas fa-external-link-alt"></i></button>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Crop Disease Scanner</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Diagnostic system identifying 360+ crop varieties in 10 languages with 94% precision using Knowledge-Based Agents and Gemini pro (APIs) models.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">Python, Computer Vision, DL, ML Agents, Expert Systems</p></div>
+</div>
 
-        // ── ScrollReveal ──
-        ScrollReveal().reveal('.reveal', {
-            delay: 150, distance: '40px', origin: 'bottom',
-            opacity: 0, duration: 800,
-            easing: 'cubic-bezier(0.5, 0, 0, 1)', interval: 100
-        });
-    </script>
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-mobile-alt text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-kissansampurna-repo" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+<a href="https://tinyurl.com/kissansampurna-website-url" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fas fa-external-link-alt"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Kissan Sampurna Web</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">React Native frontend for agricultural ecosystem, enabling seamless crop image uploads and LLM-driven advisories with &lt; 2s response times.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">React Native, Node.js, Vite, AWS S3, Tailwind CSS</p></div>
+</div>
+</div>
+
+<!-- ════════ Sentinel ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-chart-line text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Sentinel</h3>
+<p class="text-sm text-gray-400">Agentic Research Copilot for Indian Equities · Personal Project</p>
+</div>
+</div>
+<a href="https://github.com/sentinel-ai-lab/sentinel" target="_blank" class="text-teal text-sm font-mono hover:underline flex items-center gap-2 ml-9 sm:ml-0"><i class="fab fa-github"></i> GitHub</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-robot text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://github.com/sentinel-ai-lab/sentinel" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Multi-Agent Research Platform</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Multi-agent AI research platform for NSE/BSE-listed companies using LangGraph, RAG, and MCP-based tool orchestration. Implemented hybrid retrieval, reranking, observability, and evaluation pipelines; currently developing QLoRA fine-tuning on Qwen-2.5-7B for grounded, citation-aware financial research.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">LangGraph, LangChain, QLoRA, Qwen 2.5, RAG, FAISS, FastAPI, Langfuse, Docker, AWS</p></div>
+</div>
+</div>
+
+<!-- ════════ Gau Sampurna ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-cow text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Gau Sampurna</h3>
+<p class="text-sm text-gray-400">AI-Powered Sperm Motility Analysis · Livestock Fertility</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-microscope text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/sperm-mobility-project" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Sperm Motility Analysis</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Architected a containerized microservice for automated semen analysis. Engineered a high-performance ML pipeline integrating YOLOv8 for detection and DeepSORT for kinetic tracking via asynchronous Celery workers.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Celery, YOLOv8, DeepSORT, Redis, AWS S3</p></div>
+</div>
+</div>
+
+<!-- ════════ Sumedha Design Systems (Internship) ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-microchip text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Sumedha Design Systems</h3>
+<p class="text-sm text-gray-400">AI-Automation Internship · VLSI Documentation Automation</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-microchip text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-RAG-VLSI" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">RAG for VLSI Automation</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Constructed an AI-powered RAG system using Transformers to automate generation of 2,000+ technical MCQs, accelerating content creation by 3x.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">Python, HuggingFace, MongoDB, AWS S3, Prompt Eng.</p></div>
+</div>
+</div>
+
+<!-- ════════ Other Projects ════════ -->
+<div class="group-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 mt-2 pb-3 border-b border-gray-800 reveal">
+<div class="flex items-center gap-3">
+<i class="fas fa-layer-group text-teal text-2xl"></i>
+<div>
+<h3 class="text-2xl font-bold text-gray-100">Other Projects</h3>
+<p class="text-sm text-gray-400">Full-stack, ML &amp; research builds</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-heartbeat text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-health-tracker" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">NLP Health Tracker</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Cloud-based dashboard integrating NLP for activity logging, processing 500+ complex food queries while reducing data entry time by 40%.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">React.js, Node.js, NLP APIs, Google Sheets</p></div>
+</div>
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-tasks text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-PM-Website" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Productivity Management</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">A full-stack MERN task-tracking system for manager–employee workflows, achieving real-time data synchronization with &lt;50ms latency while supporting over 50+ concurrent active users.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">Node.js, MongoDB Atlas, React, Google TTS, Render</p></div>
+</div>
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-recycle text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-DL-Waste-CV-Model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation IoT</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based solution utilizing Inception ResNet V2, achieving 92.5% test accuracy across 6 distinct waste categories for environmental impact.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Playground Section -->
+<section id="playground" class="py-24 bg-light-navy/20">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+<div class="flex items-center gap-4 mb-4 reveal">
+<h2 class="text-3xl font-bold text-gray-100">Playground</h2>
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+</div>
+<p class="text-gray-400 mb-12 max-w-3xl reveal">Live, running Hugging Face Spaces — embedded right here, no tab-switching required. Scroll down to try each one, or hit the demo icon on any project card above to pop it open inline.</p>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+<div class="playground-card rounded-lg shadow-lg p-6 reveal">
+<div class="flex items-center gap-3 mb-4">
+<i class="fas fa-store text-teal text-2xl"></i>
+<h3 class="text-lg font-bold text-gray-100">Mandi Price Explorer</h3>
+</div>
+<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer">
+<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+</div>
+</div>
+
+<div class="playground-card rounded-lg shadow-lg p-6 reveal">
+<div class="flex items-center gap-3 mb-4">
+<i class="fas fa-satellite text-teal text-2xl"></i>
+<h3 class="text-lg font-bold text-gray-100">Crop Stage Predictor</h3>
+</div>
+<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor">
+<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+</div>
+</div>
+
+<div class="playground-card rounded-lg shadow-lg p-6 reveal">
+<div class="flex items-center gap-3 mb-4">
+<i class="fas fa-broadcast-tower text-teal text-2xl"></i>
+<h3 class="text-lg font-bold text-gray-100">AI Farm Intelligence System</h3>
+</div>
+<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor">
+<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+</div>
+</div>
+
+<div class="playground-card rounded-lg shadow-lg p-6 reveal">
+<div class="flex items-center gap-3 mb-4">
+<i class="fas fa-seedling text-teal text-2xl"></i>
+<h3 class="text-lg font-bold text-gray-100">Crop Disease Scanner</h3>
+</div>
+<div class="playground-frame-wrap" data-space-url="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner">
+<div class="pg-loading"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>&nbsp;loading space…</div>
+</div>
+</div>
+
+</div>
+<p class="text-xs text-gray-500 mt-8 reveal">Spaces load lazily as they scroll into view and stay running in the background while you browse the rest of the page — no need to leave the site to try them.</p>
+</div>
+</section>
+
+<!-- Publications Section -->
+<section id="publications" class="py-24">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+<div class="flex items-center gap-4 mb-12 reveal">
+<h2 class="text-3xl font-bold text-gray-100">Publications</h2>
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
+<span class="text-teal font-mono text-xs uppercase mb-2 block">IEEE Bangalore Section, 2024</span>
+<h3 class="text-lg font-bold text-gray-100 mb-2">Performance Evaluation of Deep Learning Models for Predicting Alzheimer's Disease</h3>
+<p class="text-sm text-gray-400">Research focused on the comparative analysis of DL architectures for early detection and prediction using neuroimaging data.</p>
+</div>
+<div class="pub-card p-6 rounded-lg border border-gray-800 reveal">
+<span class="text-teal font-mono text-xs uppercase mb-2 block">ICAI – ARSSS, 2025</span>
+<h3 class="text-lg font-bold text-gray-100 mb-2">Enhancing Predictive Maintenance with SHAP and LIME: A Framework for Explainable AI</h3>
+<p class="text-sm text-gray-400">Developed a framework to make complex predictive maintenance models interpretable using XAI techniques for industrial applications.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Certifications Section -->
+<section id="certifications" class="py-24 overflow-hidden">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl text-center mb-10">
+<h2 class="text-3xl font-bold text-gray-100 reveal">Certifications</h2>
+</div>
+<div class="marquee-wrapper">
+<div class="marquee-content animate-marquee">
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+<span>100 Days of Code: The Complete Python Pro Bootcamp</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+<span>Machine Learning, Data Science & AI Engineering with Python</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+<span>Complete Data Science , Machine Learnning , DL, NLP Bootcamp</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" class="w-7 h-7 object-contain" alt="AWS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-aws text-3xl" style="color: #FF9900; display: none;"></i>
+<span>AWS Cloud Support Associate</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/uipath/FA4616" class="w-7 h-7 object-contain" alt="UiPath logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fas fa-robot text-3xl" style="color: #FA4616; display: none;"></i>
+<span>UiPath Academy Automation Developer Associate Training</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+<span>100 Days of Code: The Complete Python Pro Bootcamp</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+<span>Machine Learning, Data Science & AI Engineering with Python</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/udemy/A435F0" class="w-7 h-7 object-contain" alt="Udemy logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-udemy text-3xl" style="color: #A435F0; display: none;"></i>
+<span>Complete Data Science , Machine Learnning , DL, NLP Bootcamp</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" class="w-7 h-7 object-contain" alt="AWS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fab fa-aws text-3xl" style="color: #FF9900; display: none;"></i>
+<span>AWS Cloud Support Associate</span>
+</div>
+<div class="marquee-item">
+<img src="https://cdn.simpleicons.org/uipath/FA4616" class="w-7 h-7 object-contain" alt="UiPath logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+<i class="fas fa-robot text-3xl" style="color: #FA4616; display: none;"></i>
+<span>UiPath Academy Automation Developer Associate Training</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-24">
+<div class="container mx-auto px-6 lg:px-8 text-center max-w-2xl">
+<p class="text-teal font-mono reveal">What's Next?</p>
+<h3 class="text-5xl font-bold text-gray-100 mt-4 reveal">Get In Touch</h3>
+<p class="text-gray-400 mt-6 leading-relaxed reveal text-lg">
+I am currently focused on building production-ready AI systems and advancing explainable AI. My inbox is always open for collaborations or opportunities!
+</p>
+<div class="mt-12 reveal flex justify-center">
+<div class="relative group inline-block">
+<button class="border-2 border-teal text-teal font-bold py-4 px-10 rounded-md bg-transparent transition duration-300 text-lg group-hover:bg-teal group-hover:text-navy cursor-default">
+Say Hello
+</button>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 flex gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:-translate-y-2 transition-all duration-300">
+<a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="LinkedIn Message"><i class="fab fa-linkedin-in"></i></a>
+<a href="https://wa.me/916360333428" target="_blank" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<a href="mailto:kishan.k.naik.ai@gmail.com" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Email"><i class="far fa-envelope"></i></a>
+<a href="tel:+916360333428" class="w-14 h-14 bg-light-navy border border-teal text-teal rounded-full flex items-center justify-center text-2xl hover:bg-teal hover:text-navy shadow-2xl transition-all duration-200" title="Call"><i class="fas fa-phone-alt"></i></a>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-teal"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="bg-navy border-t border-gray-800">
+<div class="container mx-auto py-12 px-6 lg:px-8 text-center text-gray-500">
+<div class="flex justify-center space-x-6 mb-8 lg:hidden">
+<a href="https://github.com/kishanaik5" class="nav-link text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/kishan-k-823049259" class="nav-link text-2xl hover:text-teal"><i class="fab fa-linkedin"></i></a>
+<a href="https://leetcode.com/u/ZXO2yYfahk/" class="nav-link text-2xl hover:text-teal"><i class="fas fa-code"></i></a>
+<a href="https://huggingface.co/kishanaik5" class="nav-link text-2xl hover:text-teal">🤗</a>
+<a href="mailto:kishan.k.naik.ai@gmail.com" class="nav-link text-2xl hover:text-teal"><i class="far fa-envelope"></i></a>
+</div>
+<p class="text-sm font-mono mb-2">Designed & Built by <span class="text-teal">Kishan K.</span></p>
+<p class="text-xs">Built with Tailwind CSS & ScrollReveal | © 2026</p>
+</div>
+</footer>
+
+<!-- Live Demo Modal -->
+<div id="demo-modal">
+<div id="demo-modal-inner">
+<div id="demo-modal-header">
+<div id="demo-modal-title"><i class="fas fa-play-circle text-teal"></i> <span id="demo-modal-title-text">Live Demo</span></div>
+<button id="demo-modal-close" onclick="closeDemo()" aria-label="Close"><i class="fas fa-times"></i></button>
+</div>
+<div id="demo-modal-body"></div>
+</div>
+</div>
+
+<script>
+// ── Mobile menu ──
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+mobileMenu.querySelectorAll('a').forEach(link => {
+link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); });
+});
+
+// ── Smooth scroll (works on all devices incl. iOS) ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+const target = document.querySelector(this.getAttribute('href'));
+if (target) {
+e.preventDefault();
+target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+});
+});
+
+// ── Dark / Light theme toggle ──
+const toggle = document.getElementById('theme-toggle');
+const icon = toggle.querySelector('i');
+let isDark = true;
+toggle.addEventListener('click', () => {
+isDark = !isDark;
+document.body.classList.toggle('light', !isDark);
+icon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+icon.style.transform = isDark ? 'rotate(0deg)' : 'rotate(180deg)';
+});
+
+// ── ScrollReveal ──
+ScrollReveal().reveal('.reveal', {
+delay: 150, distance: '40px', origin: 'bottom',
+opacity: 0, duration: 800,
+easing: 'cubic-bezier(0.5, 0, 0, 1)', interval: 100
+});
+
+// ── Live demo modal (inline HF Space, no tab switch) ──
+function openDemo(url, title) {
+document.getElementById('demo-modal-title-text').textContent = title;
+const body = document.getElementById('demo-modal-body');
+body.innerHTML = '<iframe src="' + url + '" loading="lazy" allow="clipboard-write; microphone" title="' + title + '"></iframe>';
+document.getElementById('demo-modal').classList.add('open');
+document.body.style.overflow = 'hidden';
+}
+function closeDemo() {
+document.getElementById('demo-modal').classList.remove('open');
+document.getElementById('demo-modal-body').innerHTML = '';
+document.body.style.overflow = '';
+}
+document.getElementById('demo-modal').addEventListener('click', (e) => {
+if (e.target.id === 'demo-modal') closeDemo();
+});
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') closeDemo();
+});
+
+// ── Playground: lazy-load Spaces as they scroll into view, keep running in background ──
+const pgObserver = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+const wrap = entry.target;
+const url = wrap.getAttribute('data-space-url');
+if (url && !wrap.querySelector('iframe')) {
+const iframe = document.createElement('iframe');
+iframe.src = url;
+iframe.loading = 'lazy';
+iframe.title = 'Hugging Face Space';
+iframe.allow = 'clipboard-write; microphone';
+iframe.style.position = 'absolute';
+iframe.style.inset = '0';
+iframe.style.height = '100%';
+iframe.addEventListener('load', () => {
+const loader = wrap.querySelector('.pg-loading');
+if (loader) loader.remove();
+});
+wrap.appendChild(iframe);
+}
+pgObserver.unobserve(wrap);
+}
+});
+}, { rootMargin: '200px 0px' });
+document.querySelectorAll('.playground-frame-wrap').forEach(el => pgObserver.observe(el));
+</script>
 </body>
 </html>
