@@ -269,6 +269,20 @@ body.light .pg-tab:hover { color: #1e2d3d; border-color: rgba(26,74,138,0.35); }
 body.light .pg-tab.active { background: rgba(26,74,138,0.12); color: #1a4a8a; border-color: #1a4a8a; }
 .pg-panel { display: none; }
 .pg-panel.active { display: block; }
+
+/* ── SPA Routing Views ── */
+.view-section {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+.view-section.view-hidden {
+  display: none !important;
+}
+
+#playground-view-container {
+  min-height: calc(100vh - 80px);
+}
+
 @media (max-width: 640px) {
 .pg-tabbar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
 .pg-tab span { display: inline; }
@@ -402,75 +416,245 @@ padding: 5px 10px; transition: color 0.2s, border-color 0.2s;
 #demo-modal-body iframe { border: 0; width: 100%; height: 100%; }
 #demo-modal-body .pg-loading { position: absolute; inset: 0; }
 .demo-open-btn { cursor: pointer; background: none; border: none; padding: 0; }
+
+/* ── Gemini / Docs-Style Navigation Sidebar & Layout ── */
+.docs-sidebar {
+position: fixed;
+top: 0;
+left: 0;
+bottom: 0;
+width: 260px;
+background: rgba(6, 13, 31, 0.94);
+backdrop-filter: blur(12px);
+border-right: 1px solid rgba(100, 255, 218, 0.12);
+z-index: 60;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+padding: 1.5rem 1rem;
+transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+.docs-sidebar {
+width: 240px;
+padding: 2rem 1.25rem;
+justify-content: space-between;
+}
+.docs-sidebar-center-group {
+display: flex;
+flex-direction: column;
+justify-content: center;
+flex: 1;
+margin: 1.5rem 0;
+}
+.main-wrapper {
+margin-left: 240px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.main-wrapper > div,
+.main-wrapper > footer {
+width: 100%;
+max-width: 1100px;
+}
+.top-actions-bar {
+left: 240px;
+}
+.left-sidebar {
+display: none !important;
+}
+}
+
+body.light .docs-sidebar {
+background: rgba(220, 228, 239, 0.95);
+border-color: rgba(26, 74, 138, 0.18);
+}
+
+.sidebar-nav-item {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 10px 14px;
+margin-bottom: 6px;
+border-radius: 8px;
+font-size: 0.88rem;
+font-weight: 500;
+color: #94a3b8;
+transition: all 0.2s ease;
+border-left: 3px solid transparent;
+}
+
+.sidebar-nav-item:hover {
+color: #64ffda;
+background: rgba(100, 255, 218, 0.06);
+transform: translateX(4px);
+}
+
+.sidebar-nav-item.active {
+color: #64ffda;
+background: rgba(100, 255, 218, 0.1);
+border-left-color: #64ffda;
+font-weight: 600;
+}
+
+body.light .sidebar-nav-item {
+color: #526d87;
+}
+
+body.light .sidebar-nav-item:hover {
+color: #1a4a8a;
+background: rgba(26, 74, 138, 0.08);
+}
+
+body.light .sidebar-nav-item.active {
+color: #1a4a8a;
+background: rgba(26, 74, 138, 0.12);
+border-left-color: #1a4a8a;
+}
+
+.top-actions-bar {
+position: fixed;
+top: 0;
+right: 0;
+left: 0;
+height: 68px;
+z-index: 50;
+background: rgba(6, 13, 31, 0.8);
+backdrop-filter: blur(10px);
+border-bottom: 1px solid rgba(100, 255, 218, 0.08);
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 1.5rem;
+transition: all 0.3s ease;
+}
+
+@media (max-width: 1023px) {
+.docs-sidebar {
+transform: translateX(-100%);
+box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+}
+.docs-sidebar.open {
+transform: translateX(0);
+}
+}
 </style>
 </head>
 <body class="bg-navy text-gray-300">
 
-<!-- Social Sidebar -->
-<div class="side-element left-sidebar">
-<div class="sidebar-content">
-<a href="https://github.com/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="nav-link text-2xl text-gray-400" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="https://leetcode.com/u/ZXO2yYfahk/" target="_blank" class="nav-link text-2xl text-gray-400" title="LeetCode"><i class="fas fa-code"></i></a>
-<a href="https://huggingface.co/kishanaik5" target="_blank" class="nav-link text-2xl text-gray-400" title="Hugging Face">🤗</a>
-<a href="https://wa.me/916360333428" target="_blank" class="nav-link text-2xl text-gray-400" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-</div>
-</div>
+<!-- Mobile Sidebar Backdrop Overlay -->
+<div id="sidebar-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden lg:hidden transition-opacity"></div>
 
-<!-- Email Sidebar -->
+<!-- Gemini / Docs-Style Left Sidebar -->
+<aside id="docs-sidebar" class="docs-sidebar">
+  <!-- Brand & Identity at Top -->
+  <div class="flex items-center justify-between px-2 py-1 border-b border-gray-800/80 pb-4">
+    <a href="#" class="flex items-center gap-2 group">
+      <div class="w-8 h-8 rounded-lg bg-teal/10 border border-teal/30 flex items-center justify-center text-teal font-bold group-hover:bg-teal group-hover:text-navy transition duration-300">
+        K
+      </div>
+      <div>
+        <h1 class="text-base font-bold text-gray-100 tracking-tight leading-none group-hover:text-teal transition">Kishan K</h1>
+        <span class="text-[10px] font-mono text-teal uppercase tracking-wider">AI/ML Engineer</span>
+      </div>
+    </a>
+    <button id="sidebar-close-btn" class="lg:hidden text-gray-400 hover:text-white text-lg p-1">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <!-- Vertically Centered Navigation Group -->
+  <div class="docs-sidebar-center-group">
+    <div class="px-2 mb-2">
+      <span class="text-[10px] font-mono uppercase text-gray-500 font-semibold tracking-wider px-2">Navigation</span>
+    </div>
+    <nav id="docs-nav" class="space-y-1">
+      <a href="#about" class="sidebar-nav-item active">
+        <i class="fas fa-user text-teal/80 w-5 text-center text-sm"></i>
+        <span>About</span>
+      </a>
+      <a href="#experience" class="sidebar-nav-item">
+        <i class="fas fa-briefcase text-teal/80 w-5 text-center text-sm"></i>
+        <span>Experience</span>
+      </a>
+      <a href="#projects" class="sidebar-nav-item">
+        <i class="fas fa-cubes text-teal/80 w-5 text-center text-sm"></i>
+        <span>Projects</span>
+      </a>
+      <a href="#publications" class="sidebar-nav-item">
+        <i class="fas fa-book-open text-teal/80 w-5 text-center text-sm"></i>
+        <span>Publications</span>
+      </a>
+      <a href="#certifications" class="sidebar-nav-item">
+        <i class="fas fa-award text-teal/80 w-5 text-center text-sm"></i>
+        <span>Certifications</span>
+      </a>
+      <a href="#footer" class="sidebar-nav-item">
+        <i class="fas fa-shoe-prints text-teal/80 w-5 text-center text-sm"></i>
+        <span>Footer</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Bottom Links in Sidebar -->
+  <div class="border-t border-gray-800/80 pt-4 px-2 space-y-3">
+    <div class="flex items-center justify-around text-gray-400">
+      <a href="https://github.com/kishanaik5" target="_blank" class="hover:text-teal transition" title="GitHub"><i class="fab fa-github text-lg"></i></a>
+      <a href="https://linkedin.com/in/kishan-k-823049259" target="_blank" class="hover:text-teal transition" title="LinkedIn"><i class="fab fa-linkedin text-lg"></i></a>
+      <a href="https://huggingface.co/kishanaik5" target="_blank" class="hover:text-teal transition" title="Hugging Face">🤗</a>
+      <a href="https://leetcode.com/u/ZXO2yYfahk/" target="_blank" class="hover:text-teal transition" title="LeetCode"><i class="fas fa-code text-sm"></i></a>
+      <a href="https://wa.me/916360333428" target="_blank" class="hover:text-teal transition" title="WhatsApp"><i class="fab fa-whatsapp text-lg"></i></a>
+    </div>
+    <div class="text-[10px] text-center text-gray-500 font-mono">
+      v2.5 · AI Systems Engineer
+    </div>
+  </div>
+</aside>
+
+<!-- Top Right Action Header Bar -->
+<header class="top-actions-bar">
+  <div class="flex items-center gap-3">
+    <!-- Hamburger button for mobile/tablet to toggle sidebar -->
+    <button id="sidebar-toggle-btn" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-light-navy transition">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+    <span class="text-xs font-mono text-teal hidden sm:inline-flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-teal animate-pulse"></span> Available for AI/ML Roles
+    </span>
+  </div>
+
+  <!-- Top Right Group: Playground, Contact, Resume, Theme Toggle -->
+  <div class="flex items-center space-x-3 sm:space-x-5">
+    <a href="#playground" id="top-playground-link" class="nav-link text-gray-300 font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 hover:text-teal px-2.5 py-1.5 rounded-md border border-transparent hover:border-teal/30">
+      <i class="fas fa-flask text-teal text-xs"></i> <span>Playground</span>
+    </a>
+    <a href="#contact" class="nav-link text-gray-300 font-medium text-xs sm:text-sm uppercase tracking-wider hover:text-teal">
+      Contact
+    </a>
+    <a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-1.5 px-3 sm:px-4 rounded-md hover:bg-teal/10 flex items-center gap-2 text-xs uppercase tracking-wider">
+      Resume <i class="fas fa-file-arrow-down text-xs"></i>
+    </a>
+    <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <i class="fas fa-moon"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Email Sidebar on Desktop Far Right -->
 <div class="side-element right-sidebar">
 <div class="sidebar-content">
 <a href="mailto:kishan.k.naik.ai@gmail.com" class="email-link">kishan.k.naik.ai@gmail.com</a>
 </div>
 </div>
 
-<header class="bg-navy/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md">
-<div class="container mx-auto px-6 lg:px-8">
-<div class="flex items-center justify-between h-20">
-<div class="flex-shrink-0 flex items-center gap-3">
-<a href="#" class="text-2xl font-bold text-teal">Kishan K</a>
-<button id="theme-toggle" aria-label="Toggle theme">
-<i class="fas fa-moon"></i>
-</button>
-</div>
-<nav class="hidden md:block">
-<div class="ml-10 flex items-center space-x-6">
-<a href="#about" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">About</a>
-<a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
-<a href="#projects" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Projects</a>
-<a href="#playground" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Playground</a>
-<a href="#publications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Publications</a>
-<a href="#certifications" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Certifications</a>
-<a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
-<a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
-Resume <i class="fas fa-file-arrow-down text-xs"></i>
-</a>
-</div>
-</nav>
-<div class="md:hidden">
-<button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-light-navy focus:outline-none">
-<i class="fas fa-bars text-2xl"></i>
-</button>
-</div>
-</div>
-</div>
-<div id="mobile-menu" class="md:hidden hidden bg-light-navy">
-<div class="px-2 pt-2 pb-6 space-y-1 sm:px-3 text-center">
-<a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
-<a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
-<a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-<a href="#playground" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Playground</a>
-<a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
-<a href="#certifications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
-<a href="#contact" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-<div class="mt-4 pt-4 border-t border-gray-700 px-4">
-<a href="kishan_k.pdf" target="_blank" class="resume-button block w-full border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10">Resume</a>
-</div>
-</div>
-</div>
-</header>
+<!-- Main Content Area with left offset to adapt to the docs sidebar -->
+<div class="main-wrapper">
 
-<main class="pt-20">
+<!-- ════════ VIEW 1: Main Portfolio Documentation View ════════ -->
+<div id="portfolio-view" class="view-section">
+<main class="pt-16 px-4 sm:px-8">
 
 <!-- Hero Section -->
 <section id="home" class="min-h-screen flex items-center">
@@ -936,21 +1120,21 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <div id="pg-diseasescan" class="pg-panel">
 <div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-disease-scanner.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" data-lazy="true">
 <div class="pg-loading">
-<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
-<span class="pg-status-text">loading space…</span>
-<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
-<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+<!-- Waste Segregation IoT -->
+<div class="project-card rounded-lg shadow-lg p-8 reveal">
+<div>
+<div class="flex justify-between items-center mb-6">
+<i class="fas fa-recycle text-teal text-4xl"></i>
+<div class="flex gap-4">
+<a href="https://tinyurl.com/github-DL-Waste-CV-Model" target="_blank" class="nav-link text-gray-400 text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
 </div>
 </div>
-<div class="playground-actions">
-<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
-<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Waste Segregation IoT</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">IoT-based solution utilizing Inception ResNet V2, achieving 92.5% test accuracy across 6 distinct waste categories for environmental impact.</p>
+</div>
+<div><p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p></div>
 </div>
 </div>
-
-</div>
-</div>
-<p class="text-xs text-gray-500 mt-6 reveal">The active Space loads on first view and keeps running in the background as you switch tabs or browse the rest of the page — no need to leave the site to try it.</p>
 </div>
 </section>
 
@@ -1063,8 +1247,121 @@ Say Hello
 </section>
 
 </main>
+</div>
 
-<footer class="bg-navy border-t border-gray-800">
+<!-- ════════ VIEW 2: Dedicated AI Playground Studio View ════════ -->
+<div id="playground-view" class="view-section view-hidden pt-24 px-4 sm:px-8 pb-16">
+  <div class="container mx-auto max-w-6xl" id="playground-view-container">
+    
+    <!-- Top Action Bar inside Playground -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-gray-800">
+      <div>
+        <a href="#about" class="inline-flex items-center gap-2 text-teal text-sm font-mono hover:underline mb-2 transition">
+          <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <h2 class="text-3xl font-bold text-gray-100 flex items-center gap-3">
+          <i class="fas fa-flask text-teal"></i> AI Playground Studio
+        </h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-mono text-gray-400 bg-light-navy px-3 py-1.5 rounded-md border border-teal/20">
+          <span class="inline-block w-2 h-2 rounded-full bg-teal animate-pulse mr-1"></span> 4 Live Hugging Face Spaces
+        </span>
+        <a href="https://huggingface.co/kishanaik5" target="_blank" class="border border-teal/40 text-teal text-xs font-mono py-1.5 px-3 rounded-md hover:bg-teal/10 flex items-center gap-1.5 transition">
+          <span>HuggingFace Hub</span> <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
+      </div>
+    </div>
+
+    <p class="text-gray-400 mb-8 max-w-3xl">
+      Live, running Hugging Face Spaces deployed for real-time model inference. Select a model pipeline below to test crop diagnostics, market resolution, and farm intelligence directly.
+    </p>
+
+    <!-- Space Selector Tabs -->
+    <div id="pg-tabs" class="pg-tabbar" role="tablist">
+      <button type="button" class="pg-tab active" data-target="pg-mandi" role="tab" aria-selected="true"><i class="fas fa-store"></i><span>Mandi Price Explorer</span></button>
+      <button type="button" class="pg-tab" data-target="pg-cropstage" role="tab" aria-selected="false"><i class="fas fa-satellite"></i><span>Crop Stage Predictor</span></button>
+      <button type="button" class="pg-tab" data-target="pg-farmintel" role="tab" aria-selected="false"><i class="fas fa-broadcast-tower"></i><span>Farm Intelligence</span></button>
+      <button type="button" class="pg-tab" data-target="pg-diseasescan" role="tab" aria-selected="false"><i class="fas fa-seedling"></i><span>Disease Scanner</span></button>
+    </div>
+
+    <!-- Active Playground Panel Workspace -->
+    <div class="playground-card rounded-xl shadow-2xl p-4 sm:p-6 border border-teal/20">
+
+      <!-- Panel 1 -->
+      <div id="pg-mandi" class="pg-panel active">
+        <div class="playground-frame-wrap" data-space-url="https://kishanaik5-mandi-price-explorer.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer">
+          <div class="pg-loading">
+            <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+            <span class="pg-status-text">loading space…</span>
+            <span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+            <a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+          </div>
+        </div>
+        <div class="playground-actions">
+          <a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+          <button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload Space</button>
+        </div>
+      </div>
+
+      <!-- Panel 2 -->
+      <div id="pg-cropstage" class="pg-panel">
+        <div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-stage-predictor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor">
+          <div class="pg-loading">
+            <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+            <span class="pg-status-text">loading space…</span>
+            <span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+            <a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+          </div>
+        </div>
+        <div class="playground-actions">
+          <a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+          <button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload Space</button>
+        </div>
+      </div>
+
+      <!-- Panel 3 -->
+      <div id="pg-farmintel" class="pg-panel">
+        <div class="playground-frame-wrap" data-space-url="https://kishanaik5-farm-intelligence-weather-advisor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor">
+          <div class="pg-loading">
+            <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+            <span class="pg-status-text">loading space…</span>
+            <span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+            <a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+          </div>
+        </div>
+        <div class="playground-actions">
+          <a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+          <button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload Space</button>
+        </div>
+      </div>
+
+      <!-- Panel 4 -->
+      <div id="pg-diseasescan" class="pg-panel">
+        <div class="playground-frame-wrap" data-space-url="https://kishanaik5-crop-disease-scanner.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner">
+          <div class="pg-loading">
+            <div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
+            <span class="pg-status-text">loading space…</span>
+            <span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
+            <a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
+          </div>
+        </div>
+        <div class="playground-actions">
+          <a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
+          <button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload Space</button>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="mt-8 flex justify-between items-center text-xs text-gray-500 font-mono">
+      <span>AI Inference Engine · Hugging Face Spaces Cloud</span>
+      <a href="#about" class="text-teal hover:underline flex items-center gap-1"><i class="fas fa-arrow-left"></i> Return to Main Page</a>
+    </div>
+  </div>
+</div>
+
+<footer id="footer" class="bg-navy border-t border-gray-800">
 <div class="container mx-auto py-12 px-6 lg:px-8 text-center text-gray-500">
 <div class="flex justify-center space-x-6 mb-8 lg:hidden">
 <a href="https://github.com/kishanaik5" class="nav-link text-2xl hover:text-teal"><i class="fab fa-github"></i></a>
@@ -1077,6 +1374,7 @@ Say Hello
 <p class="text-xs">Built with Tailwind CSS & ScrollReveal | © 2026</p>
 </div>
 </footer>
+</div>
 
 <!-- Live Demo Modal -->
 <div id="demo-modal">
@@ -1118,23 +1416,102 @@ Say Hello
 </div>
 
 <script>
-// ── Mobile menu ──
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-mobileMenu.querySelectorAll('a').forEach(link => {
-link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); });
+// ── Gemini / Docs Sidebar & Drawer controls ──
+const sidebar = document.getElementById('docs-sidebar');
+const sidebarToggle = document.getElementById('sidebar-toggle-btn');
+const sidebarClose = document.getElementById('sidebar-close-btn');
+const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+function openSidebar() {
+  if (!sidebar) return;
+  sidebar.classList.add('open');
+  if (sidebarBackdrop) sidebarBackdrop.classList.remove('hidden');
+}
+
+function closeSidebar() {
+  if (!sidebar) return;
+  sidebar.classList.remove('open');
+  if (sidebarBackdrop) sidebarBackdrop.classList.add('hidden');
+}
+
+if (sidebarToggle) sidebarToggle.addEventListener('click', openSidebar);
+if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', closeSidebar);
+
+// Close mobile sidebar on link clicks
+document.querySelectorAll('#docs-nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth < 1024) closeSidebar();
+  });
 });
 
-// ── Smooth scroll (works on all devices incl. iOS) ──
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function(e) {
-const target = document.querySelector(this.getAttribute('href'));
-if (target) {
-e.preventDefault();
-target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+// ── Client-side SPA Router (Switching between Portfolio & Dedicated Playground Route) ──
+const portfolioView = document.getElementById('portfolio-view');
+const playgroundView = document.getElementById('playground-view');
+const topPlaygroundLink = document.getElementById('top-playground-link');
+
+function handleRoute() {
+  const hash = window.location.hash || '#about';
+  
+  if (hash === '#playground') {
+    // Show dedicated Playground view
+    if (portfolioView) portfolioView.classList.add('view-hidden');
+    if (playgroundView) playgroundView.classList.remove('view-hidden');
+    if (topPlaygroundLink) {
+      topPlaygroundLink.classList.add('text-teal', 'border-teal/50', 'bg-teal/10');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Mount active space frame in playground
+    const activePanel = document.querySelector('#playground-view .pg-panel.active');
+    if (activePanel) {
+      const wrap = activePanel.querySelector('.playground-frame-wrap');
+      if (wrap && !wrap.querySelector('iframe')) mountPlaygroundFrame(wrap);
+    }
+  } else {
+    // Show main Portfolio view
+    if (playgroundView) playgroundView.classList.add('view-hidden');
+    if (portfolioView) portfolioView.classList.remove('view-hidden');
+    if (topPlaygroundLink) {
+      topPlaygroundLink.classList.remove('text-teal', 'border-teal/50', 'bg-teal/10');
+    }
+
+    // Scroll smoothly to target section
+    if (hash && hash !== '#') {
+      const target = document.querySelector(hash);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      }
+    }
+  }
 }
-});
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('DOMContentLoaded', handleRoute);
+
+// ── Active ScrollSpy for Docs Sidebar ──
+const navLinks = document.querySelectorAll('#docs-nav .sidebar-nav-item');
+const sections = document.querySelectorAll('#portfolio-view section, #footer');
+
+window.addEventListener('scroll', () => {
+  if (window.location.hash === '#playground') return;
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 120;
+    const sectionHeight = section.clientHeight;
+    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('active');
+    }
+  });
 });
 
 // ── Dark / Light theme toggle ──
@@ -1156,7 +1533,7 @@ easing: 'cubic-bezier(0.5, 0, 0, 1)', interval: 100
 });
 
 // ── Live demo modal (inline HF Space, no tab switch, with wake-up handling) ──
-const WAKE_TIMEOUT_MS = 5000; // how long to wait before showing "waking up" messaging
+const WAKE_TIMEOUT_MS = 5000;
 let demoWakeTimer = null;
 
 function buildLoadingMarkup(hfPageUrl) {
@@ -1212,13 +1589,12 @@ document.addEventListener('keydown', (e) => {
 if (e.key === 'Escape') closeDemo();
 });
 
-// ── Playground: lazy-load Spaces as they scroll into view, keep running in background ──
+// ── Playground: lazy-load Spaces as they scroll into view ──
 function mountPlaygroundFrame(wrap) {
 const url = wrap.getAttribute('data-space-url');
 const hfPage = wrap.getAttribute('data-hf-page') || url;
 if (!url) return;
 
-// reset overlay
 const existingLoader = wrap.querySelector('.pg-loading');
 if (existingLoader) existingLoader.remove();
 const existingFrame = wrap.querySelector('iframe');
@@ -1270,23 +1646,6 @@ mountPlaygroundFrame(wrap);
 document.querySelectorAll('.pg-tab').forEach(tab => {
 tab.addEventListener('click', () => activatePlaygroundTab(tab.getAttribute('data-target')));
 });
-// mount the first (default-active) panel once it scrolls into view
-const pgSection = document.getElementById('playground');
-if (pgSection) {
-const pgSectionObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-const activePanel = document.querySelector('.pg-panel.active');
-if (activePanel) {
-const wrap = activePanel.querySelector('.playground-frame-wrap');
-if (wrap && !wrap.querySelector('iframe')) mountPlaygroundFrame(wrap);
-}
-pgSectionObserver.unobserve(pgSection);
-}
-});
-}, { rootMargin: '200px 0px' });
-pgSectionObserver.observe(pgSection);
-}
 
 document.querySelectorAll('.pg-reload-btn').forEach(btn => {
 btn.addEventListener('click', () => {
@@ -1330,13 +1689,13 @@ chips: ["Experience", "Projects"]
 {
 id: "projects",
 keywords: ["project", "projects", "built", "portfolio work", "kisaan", "sentinel", "gau", "mandi", "crop"],
-reply: "Highlights: <strong>Kisaan Sampurna</strong> (agricultural advisory platform on Google Play), <strong>Sentinel</strong> (agentic research copilot for Indian equities), <strong>Gau Sampurna</strong> (CV-based sperm motility analysis), and several standalone tools like the Mandi Price Explorer and Crop Disease Scanner. Scroll to 'Things I've Built' for the full list, or try them live in the Playground below.",
+reply: "Highlights: <strong>Kisaan Sampurna</strong> (agricultural advisory platform on Google Play), <strong>Sentinel</strong> (agentic research copilot for Indian equities), <strong>Gau Sampurna</strong> (CV-based sperm motility analysis), and several standalone tools like the Mandi Price Explorer and Crop Disease Scanner. Scroll to 'Things I've Built' for the full list, or check out the dedicated Playground route above.",
 chips: ["Playground", "Skills", "Contact"]
 },
 {
 id: "playground",
 keywords: ["playground", "demo", "demos", "live", "try", "space", "spaces", "huggingface", "hugging face"],
-reply: "The Playground section has 4 live Hugging Face Spaces you can try right on this page — Mandi Price Explorer, Crop Stage Predictor, AI Farm Intelligence System, and Crop Disease Scanner. They're on the free tier, so if one's been idle a while it may take ~20–30s to wake up — there's a direct 'Open on Hugging Face' fallback link if that happens.",
+reply: "The Playground has 4 live Hugging Face Spaces you can test — Mandi Price Explorer, Crop Stage Predictor, AI Farm Intelligence System, and Crop Disease Scanner. Click 'Playground' in the top-right header to switch into the dedicated studio view!",
 chips: ["Projects", "Contact"]
 },
 {
@@ -1386,7 +1745,7 @@ let bestScore = 0;
 for (const rule of RULES) {
 let score = 0;
 for (const kw of rule.keywords) {
-if (lower.includes(kw)) score += kw.length; // longer/more specific matches win
+if (lower.includes(kw)) score += kw.length;
 }
 if (score > bestScore) { bestScore = score; best = rule; }
 }
