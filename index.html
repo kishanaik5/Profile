@@ -408,6 +408,13 @@ box-shadow: 0 8px 24px -6px rgba(100,255,218,0.5);
 transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 #agent-fab:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 30px -6px rgba(100,255,218,0.6); }
+#agent-fab .agent-fab-animation {
+width: 46px;
+height: 46px;
+display: block;
+object-fit: contain;
+pointer-events: none;
+}
 #agent-fab .agent-fab-badge {
 position: absolute; top: -3px; right: -3px;
 width: 14px; height: 14px; border-radius: 50%;
@@ -480,6 +487,7 @@ body.light #agent-input { background: #fff; color: #1e2d3d; border-color: rgba(2
 @media (max-width: 480px) {
 #agent-panel { right: 16px; left: 16px; width: auto; bottom: 84px; height: 62vh; }
 #agent-fab { right: 16px; bottom: 16px; width: 52px; height: 52px; font-size: 1.35rem; }
+#agent-fab .agent-fab-animation { width: 42px; height: 42px; }
 }
 
 /* ── Live demo modal ── */
@@ -1292,7 +1300,7 @@ Say Hello
 
 <!-- Rule-Based Agent Widget -->
 <button id="agent-fab" aria-label="Open assistant">
-<i class="fas fa-robot"></i>
+<img src="among_us.svg" alt="" class="agent-fab-animation" aria-hidden="true">
 <span class="agent-fab-badge show" id="agent-fab-badge"></span>
 </button>
 
