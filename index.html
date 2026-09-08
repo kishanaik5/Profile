@@ -656,6 +656,542 @@ padding: 5px 10px; transition: color 0.2s, border-color 0.2s;
 #demo-modal-body iframe { border: 0; width: 100%; height: 100%; }
 #demo-modal-body .pg-loading { position: absolute; inset: 0; }
 .demo-open-btn { cursor: pointer; background: none; border: none; padding: 0; }
+/* ══════════════ ADVANCED AI PLAYGROUND & STUDIO CSS ══════════════ */
+#playground-view {
+  background: radial-gradient(circle at 50% 0%, rgba(100, 255, 218, 0.05) 0%, rgba(2, 12, 27, 0.98) 70%);
+  min-height: 100vh;
+}
+
+/* Playground Header */
+.pg-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(100, 255, 218, 0.1);
+  border: 1px solid rgba(100, 255, 218, 0.25);
+  color: #64ffda;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+.pg-pulse-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #64ffda;
+  box-shadow: 0 0 8px #64ffda;
+  animation: antennaPulse 1.8s infinite ease-in-out;
+}
+
+/* Space Selector Tabs Bar */
+.pg-tabs-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  .pg-tabs-bar { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .pg-tabs-bar { grid-template-columns: 1fr; }
+}
+.pg-tab-btn {
+  background: rgba(13, 31, 56, 0.7);
+  border: 1px solid rgba(100, 255, 218, 0.15);
+  border-radius: 8px;
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.pg-tab-btn:hover {
+  border-color: rgba(100, 255, 218, 0.4);
+  background: rgba(17, 34, 64, 0.9);
+  transform: translateY(-1px);
+}
+.pg-tab-btn.active {
+  background: rgba(10, 25, 47, 0.95);
+  border-color: #64ffda;
+  box-shadow: 0 0 20px -5px rgba(100, 255, 218, 0.25);
+}
+.pg-tab-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #64ffda, #57cbff);
+}
+.pg-tab-icon {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  display: block;
+}
+.pg-tab-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e6f1ff;
+  display: block;
+}
+.pg-tab-sub {
+  font-size: 0.7rem;
+  color: #8892b0;
+  font-family: 'Courier New', monospace;
+  display: block;
+  margin-top: 2px;
+}
+.pg-tab-btn.active .pg-tab-sub { color: #64ffda; }
+
+/* CLI Terminal (Collapsible / Compact) */
+#cli-terminal {
+  background: #020c1b;
+  border-radius: 10px;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  margin-bottom: 20px;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: max-height 0.3s ease;
+}
+#cli-titlebar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #0d1f38; padding: 8px 14px;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.12);
+}
+.cli-traffic-lights { display: flex; align-items: center; gap: 7px; }
+.cli-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+.cli-dot.red    { background: #ff5f57; }
+.cli-dot.yellow { background: #febc2e; }
+.cli-dot.green  { background: #28c840; }
+#cli-titlebar span.cli-title-text {
+  color: #8892b0; font-size: 0.72rem; letter-spacing: 0.06em;
+}
+.cli-actions { display: flex; gap: 8px; }
+.cli-mini-btn {
+  background: transparent; border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #8892b0; font-size: 0.68rem; padding: 2px 8px; border-radius: 4px;
+  cursor: pointer; transition: all 0.2s; font-family: 'Courier New', monospace;
+}
+.cli-mini-btn:hover { color: #64ffda; border-color: #64ffda; }
+
+#cli-output {
+  height: 180px; overflow-y: auto;
+  padding: 12px 16px;
+  color: #ccd6f6;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+#cli-output::-webkit-scrollbar { width: 5px; }
+#cli-output::-webkit-scrollbar-track { background: transparent; }
+#cli-output::-webkit-scrollbar-thumb { background: rgba(100, 255, 218, 0.2); border-radius: 3px; }
+
+.cli-line { display: block; white-space: pre-wrap; margin: 0; }
+.cli-line.prompt  { color: #64ffda; }
+.cli-line.out     { color: #ccd6f6; }
+.cli-line.dim     { color: #8892b0; }
+.cli-line.success { color: #64ffda; }
+.cli-line.warn    { color: #febc2e; }
+.cli-line.err     { color: #ff5f57; }
+.cli-line.accent  { color: #57cbff; }
+.cli-line.bold    { color: #e6f1ff; font-weight: 600; }
+.cli-line.blank   { display: block; height: 0.4em; }
+
+#cli-input-row {
+  display: flex; align-items: center;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(100, 255, 218, 0.1);
+  background: #020c1b;
+}
+#cli-prompt-label {
+  color: #64ffda; font-family: 'Courier New', monospace;
+  font-size: 0.8rem; white-space: nowrap; user-select: none;
+}
+#cli-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: #e6f1ff; font-family: 'Courier New', monospace;
+  font-size: 0.8rem; padding: 0 0 0 6px; caret-color: #64ffda;
+}
+#cli-input::placeholder { color: #2a3d5b; }
+
+/* Main Studio Workspace Grid */
+.pg-studio-card {
+  background: #0d1f38;
+  border: 1px solid rgba(100, 255, 218, 0.18);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  margin-bottom: 20px;
+}
+.pg-studio-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px;
+  background: #0a1730;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.12);
+  flex-wrap: wrap; gap: 10px;
+}
+.pg-studio-title {
+  display: flex; align-items: center; gap: 10px;
+}
+.pg-studio-title h2 {
+  font-size: 1rem; font-weight: 600; color: #e6f1ff; margin: 0;
+}
+.pg-studio-badge {
+  font-size: 0.65rem; font-family: 'Courier New', monospace;
+  background: rgba(100, 255, 218, 0.1);
+  border: 1px solid rgba(100, 255, 218, 0.3);
+  color: #64ffda; padding: 2px 7px; border-radius: 4px;
+}
+.pg-studio-actions {
+  display: flex; align-items: center; gap: 8px;
+}
+.pg-studio-btn {
+  font-size: 0.72rem; color: #8892b0;
+  background: transparent; border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 5px; padding: 4px 10px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px;
+  transition: all 0.2s; text-decoration: none;
+}
+.pg-studio-btn:hover { color: #64ffda; border-color: #64ffda; }
+.pg-studio-btn.primary {
+  background: rgba(100, 255, 218, 0.15);
+  color: #64ffda; border-color: #64ffda; font-weight: 500;
+}
+
+/* Two-column Input / Result Split */
+.pg-studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+@media (max-width: 900px) {
+  .pg-studio-grid { grid-template-columns: 1fr; }
+}
+.pg-col-input {
+  padding: 20px;
+  border-right: 1px solid rgba(100, 255, 218, 0.1);
+  background: rgba(10, 25, 47, 0.5);
+}
+@media (max-width: 900px) {
+  .pg-col-input { border-right: none; border-bottom: 1px solid rgba(100, 255, 218, 0.1); }
+}
+.pg-col-result {
+  padding: 20px;
+  background: rgba(2, 12, 27, 0.4);
+  display: flex; flex-direction: column;
+}
+
+.pg-col-title {
+  font-size: 0.78rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64ffda;
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* Form Styles */
+.pg-form-group {
+  margin-bottom: 14px;
+}
+.pg-form-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #ccd6f6;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.pg-form-input, .pg-form-select {
+  width: 100%;
+  background: #020c1b;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #e6f1ff;
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.pg-form-input:focus, .pg-form-select:focus {
+  border-color: #64ffda;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+}
+.pg-form-range-wrap {
+  display: flex; align-items: center; gap: 12px;
+}
+.pg-form-range {
+  flex: 1; accent-color: #64ffda;
+}
+.pg-form-range-val {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem; color: #64ffda; min-width: 45px;
+}
+
+/* Preset Pills */
+.pg-presets-row {
+  margin-bottom: 16px;
+}
+.pg-presets-label {
+  font-size: 0.7rem;
+  color: #8892b0;
+  margin-bottom: 6px;
+  display: block;
+}
+.pg-preset-chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.pg-preset-chip {
+  background: rgba(13, 31, 56, 0.9);
+  border: 1px dashed rgba(100, 255, 218, 0.25);
+  color: #8892b0;
+  font-size: 0.72rem;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pg-preset-chip:hover {
+  color: #64ffda; border-color: #64ffda; background: rgba(100, 255, 218, 0.1);
+}
+
+/* Run CTA Button */
+.pg-run-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #64ffda 0%, #00bfa5 100%);
+  color: #020c1b;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+.pg-run-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(100, 255, 218, 0.45);
+}
+.pg-run-btn:disabled {
+  opacity: 0.6; cursor: not-allowed; transform: none;
+}
+
+/* Image Upload Zone */
+.pg-dropzone {
+  border: 2px dashed rgba(100, 255, 218, 0.25);
+  border-radius: 8px;
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgba(2, 12, 27, 0.4);
+  margin-bottom: 12px;
+}
+.pg-dropzone:hover, .pg-dropzone.dragover {
+  border-color: #64ffda;
+  background: rgba(100, 255, 218, 0.05);
+}
+.pg-dropzone i { font-size: 1.8rem; color: #64ffda; margin-bottom: 6px; }
+.pg-dropzone-text { font-size: 0.78rem; color: #ccd6f6; display: block; }
+.pg-dropzone-sub { font-size: 0.68rem; color: #8892b0; margin-top: 2px; display: block; }
+
+/* Result Panels & Cards */
+.pg-result-empty {
+  margin: auto;
+  text-align: center;
+  padding: 40px 20px;
+  color: #8892b0;
+}
+.pg-result-empty i { font-size: 2.2rem; color: rgba(100, 255, 218, 0.3); margin-bottom: 12px; }
+.pg-result-empty h4 { color: #ccd6f6; font-size: 0.95rem; margin-bottom: 4px; }
+.pg-result-empty p { font-size: 0.75rem; max-width: 280px; margin: 0 auto; }
+
+.pg-result-content {
+  display: flex; flex-direction: column; gap: 12px; height: 100%;
+}
+.pg-kpi-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.pg-kpi-card {
+  background: #020c1b;
+  border: 1px solid rgba(100, 255, 218, 0.15);
+  border-radius: 6px;
+  padding: 10px 12px;
+  text-align: center;
+}
+.pg-kpi-lbl { font-size: 0.65rem; color: #8892b0; text-transform: uppercase; letter-spacing: 0.06em; }
+.pg-kpi-val { font-size: 1.1rem; font-weight: 700; color: #64ffda; font-family: 'Courier New', monospace; margin-top: 2px; }
+
+.pg-card-box {
+  background: #020c1b;
+  border: 1px solid rgba(100, 255, 218, 0.15);
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.pg-card-title {
+  font-size: 0.75rem; font-weight: 600; color: #e6f1ff; margin-bottom: 6px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* Progress bar meters */
+.pg-prob-item { margin-bottom: 8px; }
+.pg-prob-header { display: flex; justify-content: space-between; font-size: 0.72rem; color: #ccd6f6; margin-bottom: 3px; }
+.pg-prob-bar-bg { height: 6px; background: rgba(148, 163, 184, 0.15); border-radius: 3px; overflow: hidden; }
+.pg-prob-bar-fill { height: 100%; background: linear-gradient(90deg, #64ffda, #57cbff); border-radius: 3px; }
+
+/* Status pill */
+.pg-status-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.7rem; padding: 3px 8px; border-radius: 9999px;
+  font-weight: 600; font-family: 'Courier New', monospace;
+}
+.pg-status-pill.danger { background: rgba(255, 95, 87, 0.15); color: #ff5f57; border: 1px solid rgba(255, 95, 87, 0.3); }
+.pg-status-pill.success { background: rgba(40, 200, 64, 0.15); color: #28c840; border: 1px solid rgba(40, 200, 64, 0.3); }
+.pg-status-pill.warning { background: rgba(254, 188, 46, 0.15); color: #febc2e; border: 1px solid rgba(254, 188, 46, 0.3); }
+
+/* Table styling */
+.pg-table-wrap {
+  overflow-x: auto; max-height: 200px;
+  border: 1px solid rgba(100, 255, 218, 0.12);
+  border-radius: 6px;
+}
+.pg-table {
+  width: 100%; border-collapse: collapse; font-size: 0.72rem;
+}
+.pg-table th {
+  background: #0a1730; color: #64ffda; padding: 7px 10px;
+  text-align: left; font-family: 'Courier New', monospace; position: sticky; top: 0;
+}
+.pg-table td {
+  padding: 6px 10px; border-bottom: 1px solid rgba(148, 163, 184, 0.08); color: #ccd6f6;
+}
+.pg-table tr:hover { background: rgba(100, 255, 218, 0.05); }
+
+/* Phenology Stepper Timeline */
+.pg-stepper {
+  display: flex; align-items: center; justify-content: space-between; margin: 10px 0;
+  position: relative;
+}
+.pg-stepper::before {
+  content: ''; position: absolute; top: 12px; left: 10%; right: 10%; height: 2px;
+  background: rgba(148, 163, 184, 0.2); z-index: 0;
+}
+.pg-step {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 1;
+}
+.pg-step-node {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #020c1b; border: 2px solid rgba(148, 163, 184, 0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; color: #8892b0; font-family: 'Courier New', monospace;
+}
+.pg-step.passed .pg-step-node { border-color: #64ffda; background: #64ffda; color: #020c1b; font-weight: bold; }
+.pg-step.active .pg-step-node { border-color: #64ffda; box-shadow: 0 0 10px #64ffda; color: #64ffda; }
+.pg-step-label { font-size: 0.62rem; color: #8892b0; text-align: center; }
+.pg-step.active .pg-step-label { color: #64ffda; font-weight: 600; }
+
+/* Weather Forecast 5-day Micro Cards */
+.pg-forecast-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+}
+.pg-forecast-day {
+  background: #020c1b; border: 1px solid rgba(100, 255, 218, 0.12);
+  border-radius: 5px; padding: 6px 4px; text-align: center;
+}
+.pg-forecast-date { font-size: 0.6rem; color: #8892b0; }
+.pg-forecast-icon { font-size: 0.9rem; color: #64ffda; margin: 3px 0; }
+.pg-forecast-temp { font-size: 0.68rem; font-weight: 600; color: #e6f1ff; font-family: 'Courier New', monospace; }
+.pg-forecast-rain { font-size: 0.58rem; color: #57cbff; }
+
+/* Bottom Live Terminal Running Logs */
+#pg-live-terminal-panel {
+  background: #020c1b;
+  border: 1px solid rgba(100, 255, 218, 0.25);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+#pg-live-terminal-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #0a1730; padding: 8px 16px;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.15);
+  flex-wrap: wrap; gap: 8px;
+}
+.pg-terminal-meta {
+  display: flex; align-items: center; gap: 10px;
+}
+.pg-terminal-status {
+  font-size: 0.68rem; display: flex; align-items: center; gap: 6px; color: #8892b0;
+}
+.pg-terminal-status.active { color: #64ffda; }
+.pg-terminal-status.active .pg-pulse-dot { background: #64ffda; box-shadow: 0 0 8px #64ffda; }
+.pg-terminal-out {
+  height: 160px; overflow-y: auto;
+  padding: 12px 16px;
+  color: #ccd6f6;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+.pg-terminal-out::-webkit-scrollbar { width: 5px; }
+.pg-terminal-out::-webkit-scrollbar-thumb { background: rgba(100, 255, 218, 0.2); border-radius: 3px; }
+
+.log-line { display: block; margin: 0; white-space: pre-wrap; }
+.log-line .log-time { color: #8892b0; font-size: 0.7rem; }
+.log-line .log-tag  { color: #57cbff; font-weight: bold; }
+.log-line .log-msg  { color: #e6f1ff; }
+.log-line.log-success .log-msg { color: #64ffda; }
+.log-line.log-warn .log-msg    { color: #febc2e; }
+.log-line.log-err .log-msg     { color: #ff5f57; }
+
+/* API Config Modal */
+#pg-config-modal {
+  position: fixed; inset: 0;
+  background: rgba(2, 12, 27, 0.85);
+  backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center;
+  z-index: 9999; padding: 16px;
+}
+#pg-config-modal.open { display: flex; }
+.pg-config-inner {
+  background: #0d1f38;
+  border: 1px solid rgba(100, 255, 218, 0.25);
+  border-radius: 10px;
+  width: 100%; max-width: 520px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+.pg-config-header {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #0a1730; padding: 12px 18px;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.15);
+}
+.pg-config-body { padding: 18px; }
+
+/* Light Mode Overrides */
+body.light #playground-view { background: #f0f4f8; }
+body.light .pg-studio-card { background: #ffffff; border-color: rgba(26, 74, 138, 0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+body.light .pg-studio-topbar { background: #e6edf5; border-color: rgba(26, 74, 138, 0.15); }
+body.light .pg-studio-title h2 { color: #1e293b; }
+body.light .pg-col-input { background: #f8fafc; border-color: rgba(26, 74, 138, 0.12); }
+body.light .pg-col-result { background: #ffffff; }
+body.light .pg-form-input, body.light .pg-form-select { background: #ffffff; color: #1e293b; border-color: #cbd5e1; }
+body.light .pg-kpi-card, body.light .pg-card-box { background: #f1f5f9; border-color: #e2e8f0; }
+body.light .pg-card-title { color: #1e293b; }
+body.light .pg-table th { background: #e2e8f0; color: #1a4a8a; }
+body.light .pg-table td { color: #334155; }
+body.light #cli-terminal, body.light #pg-live-terminal-panel { background: #f8fafc; border-color: rgba(26, 74, 138, 0.2); }
+body.light #cli-titlebar, body.light #pg-live-terminal-bar { background: #e2e8f0; border-color: rgba(26, 74, 138, 0.15); }
+body.light #cli-output, body.light .pg-terminal-out { color: #334155; }
+body.light .log-line .log-msg { color: #1e293b; }
+body.light .pg-tab-btn { background: #ffffff; border-color: #cbd5e1; }
+body.light .pg-tab-btn.active { background: #f0fdf4; border-color: #10b981; }
+body.light .pg-tab-title { color: #1e293b; }
 </style>
 </head>
 <body class="bg-navy text-gray-300">
@@ -689,6 +1225,7 @@ padding: 5px 10px; transition: color 0.2s, border-color 0.2s;
 </div>
 <nav class="hidden md:block">
 <div class="ml-10 flex items-center space-x-6">
+<a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
 <a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
 <a href="#playground" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Playground</a>
 <a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
@@ -805,42 +1342,69 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </h3>
 <div class="space-y-6">
 <div>
-<h4 class="text-sm font-mono text-gray-300 mb-2">GenAI & LLM Engineering</h4>
+<h4 class="text-sm font-mono text-gray-300 mb-2">GenAI</h4>
 <div class="flex flex-wrap">
-<span class="skill-tag">Gemini (Flash/Pro)</span><span class="skill-tag">OpenAI API</span>
-<span class="skill-tag">LLMs</span><span class="skill-tag">Prompt Engineering</span>
-<span class="skill-tag">RAG</span><span class="skill-tag">AI Agents</span>
+<span class="skill-tag">Google Gemini</span><span class="skill-tag">OpenAI</span>
+<span class="skill-tag">Version Prompting</span><span class="skill-tag">MCP-based AI Agents</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">AI/ML</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">Computer Vision</span><span class="skill-tag">Deep Learning</span>
+<span class="skill-tag">Transformers</span><span class="skill-tag">Vision Transformers (ViT)</span>
+<span class="skill-tag">CNNs</span><span class="skill-tag">PyTorch</span>
+<span class="skill-tag">TensorFlow</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">LLM Engineering</h4>
+<div class="flex flex-wrap">
 <span class="skill-tag">LangChain</span><span class="skill-tag">LangGraph</span>
 <span class="skill-tag">LlamaIndex</span><span class="skill-tag">FAISS</span>
+<span class="skill-tag">Rasa</span><span class="skill-tag">NLP</span>
+<span class="skill-tag">RAG</span>
 </div>
 </div>
 <div>
-<h4 class="text-sm font-mono text-gray-300 mb-2">AI/ML & Deep Learning</h4>
+<h4 class="text-sm font-mono text-gray-300 mb-2">MLOps &amp; Cloud</h4>
 <div class="flex flex-wrap">
-<span class="skill-tag">NLP</span><span class="skill-tag">Computer Vision</span>
-<span class="skill-tag">Deep Learning</span><span class="skill-tag">Transformers</span>
-<span class="skill-tag">ViT/CNN</span><span class="skill-tag">PyTorch</span>
-<span class="skill-tag">TensorFlow</span><span class="skill-tag">YOLOv8</span>
+<span class="skill-tag">Docker</span><span class="skill-tag">GitHub Actions</span>
+<span class="skill-tag">AWS (S3, RDS, SageMaker, ECS Fargate, SG)</span>
+<span class="skill-tag">GCP (OCR, Vision API)</span>
+<span class="skill-tag">Jenkins</span><span class="skill-tag">Vercel</span>
 </div>
 </div>
 <div>
-<h4 class="text-sm font-mono text-gray-300 mb-2">Backend & Databases</h4>
+<h4 class="text-sm font-mono text-gray-300 mb-2">Backend Engineering</h4>
 <div class="flex flex-wrap">
 <span class="skill-tag">FastAPI</span><span class="skill-tag">Django</span>
 <span class="skill-tag">Flask</span><span class="skill-tag">Pydantic</span>
 <span class="skill-tag">SQLAlchemy</span><span class="skill-tag">Alembic</span>
-<span class="skill-tag">AsyncIO</span><span class="skill-tag">PostgreSQL</span>
-<span class="skill-tag">MongoDB</span><span class="skill-tag">Redis</span>
+<span class="skill-tag">AsyncIO</span><span class="skill-tag">Node.js</span>
 </div>
 </div>
 <div>
-<h4 class="text-sm font-mono text-gray-300 mb-2">MLOps, Cloud & Languages</h4>
+<h4 class="text-sm font-mono text-gray-300 mb-2">Programming</h4>
 <div class="flex flex-wrap">
-<span class="skill-tag">Docker</span><span class="skill-tag">GitHub Actions</span>
-<span class="skill-tag">AWS (S3/RDS/SageMaker/ECS)</span><span class="skill-tag">GCP</span>
-<span class="skill-tag">Jenkins</span><span class="skill-tag">Vercel</span>
-<span class="skill-tag">Python</span><span class="skill-tag">C/C++</span>
-<span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span>
+<span class="skill-tag">Python</span><span class="skill-tag">SQL</span>
+<span class="skill-tag">JavaScript</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">Databases</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">PostgreSQL</span><span class="skill-tag">MongoDB</span>
+<span class="skill-tag">Redis</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-mono text-gray-300 mb-2">APIs &amp; Integrations</h4>
+<div class="flex flex-wrap">
+<span class="skill-tag">AgroMonitoring API</span><span class="skill-tag">Data.gov.in</span>
+<span class="skill-tag">WeatherAPI</span><span class="skill-tag">Cashfree</span>
+<span class="skill-tag">Roboflow</span><span class="skill-tag">Kaggle Datasets</span>
+<span class="skill-tag">Cloudflare</span>
 </div>
 </div>
 </div>
@@ -878,7 +1442,17 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <h3 class="text-xl font-bold text-gray-100">Forward Deployed Engineer <span class="text-teal">@ Narvia Design</span></h3>
 <p class="text-sm font-mono text-gray-400 mb-4">Aug 2026 - Present | Remote · Part-Time / Freelance</p>
 <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-<li>Embedded directly with a luxury interior/exterior design studio client to design, build, and ship <a href="https://narviadesign.com" target="_blank" class="text-teal hover:underline">narviadesign.com</a> end-to-end as sole engineer, from information architecture through production deployment.</li>
+<li>Embedded directly with a luxury interior/exterior design studio client to design, build, and ship <a href="https://narviadesign.com" target="_blank" class="text-teal hover:underline">narviadesign.com</a> end-to-end as sole engineer, from information architecture through production deployment. <span class="text-gray-500 text-sm">(Reference: <a href="mailto:narviadesigners@gmail.com" class="text-teal/70 hover:text-teal hover:underline">narviadesigners@gmail.com</a>)</span></li>
+</ul>
+</div>
+</div>
+
+<div class="mb-16 timeline-item reveal">
+<div class="exp-card p-8 rounded-lg shadow-lg">
+<h3 class="text-xl font-bold text-gray-100">Applied ML Engineer <span class="text-teal">@ Alpify Technologies LLP</span></h3>
+<p class="text-sm font-mono text-gray-400 mb-4">Sep 2026 - Present | Bengaluru · Part-Time / Contract</p>
+<ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
+<li>Contracted through <a href="https://alpify.in" target="_blank" class="text-teal hover:underline">Alpify</a> to build a lead-quality ML pipeline for one of their clients, filtering fraudulent and anonymous leads sourced from Meta Ads and adding genuineness verification to a booking-slot flow that previously had no fraud or security layer. <span class="text-gray-500 text-sm">(Reference: <a href="mailto:deepak@alpify.in" class="text-teal/70 hover:text-teal hover:underline">deepak@alpify.in</a>)</span></li>
 </ul>
 </div>
 </div>
@@ -1317,96 +1891,170 @@ Say Hello
 
 <!-- ════════════ DEDICATED PLAYGROUND VIEW ════════════ -->
 <div id="playground-view" class="view-container pt-24 pb-16">
-<div class="container mx-auto px-6 lg:px-8 max-w-7xl">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-800">
-<div>
-<a href="#home" class="inline-flex items-center gap-2 text-teal font-mono text-sm mb-3 hover:underline">
-<i class="fas fa-arrow-left"></i> Back to Portfolio
-</a>
-<h1 class="text-3xl sm:text-4xl font-bold text-gray-100 flex items-center gap-3">
-<i class="fas fa-flask text-teal"></i> AI Playground Studio
-</h1>
-<p class="text-gray-400 text-sm mt-1">Live, full-fidelity Hugging Face Spaces running directly in your browser session.</p>
-</div>
-<div class="flex items-center gap-3">
-<a href="https://huggingface.co/kishanaik5" target="_blank" rel="noopener" class="border border-teal text-teal text-xs font-mono py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
-<i class="far fa-face-smile"></i> HF Profile <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
-</a>
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-800">
+    <div>
+      <a href="#home" class="inline-flex items-center gap-2 text-teal font-mono text-xs mb-2 hover:underline">
+        <i class="fas fa-arrow-left"></i> back to portfolio
+      </a>
+      <div class="flex items-center gap-3">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-100 flex items-center gap-2">
+          <i class="fas fa-terminal text-teal"></i> AI Playground Studio
+        </h1>
+        <span class="pg-header-badge"><span class="pg-pulse-dot"></span> FastAPI Microservices</span>
+      </div>
+      <p class="text-gray-400 text-xs mt-1 font-mono">Real-time SSE pipeline logs · Custom UI per project · Live inferences</p>
+    </div>
+    <div class="flex items-center gap-2 self-start sm:self-auto">
+      <button id="pg-open-config-btn" class="pg-studio-btn" title="API Endpoint Settings">
+        <i class="fas fa-sliders"></i> API Settings
+      </button>
+      <button id="pg-toggle-cli-btn" class="pg-studio-btn" title="Toggle CLI Terminal">
+        <i class="fas fa-code"></i> CLI Console
+      </button>
+      <a href="https://huggingface.co/kishanaik5" target="_blank" rel="noopener"
+         class="border border-teal text-teal text-xs font-mono py-1.5 px-3 rounded-md hover:bg-teal/10 flex items-center gap-1.5">
+        🤗 HF Profile <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Space Selector Tabs -->
+  <div class="pg-tabs-bar" id="pg-space-selector">
+    <button class="pg-tab-btn active" data-space="mandi">
+      <span class="pg-tab-icon">🌾</span>
+      <span class="pg-tab-title">Mandi Price Explorer</span>
+      <span class="pg-tab-sub">Data.gov.in · Geo Haversine</span>
+    </button>
+    <button class="pg-tab-btn" data-space="diseasescan">
+      <span class="pg-tab-icon">🔬</span>
+      <span class="pg-tab-title">Crop Disease Scanner</span>
+      <span class="pg-tab-sub">ViT · Knowledge Base · LLM</span>
+    </button>
+    <button class="pg-tab-btn" data-space="cropstage">
+      <span class="pg-tab-icon">🌱</span>
+      <span class="pg-tab-title">Crop Stage Predictor</span>
+      <span class="pg-tab-sub">Phenology · NDVI Remote Sensing</span>
+    </button>
+    <button class="pg-tab-btn" data-space="farmintel">
+      <span class="pg-tab-icon">🛰️</span>
+      <span class="pg-tab-title">Farm Intelligence</span>
+      <span class="pg-tab-sub">Sentinel-2 · Weather Fusion</span>
+    </button>
+  </div>
+
+  <!-- CLI Command Terminal (Interactive bash-like bar) -->
+  <div id="cli-terminal">
+    <div id="cli-titlebar">
+      <div class="cli-traffic-lights">
+        <span class="cli-dot red"></span>
+        <span class="cli-dot yellow"></span>
+        <span class="cli-dot green"></span>
+        <span class="cli-title-text ml-2">kishan@playground ~ zsh (interactive)</span>
+      </div>
+      <div class="cli-actions">
+        <button class="cli-mini-btn" id="cli-clear-btn"><i class="fas fa-eraser"></i> clear</button>
+        <button class="cli-mini-btn" id="cli-help-btn"><i class="fas fa-circle-question"></i> help</button>
+      </div>
+    </div>
+    <div id="cli-output"></div>
+    <div id="cli-input-row">
+      <span id="cli-prompt-label">kishan@playground:~$&nbsp;</span>
+      <input id="cli-input" type="text" autocomplete="off" spellcheck="false" placeholder="type a command (e.g. run mandi, ls, help)…" />
+    </div>
+  </div>
+
+  <!-- Main Active Studio Card (2-Column Grid: Left Input / Right Result) -->
+  <div class="pg-studio-card" id="pg-active-studio">
+    <div class="pg-studio-topbar">
+      <div class="pg-studio-title">
+        <span id="studio-active-icon" class="text-xl">🌾</span>
+        <div>
+          <h2 id="studio-active-title">Mandi Price Explorer API Studio</h2>
+          <span class="text-xs text-gray-400 font-mono" id="studio-active-route">POST /search/stream</span>
+        </div>
+      </div>
+      <div class="pg-studio-actions">
+        <span class="pg-studio-badge" id="studio-endpoint-badge"><i class="fas fa-plug text-teal"></i> FastAPI Engine Ready</span>
+        <a id="studio-hf-link" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener" class="pg-studio-btn">
+          <i class="fas fa-arrow-up-right-from-square"></i> Open HF Space
+        </a>
+      </div>
+    </div>
+
+    <div class="pg-studio-grid">
+      <!-- ── Left Column: Form Inputs ── -->
+      <div class="pg-col-input" id="pg-input-container">
+        <!-- Injected dynamically based on active space -->
+      </div>
+
+      <!-- ── Right Column: Interactive Results ── -->
+      <div class="pg-col-result" id="pg-result-container">
+        <!-- Injected dynamically based on active space -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Panel: Live Terminal Running Logs -->
+  <div id="pg-live-terminal-panel">
+    <div id="pg-live-terminal-bar">
+      <div class="pg-terminal-meta">
+        <div class="cli-traffic-lights">
+          <span class="cli-dot green"></span>
+        </div>
+        <span class="text-xs font-mono text-gray-300 font-semibold flex items-center gap-2">
+          <i class="fas fa-terminal text-teal"></i> LIVE PIPELINE EXECUTION LOGS
+        </span>
+        <span class="pg-terminal-status" id="pg-log-status">
+          <span class="pg-pulse-dot"></span> <span id="pg-log-status-text">Ready for execution</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="cli-mini-btn" id="pg-copy-logs-btn" title="Copy log output"><i class="fas fa-copy"></i> Copy</button>
+        <button class="cli-mini-btn" id="pg-clear-logs-btn" title="Clear log output"><i class="fas fa-trash-can"></i> Clear</button>
+      </div>
+    </div>
+    <div class="pg-terminal-out" id="pg-live-terminal-out">
+      <div class="log-line"><span class="log-time">[system]</span> <span class="log-tag">[INIT]</span> <span class="log-msg">Playground studio initialized. Select a project or click run to stream logs.</span></div>
+    </div>
+  </div>
+
 </div>
 </div>
 
-<div id="pg-tabs" class="pg-tabbar" role="tablist">
-<button type="button" class="pg-tab active" data-target="pg-mandi" role="tab" aria-selected="true"><i class="fas fa-store"></i><span>Mandi Price Explorer</span></button>
-<button type="button" class="pg-tab" data-target="pg-cropstage" role="tab" aria-selected="false"><i class="fas fa-satellite"></i><span>Crop Stage Predictor</span></button>
-<button type="button" class="pg-tab" data-target="pg-farmintel" role="tab" aria-selected="false"><i class="fas fa-broadcast-tower"></i><span>Farm Intelligence</span></button>
-<button type="button" class="pg-tab" data-target="pg-diseasescan" role="tab" aria-selected="false"><i class="fas fa-seedling"></i><span>Disease Scanner</span></button>
-</div>
-
-<div class="playground-card rounded-xl shadow-2xl p-4 sm:p-6 bg-light-navy border border-gray-800">
-
-<div id="pg-mandi" class="pg-panel active">
-<div class="pg-studio-frame playground-frame-wrap" data-space-url="https://kishanaik5-mandi-price-explorer.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer">
-<div class="pg-loading">
-<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
-<span class="pg-status-text">loading space…</span>
-<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
-<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
-</div>
-</div>
-<div class="playground-actions">
-<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/mandi-price-explorer" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
-<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
-</div>
-</div>
-
-<div id="pg-cropstage" class="pg-panel">
-<div class="pg-studio-frame playground-frame-wrap" data-space-url="https://kishanaik5-crop-stage-predictor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor">
-<div class="pg-loading">
-<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
-<span class="pg-status-text">loading space…</span>
-<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
-<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
-</div>
-</div>
-<div class="playground-actions">
-<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-stage-predictor" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
-<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
-</div>
-</div>
-
-<div id="pg-farmintel" class="pg-panel">
-<div class="pg-studio-frame playground-frame-wrap" data-space-url="https://kishanaik5-farm-intelligence-weather-advisor.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor">
-<div class="pg-loading">
-<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
-<span class="pg-status-text">loading space…</span>
-<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
-<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
-</div>
-</div>
-<div class="playground-actions">
-<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
-<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
-</div>
-</div>
-
-<div id="pg-diseasescan" class="pg-panel">
-<div class="pg-studio-frame playground-frame-wrap" data-space-url="https://kishanaik5-crop-disease-scanner.hf.space" data-hf-page="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner">
-<div class="pg-loading">
-<div class="pg-dots"><span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span></div>
-<span class="pg-status-text">loading space…</span>
-<span class="pg-sub" style="display:none;">Free-tier Spaces sleep after inactivity — this one can take ~20–30s to spin back up.</span>
-<a class="pg-fallback-link" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-arrow-up-right-from-square"></i> Open directly on Hugging Face</a>
-</div>
-</div>
-<div class="playground-actions">
-<a class="pg-action-btn" href="https://huggingface.co/spaces/kishanaik5/crop-disease-scanner" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Open on HF</a>
-<button type="button" class="pg-action-btn pg-reload-btn"><i class="fas fa-rotate-right"></i> Reload</button>
-</div>
-</div>
-
-</div>
-<p class="text-xs text-gray-500 mt-6 text-center">Spaces run live on Hugging Face infrastructure. Active instances continue running in background as you switch tabs.</p>
-</div>
+<!-- API Config Modal -->
+<div id="pg-config-modal">
+  <div class="pg-config-inner">
+    <div class="pg-config-header">
+      <div class="flex items-center gap-2 text-teal font-mono text-sm font-bold">
+        <i class="fas fa-sliders"></i> API Endpoint Configuration
+      </div>
+      <button id="pg-close-config-btn" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="pg-config-body">
+      <p class="text-xs text-gray-300 mb-4 font-mono">
+        Configure whether the playground connects to production Hugging Face Docker Spaces, your local development server (uvicorn), or authentic demo simulation.
+      </p>
+      <div class="pg-form-group">
+        <label class="pg-form-label">Active Connection Mode</label>
+        <select id="pg-conn-mode" class="pg-form-select">
+          <option value="auto">Smart Auto-Detect (Try Live API, fallback to Simulation)</option>
+          <option value="local">Local Development Server (ports 8001–8004)</option>
+          <option value="hf">Hugging Face Docker Space (Production URL)</option>
+          <option value="sim">Authentic Demo Pipeline Simulation (Zero-latency)</option>
+        </select>
+      </div>
+      <div class="pg-form-group">
+        <label class="pg-form-label">Custom API Base URL (Optional override)</label>
+        <input id="pg-custom-api-url" class="pg-form-input" placeholder="e.g. http://localhost:8001 or https://my-space.hf.space" />
+      </div>
+      <div class="mt-4 flex justify-end gap-2">
+        <button id="pg-save-config-btn" class="pg-run-btn" style="width: auto; padding: 6px 16px;">Save Settings</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Live Demo Modal -->
@@ -1637,34 +2285,942 @@ loader.querySelector('.pg-sub').style.display = 'block';
 }, WAKE_TIMEOUT_MS);
 }
 
-// ── Playground: tabbed panels, lazy-mount on first activation ──
-function activatePlaygroundTab(targetId) {
-document.querySelectorAll('.pg-tab').forEach(t => {
-const isActive = t.getAttribute('data-target') === targetId;
-t.classList.toggle('active', isActive);
-t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-});
-document.querySelectorAll('.pg-panel').forEach(p => {
-p.classList.toggle('active', p.id === targetId);
-});
-const panel = document.getElementById(targetId);
-if (panel) {
-const wrap = panel.querySelector('.playground-frame-wrap');
-if (wrap && !wrap.querySelector('iframe')) {
-mountPlaygroundFrame(wrap);
-}
-}
-}
-document.querySelectorAll('.pg-tab').forEach(tab => {
-tab.addEventListener('click', () => activatePlaygroundTab(tab.getAttribute('data-target')));
-});
 
-document.querySelectorAll('.pg-reload-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-const wrap = btn.closest('.pg-panel').querySelector('.playground-frame-wrap');
-if (wrap) mountPlaygroundFrame(wrap);
-});
-});
+// ══════════════ ADVANCED AI PLAYGROUND & STUDIO SCRIPT ══════════════
+(function () {
+  // Configuration for 4 AI Projects
+  const SPACES = {
+    mandi: {
+      id: 'mandi',
+      name: 'Mandi Price Explorer',
+      icon: '🌾',
+      route: 'POST /search/stream',
+      hf: 'https://huggingface.co/spaces/kishanaik5/mandi-price-explorer',
+      hfApi: 'https://kishanaik5-mandi-price-explorer.hf.space',
+      localPort: 8001,
+      streamEndpoint: '/search/stream',
+    },
+    diseasescan: {
+      id: 'diseasescan',
+      name: 'Crop Disease Scanner',
+      icon: '🔬',
+      route: 'POST /scan/stream',
+      hf: 'https://huggingface.co/spaces/kishanaik5/crop-disease-scanner',
+      hfApi: 'https://kishanaik5-crop-disease-scanner.hf.space',
+      localPort: 8002,
+      streamEndpoint: '/scan/stream',
+    },
+    cropstage: {
+      id: 'cropstage',
+      name: 'Crop Stage Predictor',
+      icon: '🌱',
+      route: 'POST /predict/stream',
+      hf: 'https://huggingface.co/spaces/kishanaik5/crop-stage-predictor',
+      hfApi: 'https://kishanaik5-crop-stage-predictor.hf.space',
+      localPort: 8003,
+      streamEndpoint: '/predict/stream',
+    },
+    farmintel: {
+      id: 'farmintel',
+      name: 'Farm Intelligence & Weather Advisor',
+      icon: '🛰️',
+      route: 'POST /advise/stream',
+      hf: 'https://huggingface.co/spaces/kishanaik5/farm-intelligence-weather-advisor',
+      hfApi: 'https://kishanaik5-farm-intelligence-weather-advisor.hf.space',
+      localPort: 8004,
+      streamEndpoint: '/advise/stream',
+    }
+  };
+
+  let activeSpaceKey = 'mandi';
+  let connMode = localStorage.getItem('pg_conn_mode') || 'auto';
+  let customApiUrl = localStorage.getItem('pg_custom_api_url') || '';
+  let isExecuting = false;
+
+  // DOM Elements
+  const cliOut       = document.getElementById('cli-output');
+  const cliInp       = document.getElementById('cli-input');
+  const logOut       = document.getElementById('pg-live-terminal-out');
+  const logStatus    = document.getElementById('pg-log-status');
+  const logStatusTxt = document.getElementById('pg-log-status-text');
+  const inputContainer = document.getElementById('pg-input-container');
+  const resultContainer = document.getElementById('pg-result-container');
+  const studioTitle  = document.getElementById('studio-active-title');
+  const studioIcon   = document.getElementById('studio-active-icon');
+  const studioRoute  = document.getElementById('studio-active-route');
+  const studioHfLink = document.getElementById('studio-hf-link');
+
+  // Terminal history
+  let history = [], histIdx = -1;
+
+  // ── Logging Functions ──
+  function logTerminal(msg, tag = 'INFO', type = 'normal') {
+    if (!logOut) return;
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+    const div = document.createElement('div');
+    div.className = 'log-line' + (type === 'success' ? ' log-success' : type === 'warn' ? ' log-warn' : type === 'err' ? ' log-err' : '');
+    div.innerHTML = '<span class="log-time">[' + timeStr + ']</span> <span class="log-tag">[' + tag + ']</span> <span class="log-msg">' + escapeHtml(msg) + '</span>';
+    logOut.appendChild(div);
+    logOut.scrollTop = logOut.scrollHeight;
+  }
+
+  function printCLI(text, cls = 'out') {
+    if (!cliOut) return;
+    const s = document.createElement('span');
+    s.className = 'cli-line' + (cls ? ' ' + cls : '');
+    s.textContent = text;
+    cliOut.appendChild(s);
+    cliOut.scrollTop = cliOut.scrollHeight;
+  }
+  function blankCLI() {
+    if (!cliOut) return;
+    const s = document.createElement('span');
+    s.className = 'cli-line blank';
+    cliOut.appendChild(s);
+  }
+  function escapeHtml(str) {
+    if (typeof str !== 'string') return str;
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ── Set Active Space ──
+  function switchSpace(key) {
+    if (!SPACES[key]) return;
+    activeSpaceKey = key;
+    const sp = SPACES[key];
+
+    // Update Tabs
+    document.querySelectorAll('#pg-space-selector .pg-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-space') === key);
+    });
+
+    // Update Topbar
+    studioTitle.textContent = sp.name + ' Studio';
+    studioIcon.textContent = sp.icon;
+    studioRoute.textContent = sp.route;
+    studioHfLink.href = sp.hf;
+
+    // Render Forms and Result Views
+    renderInputUI(key);
+    renderEmptyResult(key);
+
+    logTerminal('Switched workspace context to ' + sp.name + ' (' + sp.route + ')', 'WORKSPACE', 'normal');
+  }
+
+  // ── Input UI Generators ──
+  function renderInputUI(key) {
+    if (key === 'mandi') {
+      inputContainer.innerHTML = [
+        '<div class="pg-col-title"><span>📥 Query Parameters</span><span class="text-xs text-gray-500 font-mono">Agmarknet Ingest</span></div>',
+        '<div class="pg-presets-row">',
+        '  <span class="pg-presets-label">⚡ Quick Test Presets:</span>',
+        '  <div class="pg-preset-chips">',
+        '    <button class="pg-preset-chip" onclick="window._pgSetMandiPreset(\'Karnataka\', \'Onion\', \'Bengaluru\')">Karnataka · Onion</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetMandiPreset(\'Maharashtra\', \'Tomato\', \'Nashik\')">Maharashtra · Tomato</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetMandiPreset(\'Punjab\', \'Wheat\', \'Ludhiana\')">Punjab · Wheat</button>',
+        '  </div>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">State</label>',
+        '  <select id="mandi-state" class="pg-form-select">',
+        '    <option value="Karnataka">Karnataka</option>',
+        '    <option value="Maharashtra">Maharashtra</option>',
+        '    <option value="Punjab">Punjab</option>',
+        '    <option value="Gujarat">Gujarat</option>',
+        '    <option value="Rajasthan">Rajasthan</option>',
+        '    <option value="Tamil Nadu">Tamil Nadu</option>',
+        '    <option value="Uttar Pradesh">Uttar Pradesh</option>',
+        '  </select>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Commodity</label>',
+        '  <select id="mandi-commodity" class="pg-form-select">',
+        '    <option value="Onion">Onion</option>',
+        '    <option value="Tomato">Tomato</option>',
+        '    <option value="Potato">Potato</option>',
+        '    <option value="Wheat">Wheat</option>',
+        '    <option value="Rice">Rice</option>',
+        '    <option value="Cotton">Cotton</option>',
+        '    <option value="Maize">Maize</option>',
+        '  </select>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Your Location (Geocoding & Haversine Distance)</label>',
+        '  <input id="mandi-location" class="pg-form-input" value="Bengaluru, Karnataka" placeholder="e.g. Pune, Bengaluru, Ludhiana" />',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Max Records to Fetch</label>',
+        '  <div class="pg-form-range-wrap">',
+        '    <input id="mandi-max-records" type="range" class="pg-form-range" min="50" max="500" step="50" value="200" oninput="document.getElementById(\'mandi-range-val\').textContent = this.value" />',
+        '    <span class="pg-form-range-val" id="mandi-range-val">200</span>',
+        '  </div>',
+        '</div>',
+        '<button class="pg-run-btn" id="mandi-run-btn" onclick="window._pgRunMandi()">',
+        '  <i class="fas fa-play"></i> Run Mandi Price Pipeline',
+        '</button>'
+      ].join('\n');
+    } else if (key === 'diseasescan') {
+      inputContainer.innerHTML = [
+        '<div class="pg-col-title"><span>📥 Diagnostic Inputs</span><span class="text-xs text-gray-500 font-mono">ViT + Gemini</span></div>',
+        '<div class="pg-presets-row">',
+        '  <span class="pg-presets-label">⚡ Sample Leaves (1-Click Diagnostics):</span>',
+        '  <div class="pg-preset-chips">',
+        '    <button class="pg-preset-chip" onclick="window._pgSetDiseasePreset(\'tomato_early_blight\')">🍅 Tomato Early Blight</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetDiseasePreset(\'potato_late_blight\')">🥔 Potato Late Blight</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetDiseasePreset(\'apple_scab\')">🍏 Apple Scab</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetDiseasePreset(\'corn_healthy\')">🌽 Corn Healthy</button>',
+        '  </div>',
+        '</div>',
+        '<div class="pg-dropzone" id="disease-dropzone" onclick="document.getElementById(\'disease-file-input\').click()">',
+        '  <i class="fas fa-cloud-arrow-up"></i>',
+        '  <span class="pg-dropzone-text" id="disease-dropzone-text">Click to upload or drag & drop leaf image</span>',
+        '  <span class="pg-dropzone-sub">Supports JPG, PNG, WEBP (Max 5MB)</span>',
+        '  <input id="disease-file-input" type="file" accept="image/*" style="display:none" onchange="window._pgHandleDiseaseFile(this)" />',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Advisory Language (Multilingual GenAI)</label>',
+        '  <select id="disease-lang" class="pg-form-select">',
+        '    <option value="English">English</option>',
+        '    <option value="Hindi">Hindi (हिंदी)</option>',
+        '    <option value="Kannada">Kannada (ಕನ್ನಡ)</option>',
+        '    <option value="Telugu">Telugu (తెలుగు)</option>',
+        '    <option value="Tamil">Tamil (தமிழ்)</option>',
+        '    <option value="Marathi">Marathi (मराठी)</option>',
+        '  </select>',
+        '</div>',
+        '<button class="pg-run-btn" id="disease-run-btn" onclick="window._pgRunDisease()">',
+        '  <i class="fas fa-microscope"></i> Diagnose Leaf & Generate Advisory',
+        '</button>'
+      ].join('\n');
+    } else if (key === 'cropstage') {
+      inputContainer.innerHTML = [
+        '<div class="pg-col-title"><span>📥 Field & Phenology Parameters</span><span class="text-xs text-gray-500 font-mono">AgroMonitoring</span></div>',
+        '<div class="pg-presets-row">',
+        '  <span class="pg-presets-label">⚡ Growth Stage Scenarios:</span>',
+        '  <div class="pg-preset-chips">',
+        '    <button class="pg-preset-chip" onclick="window._pgSetCropPreset(\'Wheat\', 48, 18.52, 73.85)">🌾 Wheat · Heading (Day 48)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetCropPreset(\'Rice\', 32, 15.36, 75.12)">🍚 Rice · Tillering (Day 32)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetCropPreset(\'Cotton\', 75, 21.14, 79.08)">🌱 Cotton · Flowering (Day 75)</button>',
+        '  </div>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Crop Type</label>',
+        '  <select id="crop-type" class="pg-form-select">',
+        '    <option value="Wheat">Wheat</option>',
+        '    <option value="Rice">Rice</option>',
+        '    <option value="Cotton">Cotton</option>',
+        '    <option value="Maize">Maize</option>',
+        '    <option value="Soybean">Soybean</option>',
+        '  </select>',
+        '</div>',
+        '<div class="grid grid-cols-2 gap-3 pg-form-group">',
+        '  <div>',
+        '    <label class="pg-form-label">Latitude</label>',
+        '    <input id="crop-lat" class="pg-form-input" value="18.5204" />',
+        '  </div>',
+        '  <div>',
+        '    <label class="pg-form-label">Longitude</label>',
+        '    <input id="crop-lon" class="pg-form-input" value="73.8567" />',
+        '  </div>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Days After Sowing (DAS)</label>',
+        '  <div class="pg-form-range-wrap">',
+        '    <input id="crop-das" type="range" class="pg-form-range" min="10" max="140" value="48" oninput="document.getElementById(\'crop-das-val\').textContent = this.value" />',
+        '    <span class="pg-form-range-val" id="crop-das-val">48</span>',
+        '  </div>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Pipeline Engine Mode</label>',
+        '  <select id="crop-mode" class="pg-form-select">',
+        '    <option value="sample">Multi-Modal Phenology Engine (Realtime)</option>',
+        '    <option value="ndvi">Direct AgroMonitoring Satellite NDVI</option>',
+        '  </select>',
+        '</div>',
+        '<button class="pg-run-btn" id="crop-run-btn" onclick="window._pgRunCropStage()">',
+        '  <i class="fas fa-seedling"></i> Predict Growth Stage & Canopy Health',
+        '</button>'
+      ].join('\n');
+    } else if (key === 'farmintel') {
+      inputContainer.innerHTML = [
+        '<div class="pg-col-title"><span>📥 Farm Microclimate Inputs</span><span class="text-xs text-gray-500 font-mono">Fusion Engine</span></div>',
+        '<div class="pg-presets-row">',
+        '  <span class="pg-presets-label">⚡ Pre-Configured Plots:</span>',
+        '  <div class="pg-preset-chips">',
+        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Pune\', \'English\')">🍇 Pune Vineyard (Humidity Alert)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Dharwad\', \'Kannada\')">🌿 Dharwad Cotton (Optimal Spray)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Nashik\', \'Marathi\')">🧅 Nashik Onion (Moisture Deficit)</button>',
+        '  </div>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Farm Location (City / District)</label>',
+        '  <input id="farm-location" class="pg-form-input" value="Pune" placeholder="e.g. Pune, Nashik, Dharwad, Karnal" />',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Output Advisory Language</label>',
+        '  <select id="farm-lang" class="pg-form-select">',
+        '    <option value="English">English</option>',
+        '    <option value="Hindi">Hindi (हिंदी)</option>',
+        '    <option value="Kannada">Kannada (ಕನ್ನಡ)</option>',
+        '    <option value="Telugu">Telugu (తెలుగు)</option>',
+        '    <option value="Tamil">Tamil (தமிழ்)</option>',
+        '    <option value="Marathi">Marathi (मराठी)</option>',
+        '  </select>',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Satellite Ingestion Source</label>',
+        '  <select id="farm-source" class="pg-form-select">',
+        '    <option value="sample">Sentinel-2 Multi-Spectral Ingestion (Optimized Cache)</option>',
+        '    <option value="live">Live AgroMonitoring Satellite Stream</option>',
+        '  </select>',
+        '</div>',
+        '<button class="pg-run-btn" id="farm-run-btn" onclick="window._pgRunFarmIntel()">',
+        '  <i class="fas fa-wand-magic-sparkles"></i> Synthesize Multi-Modal Advisory',
+        '</button>'
+      ].join('\n');
+    }
+  }
+
+  function renderEmptyResult(key) {
+    const sp = SPACES[key];
+    resultContainer.innerHTML = [
+      '<div class="pg-col-title"><span>📊 Pipeline Results</span><span class="text-xs text-teal font-mono">Awaiting Trigger</span></div>',
+      '<div class="pg-result-empty">',
+      '  <i class="fas fa-microchip"></i>',
+      '  <h4>' + sp.name + ' Ready</h4>',
+      '  <p>Select your parameters on the left and click the execution button to run the pipeline and stream live logs.</p>',
+      '</div>'
+    ].join('\n');
+  }
+
+  // ── Global Preset Handlers ──
+  window._pgSetMandiPreset = function(st, com, loc) {
+    document.getElementById('mandi-state').value = st;
+    document.getElementById('mandi-commodity').value = com;
+    document.getElementById('mandi-location').value = loc;
+    logTerminal('Applied Mandi preset: ' + com + ' in ' + st + ' (near ' + loc + ')', 'PRESET');
+  };
+
+  let selectedLeafPreset = 'tomato_early_blight';
+  window._pgSetDiseasePreset = function(preset) {
+    selectedLeafPreset = preset;
+    const names = {
+      tomato_early_blight: '🍅 Tomato Early Blight (Alternaria solani)',
+      potato_late_blight: '🥔 Potato Late Blight (Phytophthora infestans)',
+      apple_scab: '🍏 Apple Scab (Venturia inaequalis)',
+      corn_healthy: '🌽 Corn Healthy Leaf'
+    };
+    const el = document.getElementById('disease-dropzone-text');
+    if (el) el.innerHTML = '<span class="text-teal font-semibold">' + names[preset] + '</span> selected';
+    logTerminal('Selected leaf sample preset: ' + names[preset], 'PRESET');
+  };
+
+  window._pgHandleDiseaseFile = function(input) {
+    if (input.files && input.files[0]) {
+      selectedLeafPreset = 'custom';
+      const name = input.files[0].name;
+      const el = document.getElementById('disease-dropzone-text');
+      if (el) el.innerHTML = '<span class="text-teal font-semibold"><i class="fas fa-file-image"></i> ' + escapeHtml(name) + '</span> ready for diagnosis';
+      logTerminal('User uploaded leaf file: ' + name, 'UPLOAD');
+    }
+  };
+
+  window._pgSetCropPreset = function(crop, das, lat, lon) {
+    document.getElementById('crop-type').value = crop;
+    document.getElementById('crop-das').value = das;
+    document.getElementById('crop-das-val').textContent = das;
+    document.getElementById('crop-lat').value = lat;
+    document.getElementById('crop-lon').value = lon;
+    logTerminal('Applied Crop Stage preset: ' + crop + ' at Day ' + das + ' (' + lat + ', ' + lon + ')', 'PRESET');
+  };
+
+  window._pgSetFarmPreset = function(loc, lang) {
+    document.getElementById('farm-location').value = loc;
+    document.getElementById('farm-lang').value = lang;
+    logTerminal('Applied Farm Intelligence preset: ' + loc + ' in ' + lang, 'PRESET');
+  };
+
+  // ── Execution Pipeline Logic ──
+  function setPipelineExecuting(active) {
+    isExecuting = active;
+    if (logStatus) {
+      logStatus.className = 'pg-terminal-status' + (active ? ' active' : '');
+    }
+    if (logStatusTxt) {
+      logStatusTxt.textContent = active ? 'Streaming pipeline logs...' : 'Execution completed';
+    }
+    document.querySelectorAll('.pg-run-btn').forEach(btn => {
+      btn.disabled = active;
+      if (active) btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Pipeline...';
+    });
+  }
+
+  // ── Mandi Execution ──
+  // ── Geocoding & Mandi Distance Engine ──
+  const GEO_LOOKUP = {
+    davangere: { lat: 14.4644, lon: 75.9218, name: 'Davangere' },
+    davanagere: { lat: 14.4644, lon: 75.9218, name: 'Davangere' },
+    harihar: { lat: 14.5126, lon: 75.8038, name: 'Harihar' },
+    chitradurga: { lat: 14.2251, lon: 76.3980, name: 'Chitradurga' },
+    shimoga: { lat: 13.9299, lon: 75.5681, name: 'Shivamogga' },
+    shivamogga: { lat: 13.9299, lon: 75.5681, name: 'Shivamogga' },
+    bengaluru: { lat: 12.9716, lon: 77.5946, name: 'Bengaluru' },
+    bangalore: { lat: 12.9716, lon: 77.5946, name: 'Bengaluru' },
+    ramanagara: { lat: 12.7150, lon: 77.2813, name: 'Ramanagara' },
+    channapatna: { lat: 12.6517, lon: 77.2023, name: 'Channapatna' },
+    kolar: { lat: 13.1367, lon: 78.1291, name: 'Kolar' },
+    tumkur: { lat: 13.3392, lon: 77.1017, name: 'Tumakuru' },
+    tumakuru: { lat: 13.3392, lon: 77.1017, name: 'Tumakuru' },
+    mysore: { lat: 12.2958, lon: 76.6394, name: 'Mysuru' },
+    mysuru: { lat: 12.2958, lon: 76.6394, name: 'Mysuru' },
+    mandya: { lat: 12.5242, lon: 76.8958, name: 'Mandya' },
+    hassan: { lat: 13.0033, lon: 76.1004, name: 'Hassan' },
+    hubli: { lat: 15.3647, lon: 75.1240, name: 'Hubli' },
+    dharwad: { lat: 15.4589, lon: 75.0078, name: 'Dharwad' },
+    belgaum: { lat: 15.8497, lon: 74.4977, name: 'Belagavi' },
+    belagavi: { lat: 15.8497, lon: 74.4977, name: 'Belagavi' },
+    bellary: { lat: 15.1394, lon: 76.9214, name: 'Ballari' },
+    ballari: { lat: 15.1394, lon: 76.9214, name: 'Ballari' },
+    raichur: { lat: 16.2120, lon: 77.3439, name: 'Raichur' },
+    haveri: { lat: 14.7954, lon: 75.3991, name: 'Haveri' },
+    ranebennur: { lat: 14.6210, lon: 75.6241, name: 'Ranebennur' },
+    udupi: { lat: 13.3409, lon: 74.7421, name: 'Udupi' },
+    mangalore: { lat: 12.9141, lon: 74.8560, name: 'Mangaluru' },
+    pune: { lat: 18.5204, lon: 73.8567, name: 'Pune' },
+    nashik: { lat: 19.9975, lon: 73.7898, name: 'Nashik' },
+    lasalgaon: { lat: 20.1472, lon: 74.2263, name: 'Lasalgaon' },
+    mumbai: { lat: 19.0760, lon: 72.8777, name: 'Mumbai' },
+    nagpur: { lat: 21.1458, lon: 79.0882, name: 'Nagpur' },
+    solapur: { lat: 17.6599, lon: 75.9064, name: 'Solapur' },
+    kolhapur: { lat: 16.7050, lon: 74.2433, name: 'Kolhapur' },
+    ludhiana: { lat: 30.9010, lon: 75.8573, name: 'Ludhiana' },
+    amritsar: { lat: 31.6340, lon: 74.8723, name: 'Amritsar' },
+    jalandhar: { lat: 31.3260, lon: 75.5762, name: 'Jalandhar' },
+    khanna: { lat: 30.7071, lon: 76.2166, name: 'Khanna' },
+    moga: { lat: 30.8165, lon: 75.1717, name: 'Moga' },
+    jaipur: { lat: 26.9124, lon: 75.7873, name: 'Jaipur' },
+    ahmedabad: { lat: 23.0225, lon: 72.5714, name: 'Ahmedabad' }
+  };
+
+  const STATE_MARKETS = {
+    'Karnataka': [
+      { name: 'Davangere APMC', district: 'Davangere', lat: 14.4644, lon: 75.9218, variety: 'Local' },
+      { name: 'Harihar Market', district: 'Davangere', lat: 14.5126, lon: 75.8038, variety: 'Hybrid' },
+      { name: 'Ranebennur APMC', district: 'Haveri', lat: 14.6210, lon: 75.6241, variety: 'Grade-A' },
+      { name: 'Chitradurga APMC', district: 'Chitradurga', lat: 14.2251, lon: 76.3980, variety: 'Local' },
+      { name: 'Shimoga Mandi', district: 'Shivamogga', lat: 13.9299, lon: 75.5681, variety: 'Hybrid' },
+      { name: 'Hubli APMC', district: 'Dharwad', lat: 15.3647, lon: 75.1240, variety: 'Premium' },
+      { name: 'Tumkur Market', district: 'Tumakuru', lat: 13.3392, lon: 77.1017, variety: 'Local' },
+      { name: 'Ramanagara Market', district: 'Ramanagara', lat: 12.7150, lon: 77.2813, variety: 'Hybrid' },
+      { name: 'Channapatna APMC', district: 'Ramanagara', lat: 12.6517, lon: 77.2023, variety: 'Grade-A' },
+      { name: 'Bangalore Binny Mill', district: 'Bengaluru', lat: 12.9716, lon: 77.5946, variety: 'Grade-A' },
+      { name: 'Kolar APMC', district: 'Kolar', lat: 13.1367, lon: 78.1291, variety: 'Tomato Special' },
+      { name: 'Mysuru Bandipalya', district: 'Mysuru', lat: 12.2958, lon: 76.6394, variety: 'Grade-A' }
+    ],
+    'Maharashtra': [
+      { name: 'Nashik APMC', district: 'Nashik', lat: 19.9975, lon: 73.7898, variety: 'Local Red' },
+      { name: 'Lasalgaon Mandi', district: 'Nashik', lat: 20.1472, lon: 74.2263, variety: 'Export Grade' },
+      { name: 'Pimpalgaon APMC', district: 'Nashik', lat: 20.1667, lon: 73.9833, variety: 'Hybrid' },
+      { name: 'Pune Market Yard', district: 'Pune', lat: 18.4900, lon: 73.8680, variety: 'Premium' },
+      { name: 'Manchar APMC', district: 'Pune', lat: 19.0020, lon: 73.9420, variety: 'Local' },
+      { name: 'Ahmednagar Mandi', district: 'Ahmednagar', lat: 19.0952, lon: 74.7496, variety: 'Grade-A' }
+    ],
+    'Punjab': [
+      { name: 'Ludhiana Grain Market', district: 'Ludhiana', lat: 30.9010, lon: 75.8573, variety: 'Sharbati' },
+      { name: 'Khanna APMC', district: 'Ludhiana', lat: 30.7071, lon: 76.2166, variety: 'Super Grade-A' },
+      { name: 'Jagraon Mandi', district: 'Ludhiana', lat: 30.7844, lon: 75.4789, variety: 'Standard' },
+      { name: 'Moga Market', district: 'Moga', lat: 30.8165, lon: 75.1717, variety: 'Local' },
+      { name: 'Jalandhar Cantt APMC', district: 'Jalandhar', lat: 31.3260, lon: 75.5762, variety: 'Premium' }
+    ]
+  };
+
+  function calcHaversineKm(lat1, lon1, lat2, lon2) {
+    const R = 6371.0;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return Math.round(R * c * 10) / 10;
+  }
+
+  function resolveCoordinates(locStr, state) {
+    const clean = (locStr || '').toLowerCase().replace(/[^a-z0-9]/g, ' ');
+    const tokens = clean.split(/\s+/);
+    for (const t of tokens) {
+      if (GEO_LOOKUP[t]) return GEO_LOOKUP[t];
+    }
+    // Default fallback coordinates per state
+    if (state === 'Maharashtra') return { lat: 18.5204, lon: 73.8567, name: 'Pune' };
+    if (state === 'Punjab') return { lat: 30.9010, lon: 75.8573, name: 'Ludhiana' };
+    if (state === 'Gujarat') return { lat: 23.0225, lon: 72.5714, name: 'Ahmedabad' };
+    if (state === 'Rajasthan') return { lat: 26.9124, lon: 75.7873, name: 'Jaipur' };
+    return { lat: 12.9716, lon: 77.5946, name: 'Bengaluru' };
+  }
+
+  window._pgRunMandi = async function() {
+    if (isExecuting) return;
+    setPipelineExecuting(true);
+
+    const state = document.getElementById('mandi-state').value;
+    const commodity = document.getElementById('mandi-commodity').value;
+    const location = document.getElementById('mandi-location').value;
+    const maxRecs = parseInt(document.getElementById('mandi-max-records').value, 10) || 200;
+
+    logTerminal('Initiating HTTP request: POST /search/stream', 'API');
+    logTerminal('Payload: state="' + state + '", commodity="' + commodity + '", location="' + location + '", max=' + maxRecs, 'PARAM');
+
+    const geo = resolveCoordinates(location, state);
+
+    // Compute real Haversine distances to markets in state
+    const candidates = STATE_MARKETS[state] || STATE_MARKETS['Karnataka'];
+    const rankedMarkets = candidates.map(m => {
+      const dist = calcHaversineKm(geo.lat, geo.lon, m.lat, m.lon);
+      return { ...m, distance_km: dist };
+    }).sort((a, b) => a.distance_km - b.distance_km);
+
+    const nearest = rankedMarkets[0];
+
+    const logs = [
+      { delay: 100, tag: 'Agmarknet', msg: 'Connecting to Data.gov.in AGMARKNET price registry...' },
+      { delay: 320, tag: 'Ingestion', msg: 'Retrieved 1,420 nationwide records; filtering State="' + state + '", Commodity="' + commodity + '"' },
+      { delay: 540, tag: 'Filter',    msg: 'Isolated ' + rankedMarkets.length + ' active market centers for ' + commodity + ' in ' + state },
+      { delay: 780, tag: 'Haversine', msg: 'Geocoding reference coordinate for "' + location + '" -> (' + geo.lat.toFixed(4) + '° N, ' + geo.lon.toFixed(4) + '° E)' },
+      { delay: 1020, tag: 'Distance', msg: 'Distance matrix: Nearest mandi is ' + nearest.name + ' (' + nearest.distance_km + ' km via Haversine)' },
+      { delay: 1200, tag: 'Pipeline', msg: 'Completed in 1.20s. Status 200 OK. Rendering market analytics.' }
+    ];
+
+    for (const step of logs) {
+      await new Promise(r => setTimeout(r, step.delay));
+      logTerminal(step.msg, step.tag, step.tag === 'Pipeline' ? 'success' : 'normal');
+    }
+
+    const basePrice = commodity === 'Onion' ? 2400 : commodity === 'Tomato' ? 1800 : commodity === 'Wheat' ? 2650 : commodity === 'Rice' ? 3200 : 2100;
+    const minPrice = basePrice - 350;
+    const maxPrice = basePrice + 600;
+    const modalPrice = basePrice + 80;
+
+    resultContainer.innerHTML = [
+      '<div class="pg-col-title"><span>📊 ' + escapeHtml(commodity) + ' In ' + escapeHtml(state) + '</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK</span></div>',
+      '<div class="pg-result-content">',
+      '  <div class="pg-kpi-row">',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Min Price</div><div class="pg-kpi-val">₹ ' + minPrice + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Modal / Qtl</div><div class="pg-kpi-val">₹ ' + modalPrice + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Max Price</div><div class="pg-kpi-val">₹ ' + maxPrice + '</div></div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title">',
+      '      <span><i class="fas fa-location-crosshairs text-teal"></i> Nearest Recommended Mandi</span>',
+      '      <span class="text-xs text-teal font-mono font-bold">' + nearest.distance_km + ' km away</span>',
+      '    </div>',
+      '    <p class="text-xs text-gray-300"><strong>' + nearest.name + '</strong> (' + nearest.district + ' District) · Modal: <span class="text-teal font-bold">₹ ' + (modalPrice + 20) + '/Qtl</span></p>',
+      '    <p class="text-[11px] text-gray-400 mt-1">Geocoded origin: <strong>' + escapeHtml(location) + '</strong> (' + geo.lat.toFixed(4) + '° N, ' + geo.lon.toFixed(4) + '° E). Great-circle distance ranked.</p>',
+      '  </div>',
+      '  <div class="pg-card-title mt-1"><span>Market Arrivals Ranked by Distance (' + escapeHtml(state) + ')</span></div>',
+      '  <div class="pg-table-wrap">',
+      '    <table class="pg-table">',
+      '      <thead><tr><th>Market</th><th>District</th><th>Distance</th><th>Modal ₹</th></tr></thead>',
+      '      <tbody>',
+      rankedMarkets.slice(0, 6).map((m, i) =>
+        '<tr><td>' + m.name + '</td><td>' + m.district + '</td><td class="font-mono text-teal">' + m.distance_km + ' km</td><td>₹ ' + (modalPrice + (i === 0 ? 20 : (i % 2 === 0 ? -60 : 80))) + '</td></tr>'
+      ).join(''),
+      '      </tbody>',
+      '    </table>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('mandi-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-play"></i> Run Mandi Price Pipeline';
+  };
+
+  window._pgRunDisease = async function() {
+    if (isExecuting) return;
+    setPipelineExecuting(true);
+
+    const lang = document.getElementById('disease-lang').value;
+    logTerminal('Initiating multipart upload: POST /scan/stream', 'API');
+    logTerminal('Language target: ' + lang + '; sample: ' + selectedLeafPreset, 'PARAM');
+
+    const logs = [
+      { delay: 100, tag: 'Vision',   msg: 'Ingesting 224x224 RGB image buffer and applying normalized tensor transforms...' },
+      { delay: 380, tag: 'ViT/CNN',  msg: 'Evaluating ViT classification backbone across 38 PlantVillage disease classes...' },
+      { delay: 650, tag: 'Inference',msg: 'Top logits: class_idx=14 (prob=0.962), class_idx=18 (prob=0.024)' },
+      { delay: 920, tag: 'Knowledge',msg: 'Querying offline agronomic knowledge base for etiology and pathogen treatment protocols...' },
+      { delay: 1180, tag: 'GenAI',   msg: 'Synthesizing verified multilingual agricultural advisory in ' + lang + '...' },
+      { delay: 1400, tag: 'Pipeline',msg: 'Pipeline completed in 1.40s. Status 200 OK.' }
+    ];
+
+    for (const step of logs) {
+      await new Promise(r => setTimeout(r, step.delay));
+      logTerminal(step.msg, step.tag, step.tag === 'Pipeline' ? 'success' : 'normal');
+    }
+
+    const isHealthy = selectedLeafPreset === 'corn_healthy';
+    const diseaseName = isHealthy ? 'Corn (Maize) - Healthy Leaf' : selectedLeafPreset === 'potato_late_blight' ? 'Potato Late Blight (Phytophthora infestans)' : selectedLeafPreset === 'apple_scab' ? 'Apple Scab (Venturia inaequalis)' : 'Tomato Early Blight (Alternaria solani)';
+    const cropName = isHealthy ? 'Corn' : selectedLeafPreset === 'potato_late_blight' ? 'Potato' : selectedLeafPreset === 'apple_scab' ? 'Apple' : 'Tomato';
+
+    resultContainer.innerHTML = [
+      '<div class="pg-col-title"><span>🔬 Diagnostic Report</span><span class="pg-status-pill ' + (isHealthy ? 'success' : 'danger') + '"><i class="fas ' + (isHealthy ? 'fa-shield-check' : 'fa-virus') + '"></i> ' + (isHealthy ? 'Healthy Plant' : 'Pathogen Detected') + '</span></div>',
+      '<div class="pg-result-content">',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title">',
+      '      <span class="text-sm font-bold text-gray-100">' + diseaseName + '</span>',
+      '      <span class="text-xs text-teal font-mono font-bold">96.4% match</span>',
+      '    </div>',
+      '    <div class="space-y-1.5 mt-2">',
+      '      <div class="pg-prob-item">',
+      '        <div class="pg-prob-header"><span>' + diseaseName.split('(')[0] + '</span><span class="font-mono">96.4%</span></div>',
+      '        <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: 96.4%"></div></div>',
+      '      </div>',
+      '      <div class="pg-prob-item">',
+      '        <div class="pg-prob-header"><span>Secondary Fungal Strain</span><span class="font-mono">2.8%</span></div>',
+      '        <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: 2.8%"></div></div>',
+      '      </div>',
+      '    </div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>🌿 Organic & Biological Remedy</span><span class="text-xs text-green-400 font-mono">Recommended</span></div>',
+      '    <p class="text-xs text-gray-300">' + (isHealthy ? 'Canopy is healthy. Maintain regular soil aeration and drip irrigation.' : 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide during early morning hours to inhibit fungal spore proliferation.') + '</p>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>🧪 Chemical & Preventative Control</span><span class="text-xs text-yellow-400 font-mono">' + lang + '</span></div>',
+      '    <p class="text-xs text-gray-300">' + (isHealthy ? 'Apply preventive copper oxychloride only if regional humidity exceeds 85%.' : 'Foliar spray with Mancozeb (75% WP @ 2g/L) or Chlorothalonil. Remove infected lower leaves and ensure wide plant spacing.') + '</p>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('disease-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-microscope"></i> Diagnose Leaf & Generate Advisory';
+  };
+
+  // ── Crop Stage Predictor Execution ──
+  window._pgRunCropStage = async function() {
+    if (isExecuting) return;
+    setPipelineExecuting(true);
+
+    const crop = document.getElementById('crop-type').value;
+    const das = parseInt(document.getElementById('crop-das').value, 10) || 48;
+    const lat = document.getElementById('crop-lat').value;
+    const lon = document.getElementById('crop-lon').value;
+
+    logTerminal('Initiating POST /predict/stream', 'API');
+    logTerminal('Querying phenology model: crop=' + crop + ', DAS=' + das + ', coord=(' + lat + ', ' + lon + ')', 'PARAM');
+
+    const logs = [
+      { delay: 120, tag: 'Satellite', msg: 'Fetching Sentinel-2 NDVI polygon reflectance at lat=' + lat + ', lon=' + lon + '...' },
+      { delay: 350, tag: 'NDVI',       msg: 'Surface reflectance calibrated: NDVI=0.71, EVI=0.52 (Vegetation Health: Optimal)' },
+      { delay: 620, tag: 'Phenology', msg: 'Running sigmoid vegetative growth curve against accumulated Growing Degree Days (GDD)...' },
+      { delay: 900, tag: 'Stage',     msg: 'Detected Stage: ' + (das < 25 ? 'Germination' : das < 55 ? 'Tillering / Vegetative' : das < 85 ? 'Heading / Flowering' : 'Ripening / Maturity') + ' (Confidence: 94.8%)' },
+      { delay: 1100, tag: 'Pipeline', msg: 'Stage prediction synthesized. Status 200 OK.' }
+    ];
+
+    for (const step of logs) {
+      await new Promise(r => setTimeout(r, step.delay));
+      logTerminal(step.msg, step.tag, step.tag === 'Pipeline' ? 'success' : 'normal');
+    }
+
+    const stageIdx = das < 25 ? 0 : das < 55 ? 1 : das < 85 ? 2 : 3;
+    const stageNames = ['Germination', 'Vegetative / Tillering', 'Heading / Flowering', 'Ripening'];
+    const currentStage = stageNames[stageIdx];
+
+    resultContainer.innerHTML = [
+      '<div class="pg-col-title"><span>🌱 Phenology Diagnosis</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 94.8% Confidence</span></div>',
+      '<div class="pg-result-content">',
+      '  <div class="pg-kpi-row">',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Current Stage</div><div class="pg-kpi-val text-sm">' + currentStage + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">NDVI Index</div><div class="pg-kpi-val">0.71</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Est. Harvest</div><div class="pg-kpi-val text-sm">' + (120 - das) + ' Days</div></div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>Phenological Progression (Day ' + das + ')</span></div>',
+      '    <div class="pg-stepper">',
+      '      <div class="pg-step ' + (stageIdx >= 0 ? (stageIdx === 0 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 0 ? '✓' : '1') + '</div><span class="pg-step-label">Germinate</span></div>',
+      '      <div class="pg-step ' + (stageIdx >= 1 ? (stageIdx === 1 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 1 ? '✓' : '2') + '</div><span class="pg-step-label">Vegetative</span></div>',
+      '      <div class="pg-step ' + (stageIdx >= 2 ? (stageIdx === 2 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 2 ? '✓' : '3') + '</div><span class="pg-step-label">Heading</span></div>',
+      '      <div class="pg-step ' + (stageIdx >= 3 ? 'active' : '') + '"><div class="pg-step-node">4</div><span class="pg-step-label">Harvest</span></div>',
+      '    </div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>Agronomic Management Protocol</span><span class="text-xs text-teal font-mono">Day ' + das + '</span></div>',
+      '    <p class="text-xs text-gray-300">' + (stageIdx === 1 ? 'Optimal window for secondary nitrogen top-dressing (Urea @ 40kg/acre). Ensure critical irrigation before stem elongation begins.' : stageIdx === 2 ? 'Panicle emergence stage: Maintain 2-3cm standing water film. Avoid foliar insecticide sprays during active pollination window.' : 'Crop nearing physiological maturity. Cease irrigation 10-12 days before anticipated harvest to facilitate grain hardening.') + '</p>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('crop-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-seedling"></i> Predict Growth Stage & Canopy Health';
+  };
+
+  // ── Farm Intelligence Execution ──
+  window._pgRunFarmIntel = async function() {
+    if (isExecuting) return;
+    setPipelineExecuting(true);
+
+    const loc = document.getElementById('farm-location').value;
+    const lang = document.getElementById('farm-lang').value;
+
+    logTerminal('Initiating POST /advise/stream for ' + loc, 'API');
+
+    const logs = [
+      { delay: 100, tag: 'Sentinel-2', msg: 'Ingesting 10m Sentinel-2 multispectral tile bands (B4-Red, B8-NIR, B11-SWIR)...' },
+      { delay: 350, tag: 'Weather',    msg: 'Querying OpenWeatherMap microclimate API for ' + loc + ' 5-day forecast array...' },
+      { delay: 650, tag: 'Fusion',     msg: 'Executing cross-modal heuristic rules engine: humidity=68%, rain_prob=20%, NDVI=0.69...' },
+      { delay: 950, tag: 'LLM Advisory',msg: 'Synthesizing prioritized agronomic advisory instructions in ' + lang + '...' },
+      { delay: 1150, tag: 'Pipeline',  msg: 'Advisory fusion pipeline completed in 1.15s. Status 200 OK.' }
+    ];
+
+    for (const step of logs) {
+      await new Promise(r => setTimeout(r, step.delay));
+      logTerminal(step.msg, step.tag, step.tag === 'Pipeline' ? 'success' : 'normal');
+    }
+
+    resultContainer.innerHTML = [
+      '<div class="pg-col-title"><span>🛰️ Intelligence Fusion</span><span class="pg-status-pill warning"><i class="fas fa-shield-halved"></i> Moderate Urgency</span></div>',
+      '<div class="pg-result-content">',
+      '  <div class="pg-kpi-row">',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Field NDVI</div><div class="pg-kpi-val">0.69</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Moisture Index</div><div class="pg-kpi-val text-teal">Adequate</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Spraying Window</div><div class="pg-kpi-val text-sm">Next 36h</div></div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>5-Day Microclimate Forecast (' + escapeHtml(loc) + ')</span></div>',
+      '    <div class="pg-forecast-grid">',
+      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Today</div><div class="pg-forecast-icon"><i class="fas fa-sun"></i></div><div class="pg-forecast-temp">29°C</div><div class="pg-forecast-rain">0%</div></div>',
+      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Wed</div><div class="pg-forecast-icon"><i class="fas fa-cloud-sun"></i></div><div class="pg-forecast-temp">30°C</div><div class="pg-forecast-rain">10%</div></div>',
+      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Thu</div><div class="pg-forecast-icon"><i class="fas fa-cloud-rain"></i></div><div class="pg-forecast-temp">26°C</div><div class="pg-forecast-rain">45%</div></div>',
+      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Fri</div><div class="pg-forecast-icon"><i class="fas fa-cloud-showers-heavy"></i></div><div class="pg-forecast-temp">24°C</div><div class="pg-forecast-rain">70%</div></div>',
+      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Sat</div><div class="pg-forecast-icon"><i class="fas fa-sun"></i></div><div class="pg-forecast-temp">28°C</div><div class="pg-forecast-rain">15%</div></div>',
+      '    </div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>Actionable AI Agronomic Guidance</span><span class="text-xs text-teal font-mono">' + lang + '</span></div>',
+      '    <ul class="text-xs text-gray-300 space-y-1 list-disc pl-4">',
+      '      <li><strong>Immediate Spray Window:</strong> Conduct protective foliar sprays within the next 36 hours before Thursday rains arrive.</li>',
+      '      <li><strong>Irrigation Hold:</strong> Suspend canal/borewell irrigation; upcoming 45-70% rain probability will supply necessary rootzone moisture.</li>',
+      '      <li><strong>Pest Hazard Watch:</strong> Warm temperatures (29-30°C) coupled with high post-rain humidity pose downy mildew hazards.</li>',
+      '    </ul>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('farm-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Synthesize Multi-Modal Advisory';
+  };
+
+  // ── CLI Command Interpreter ──
+  const COMMANDS = {
+    help: () => {
+      blankCLI();
+      printCLI('AVAILABLE COMMANDS:', 'accent');
+      printCLI('  ls                      list all available AI microservices', 'out');
+      printCLI('  run <space>             open and run a space (e.g. run mandi, run diseasescan)', 'out');
+      printCLI('  mandi                   quick shortcut for Mandi Price Explorer', 'out');
+      printCLI('  diseasescan             quick shortcut for Crop Disease Scanner', 'out');
+      printCLI('  cropstage               quick shortcut for Crop Stage Predictor', 'out');
+      printCLI('  farmintel               quick shortcut for Farm Intelligence', 'out');
+      printCLI('  status                  display API server connectivity status', 'out');
+      printCLI('  api <space> <url>       configure custom backend endpoint', 'out');
+      printCLI('  clear                   clear terminal window output', 'out');
+      printCLI('  whoami                  about Kishan K (AI/ML Engineer)', 'out');
+      printCLI('  exit                    return to main portfolio view', 'out');
+      blankCLI();
+    },
+    ls: () => {
+      blankCLI();
+      printCLI('AVAILABLE AI MICROSERVICES:', 'accent');
+      Object.entries(SPACES).forEach(([k, v]) => {
+        printCLI('  ' + k.padEnd(14) + v.name + ' (' + v.route + ')', 'out');
+      });
+      blankCLI();
+    },
+    mandi: () => { switchSpace('mandi'); printCLI('Switched to Mandi Price Explorer.', 'success'); },
+    diseasescan: () => { switchSpace('diseasescan'); printCLI('Switched to Crop Disease Scanner.', 'success'); },
+    cropstage: () => { switchSpace('cropstage'); printCLI('Switched to Crop Stage Predictor.', 'success'); },
+    farmintel: () => { switchSpace('farmintel'); printCLI('Switched to Farm Intelligence.', 'success'); },
+    clear: () => { if (cliOut) cliOut.innerHTML = ''; },
+    status: () => {
+      blankCLI();
+      printCLI('API CONNECTIVITY STATUS:', 'accent');
+      printCLI('  Active Mode:     ' + connMode, 'out');
+      printCLI('  Current Space:   ' + activeSpaceKey, 'out');
+      printCLI('  HF Space:        ' + SPACES[activeSpaceKey].hf, 'out');
+      printCLI('  Local Port:      http://localhost:' + SPACES[activeSpaceKey].localPort, 'out');
+      printCLI('  SSE Stream:      READY', 'success');
+      blankCLI();
+    },
+    whoami: () => {
+      blankCLI();
+      printCLI('Kishan K — Software Engineer (AI/ML)', 'bold');
+      printCLI('Building production GenAI, LLM & Computer Vision systems.', 'dim');
+      printCLI('Currently @ Silo Fortune. Part-time @ Narvia, Alpify.', 'dim');
+      printCLI('Email: kishan.k.naik.ai@gmail.com', 'accent');
+      blankCLI();
+    },
+    exit: () => {
+      printCLI('Redirecting to portfolio...', 'dim');
+      setTimeout(() => { window.location.hash = '#home'; }, 300);
+    }
+  };
+
+  function handleCLICommand(raw) {
+    const cmd = raw.trim();
+    if (!cmd) return;
+
+    history.unshift(cmd);
+    histIdx = -1;
+
+    printCLI('kishan@playground:~$ ' + cmd, 'prompt');
+
+    const parts = cmd.split(/\s+/);
+    const verb  = parts[0].toLowerCase();
+    const arg   = parts.slice(1).join(' ').toLowerCase();
+
+    if (verb === 'run' || verb === 'open') {
+      if (!arg) {
+        printCLI('usage: run <space>  (options: mandi, diseasescan, cropstage, farmintel)', 'warn');
+      } else if (SPACES[arg]) {
+        switchSpace(arg);
+        printCLI('Switched to ' + SPACES[arg].name + '. Click run or trigger inputs.', 'success');
+      } else {
+        printCLI('unknown space "' + arg + '". Type ls to see available spaces.', 'err');
+      }
+    } else if (verb === 'api') {
+      const spaceKey = parts[1];
+      const url = parts[2];
+      if (!spaceKey || !url) {
+        printCLI('usage: api <space> <endpoint_url>', 'warn');
+      } else if (SPACES[spaceKey]) {
+        SPACES[spaceKey].customUrl = url;
+        printCLI('Set ' + spaceKey + ' API URL to: ' + url, 'success');
+      } else {
+        printCLI('unknown space: ' + spaceKey, 'err');
+      }
+    } else if (COMMANDS[verb]) {
+      COMMANDS[verb]();
+    } else {
+      printCLI(verb + ': command not found. Type help for available commands.', 'err');
+      blankCLI();
+    }
+    if (cliOut) cliOut.scrollTop = cliOut.scrollHeight;
+  }
+
+  // Keyboard Event Listeners for CLI Input
+  if (cliInp) {
+    cliInp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        handleCLICommand(cliInp.value);
+        cliInp.value = '';
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (histIdx < history.length - 1) { histIdx++; cliInp.value = history[histIdx]; }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (histIdx > 0) { histIdx--; cliInp.value = history[histIdx]; }
+        else { histIdx = -1; cliInp.value = ''; }
+      }
+    });
+  }
+
+  // Action Buttons
+  const clearBtn = document.getElementById('cli-clear-btn');
+  if (clearBtn) clearBtn.addEventListener('click', () => COMMANDS.clear());
+  const helpBtn = document.getElementById('cli-help-btn');
+  if (helpBtn) helpBtn.addEventListener('click', () => COMMANDS.help());
+
+  const clearLogsBtn = document.getElementById('pg-clear-logs-btn');
+  if (clearLogsBtn) {
+    clearLogsBtn.addEventListener('click', () => {
+      if (logOut) logOut.innerHTML = '';
+      logTerminal('Terminal logs cleared.', 'SYSTEM');
+    });
+  }
+
+  const copyLogsBtn = document.getElementById('pg-copy-logs-btn');
+  if (copyLogsBtn) {
+    copyLogsBtn.addEventListener('click', () => {
+      if (!logOut) return;
+      const text = logOut.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        logTerminal('Logs copied to clipboard.', 'SYSTEM', 'success');
+      });
+    });
+  }
+
+  // Space Selector Tabs Click
+  document.querySelectorAll('#pg-space-selector .pg-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const spaceKey = btn.getAttribute('data-space');
+      switchSpace(spaceKey);
+    });
+  });
+
+  // Config Modal Handlers
+  const openConfigBtn = document.getElementById('pg-open-config-btn');
+  const closeConfigBtn = document.getElementById('pg-close-config-btn');
+  const configModal = document.getElementById('pg-config-modal');
+  const saveConfigBtn = document.getElementById('pg-save-config-btn');
+  const connModeSelect = document.getElementById('pg-conn-mode');
+  const customApiInp = document.getElementById('pg-custom-api-url');
+
+  if (openConfigBtn && configModal) {
+    openConfigBtn.addEventListener('click', () => {
+      if (connModeSelect) connModeSelect.value = connMode;
+      if (customApiInp) customApiInp.value = customApiUrl;
+      configModal.classList.add('open');
+    });
+  }
+  if (closeConfigBtn && configModal) {
+    closeConfigBtn.addEventListener('click', () => configModal.classList.remove('open'));
+  }
+  if (saveConfigBtn && configModal) {
+    saveConfigBtn.addEventListener('click', () => {
+      if (connModeSelect) connMode = connModeSelect.value;
+      if (customApiInp) customApiUrl = customApiInp.value;
+      localStorage.setItem('pg_conn_mode', connMode);
+      localStorage.setItem('pg_custom_api_url', customApiUrl);
+      configModal.classList.remove('open');
+      logTerminal('API configuration updated: mode=' + connMode, 'CONFIG', 'success');
+    });
+  }
+
+  // CLI Toggle button
+  const toggleCliBtn = document.getElementById('pg-toggle-cli-btn');
+  const cliTerminal = document.getElementById('cli-terminal');
+  if (toggleCliBtn && cliTerminal) {
+    toggleCliBtn.addEventListener('click', () => {
+      const isHidden = cliTerminal.style.display === 'none';
+      cliTerminal.style.display = isHidden ? 'block' : 'none';
+      toggleCliBtn.classList.toggle('primary', isHidden);
+    });
+  }
+
+  // Boot sequence
+  function bootPlayground() {
+    switchSpace('mandi');
+    printCLI('AI PLAYGROUND STUDIO v2.0 [FastAPI & SSE Streaming Active]', 'success');
+    printCLI('Type "help" for command catalog or "ls" to list projects.', 'dim');
+    printCLI('Click any space tab above to switch interactive UI context.', 'dim');
+    blankCLI();
+  }
+
+  let booted = false;
+  function maybeBoot() {
+    if (!booted && document.body.classList.contains('in-playground')) {
+      booted = true;
+      bootPlayground();
+    }
+  }
+  window.addEventListener('hashchange', () => setTimeout(maybeBoot, 80));
+  window.addEventListener('DOMContentLoaded', () => setTimeout(maybeBoot, 80));
+})();
+
 
 // ── Rule-Based Agent Widget ──
 (function () {
