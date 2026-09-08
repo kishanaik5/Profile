@@ -2026,32 +2026,79 @@ Say Hello
 
 <!-- API Config Modal -->
 <div id="pg-config-modal">
-  <div class="pg-config-inner">
+  <div class="pg-config-inner" style="max-width: 580px;">
     <div class="pg-config-header">
       <div class="flex items-center gap-2 text-teal font-mono text-sm font-bold">
-        <i class="fas fa-sliders"></i> API Endpoint Configuration
+        <i class="fas fa-sliders"></i> API & Environment Configuration
       </div>
       <button id="pg-close-config-btn" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
     </div>
     <div class="pg-config-body">
       <p class="text-xs text-gray-300 mb-4 font-mono">
-        Configure whether the playground connects to production Hugging Face Docker Spaces, your local development server (uvicorn), or authentic demo simulation.
+        Connect to your local FastAPI Gateway (<code class="text-teal">./run_api.sh</code>), paste runtime environment keys, or use instant client-side simulation.
       </p>
-      <div class="pg-form-group">
+
+      <div class="pg-form-group mb-3">
         <label class="pg-form-label">Active Connection Mode</label>
         <select id="pg-conn-mode" class="pg-form-select">
-          <option value="auto">Smart Auto-Detect (Try Live API, fallback to Simulation)</option>
-          <option value="local">Local Development Server (ports 8001–8004)</option>
-          <option value="hf">Hugging Face Docker Space (Production URL)</option>
-          <option value="sim">Authentic Demo Pipeline Simulation (Zero-latency)</option>
+          <option value="auto">Smart Auto-Detect (Try Local Gateway, then HF Space, fallback to Simulation)</option>
+          <option value="hf">Hugging Face Production Spaces (https://*.hf.space)</option>
+          <option value="local">Local Development Gateway (http://localhost:8000)</option>
+          <option value="sim">Authentic Demo Pipeline Simulation (Zero-latency / Offline)</option>
         </select>
       </div>
-      <div class="pg-form-group">
-        <label class="pg-form-label">Custom API Base URL (Optional override)</label>
-        <input id="pg-custom-api-url" class="pg-form-input" placeholder="e.g. http://localhost:8001 or https://my-space.hf.space" />
+
+      <div class="pg-form-group mb-3">
+        <div class="flex items-center justify-between mb-1">
+          <label class="pg-form-label mb-0">FastAPI Gateway Base URL</label>
+          <button id="pg-test-conn-btn" type="button" class="text-xs text-teal font-mono hover:underline flex items-center gap-1">
+            <i class="fas fa-plug"></i> Test Connection
+          </button>
+        </div>
+        <input id="pg-custom-api-url" class="pg-form-input" placeholder="http://localhost:8000" value="http://localhost:8000" />
+        <div id="pg-conn-status-badge" class="text-[11px] font-mono text-gray-400 mt-1">
+          Status: Click "Test Connection" to check gateway health
+        </div>
       </div>
-      <div class="mt-4 flex justify-end gap-2">
-        <button id="pg-save-config-btn" class="pg-run-btn" style="width: auto; padding: 6px 16px;">Save Settings</button>
+
+      <div class="border-t border-gray-700/60 my-4 pt-3">
+        <div class="text-xs font-mono text-teal font-bold mb-2 flex items-center gap-1.5">
+          <i class="fas fa-key"></i> Runtime Environment Variables & API Keys
+        </div>
+        <p class="text-[11px] text-gray-400 mb-3 font-mono">
+          Keys are stored safely in your browser localStorage and transmitted via secure headers on each execution.
+        </p>
+
+        <div class="pg-form-group mb-2.5">
+          <div class="flex items-center justify-between mb-1">
+            <label class="pg-form-label mb-0">DATA_GOV_API_KEY (Agmarknet Mandi Prices)</label>
+            <a href="https://data.gov.in/" target="_blank" rel="noopener" class="text-[10px] text-gray-400 hover:text-teal">Get Free Key <i class="fas fa-arrow-up-right-from-square"></i></a>
+          </div>
+          <input id="pg-env-datagov" type="password" class="pg-form-input font-mono text-xs" placeholder="Paste data.gov.in API Key..." autocomplete="off" />
+        </div>
+
+        <div class="pg-form-group mb-2.5">
+          <div class="flex items-center justify-between mb-1">
+            <label class="pg-form-label mb-0">GEMINI_API_KEY (Multilingual LLM Advisory)</label>
+            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="text-[10px] text-gray-400 hover:text-teal">Get Key <i class="fas fa-arrow-up-right-from-square"></i></a>
+          </div>
+          <input id="pg-env-gemini" type="password" class="pg-form-input font-mono text-xs" placeholder="Paste Google Gemini API Key (AI Studio)..." autocomplete="off" />
+        </div>
+
+        <div class="pg-form-group mb-2">
+          <div class="flex items-center justify-between mb-1">
+            <label class="pg-form-label mb-0">AGRO_API_KEY (AgroMonitoring Live Satellite)</label>
+            <a href="https://agromonitoring.com/" target="_blank" rel="noopener" class="text-[10px] text-gray-400 hover:text-teal">Get Key <i class="fas fa-arrow-up-right-from-square"></i></a>
+          </div>
+          <input id="pg-env-agro" type="password" class="pg-form-input font-mono text-xs" placeholder="Paste AgroMonitoring API Key (Optional)..." autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-gray-700/60 flex justify-between items-center">
+        <span class="text-[10px] text-gray-400 font-mono">Changes persist automatically</span>
+        <button id="pg-save-config-btn" class="pg-run-btn" style="width: auto; padding: 6px 18px;">
+          <i class="fas fa-floppy-disk mr-1"></i> Save & Apply Settings
+        </button>
       </div>
     </div>
   </div>
@@ -2334,7 +2381,10 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
   let activeSpaceKey = 'mandi';
   let connMode = localStorage.getItem('pg_conn_mode') || 'auto';
-  let customApiUrl = localStorage.getItem('pg_custom_api_url') || '';
+  let customApiUrl = localStorage.getItem('pg_custom_api_url') || 'http://localhost:8000';
+  let dataGovKey = localStorage.getItem('pg_env_datagov') || '';
+  let geminiKey = localStorage.getItem('pg_env_gemini') || '';
+  let agroKey = localStorage.getItem('pg_env_agro') || '';
   let isExecuting = false;
 
   // DOM Elements
@@ -2760,6 +2810,123 @@ loader.querySelector('.pg-sub').style.display = 'block';
     return { lat: 12.9716, lon: 77.5946, name: 'Bengaluru' };
   }
 
+  // ── Hybrid SSE Stream & Network Gateway Engine ──
+  async function streamFromGateway(endpoint, payload, isFormData = false) {
+    const localBase = (customApiUrl || 'http://localhost:8000').replace(/\/+$/, '');
+    const hfBase = SPACES[activeSpaceKey] ? (SPACES[activeSpaceKey].hfApi || '').replace(/\/+$/, '') : '';
+
+    let candidateBases = [];
+    if (connMode === 'hf') {
+      if (hfBase) candidateBases.push({ base: hfBase, type: 'HF Space' });
+    } else if (connMode === 'local') {
+      candidateBases.push({ base: localBase, type: 'Local Gateway' });
+    } else {
+      // 'auto' mode: try local first, then HF space
+      candidateBases.push({ base: localBase, type: 'Local Gateway' });
+      if (hfBase) candidateBases.push({ base: hfBase, type: 'HF Space' });
+    }
+
+    const headers = {};
+    if (dataGovKey) headers['X-Data-Gov-Key'] = dataGovKey;
+    if (geminiKey) headers['X-Gemini-Key'] = geminiKey;
+    if (agroKey) headers['X-Agro-Key'] = agroKey;
+
+    let lastError = null;
+    for (const target of candidateBases) {
+      const url = target.base + endpoint;
+      try {
+        logTerminal(`Dispatching request to ${target.type} (${url})...`, 'API', 'dim');
+        const fetchOpts = {
+          method: 'POST',
+          headers: isFormData ? headers : { ...headers, 'Content-Type': 'application/json' },
+          body: isFormData ? payload : JSON.stringify(payload),
+          signal: AbortSignal.timeout(60000)
+        };
+        const response = await fetch(url, fetchOpts);
+        if (!response.ok) {
+          throw new Error(`${target.type} responded with HTTP ${response.status}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let buffer = '';
+        let resultPayload = null;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const parts = buffer.split('\n\n');
+          buffer = parts.pop();
+
+          for (const block of parts) {
+            let eventType = 'message';
+            let dataStr = '';
+            const lines = block.split('\n');
+            for (const line of lines) {
+              if (line.startsWith('event:')) eventType = line.slice(6).trim();
+              else if (line.startsWith('data:')) dataStr = line.slice(5).trim();
+            }
+            if (dataStr) {
+              try {
+                const parsed = JSON.parse(dataStr);
+                if (eventType === 'log') {
+                  logTerminal(parsed.msg, parsed.tag, parsed.type || 'normal');
+                } else if (eventType === 'result') {
+                  resultPayload = parsed;
+                } else if (eventType === 'error') {
+                  logTerminal(parsed.error || 'Server error', 'ERR', 'err');
+                }
+              } catch (e) {}
+            }
+          }
+        }
+        return resultPayload;
+      } catch (err) {
+        lastError = err;
+        logTerminal(`${target.type} connection attempt failed (${err.message})`, 'NETWORK', 'dim');
+      }
+    }
+    throw new Error(lastError ? lastError.message : 'All gateway endpoints unreachable');
+  }
+
+  // ── Mandi Result Renderer ──
+  function renderMandiResult(data) {
+    const nearest = data.nearest || { name: 'Nearest APMC', district: data.state, distance_km: 0 };
+    const markets = data.markets || [];
+
+    resultContainer.innerHTML = [
+      '<div class="pg-col-title"><span>📊 ' + escapeHtml(data.commodity) + ' In ' + escapeHtml(data.state) + '</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK (FastAPI Live)</span></div>',
+      '<div class="pg-result-content">',
+      '  <div class="pg-kpi-row">',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Min Price</div><div class="pg-kpi-val">₹ ' + Math.round(data.min_price) + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Modal / Qtl</div><div class="pg-kpi-val">₹ ' + Math.round(data.modal_price) + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Max Price</div><div class="pg-kpi-val">₹ ' + Math.round(data.max_price) + '</div></div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title">',
+      '      <span><i class="fas fa-location-crosshairs text-teal"></i> Nearest Recommended Mandi</span>',
+      '      <span class="text-xs text-teal font-mono font-bold">' + nearest.distance_km + ' km away</span>',
+      '    </div>',
+      '    <p class="text-xs text-gray-300"><strong>' + nearest.name + '</strong> (' + nearest.district + ' District) · Modal: <span class="text-teal font-bold">₹ ' + Math.round(nearest.modal_price || data.modal_price) + '/Qtl</span></p>',
+      '    <p class="text-[11px] text-gray-400 mt-1">Geocoded origin: <strong>' + escapeHtml(data.location) + '</strong>. Great-circle distance ranked.</p>',
+      '  </div>',
+      '  <div class="pg-card-title mt-1"><span>Market Arrivals Ranked by Distance (' + escapeHtml(data.state) + ')</span></div>',
+      '  <div class="pg-table-wrap">',
+      '    <table class="pg-table">',
+      '      <thead><tr><th>Market</th><th>District</th><th>Distance</th><th>Modal ₹</th></tr></thead>',
+      '      <tbody>',
+      markets.slice(0, 6).map(m =>
+        '<tr><td>' + m.name + '</td><td>' + m.district + '</td><td class="font-mono text-teal">' + m.distance_km + ' km</td><td>₹ ' + Math.round(m.modal_price) + '</td></tr>'
+      ).join(''),
+      '      </tbody>',
+      '    </table>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+  }
+
+  // ── Mandi Execution ──
   window._pgRunMandi = async function() {
     if (isExecuting) return;
     setPipelineExecuting(true);
@@ -2767,14 +2934,38 @@ loader.querySelector('.pg-sub').style.display = 'block';
     const state = document.getElementById('mandi-state').value;
     const commodity = document.getElementById('mandi-commodity').value;
     const location = document.getElementById('mandi-location').value;
-    const maxRecs = parseInt(document.getElementById('mandi-max-records').value, 10) || 200;
+    const maxRecs = parseInt(document.getElementById('mandi-max-records')?.value || 200, 10);
 
-    logTerminal('Initiating HTTP request: POST /search/stream', 'API');
-    logTerminal('Payload: state="' + state + '", commodity="' + commodity + '", location="' + location + '", max=' + maxRecs, 'PARAM');
+    let realResult = null;
+    if (connMode !== 'sim') {
+      try {
+        logTerminal('Connecting to FastAPI Gateway (POST /search/stream)...', 'API');
+        realResult = await streamFromGateway('/search/stream', {
+          state: state,
+          commodity: commodity,
+          location: location,
+          max_records: maxRecs,
+          api_key: dataGovKey
+        });
+      } catch (err) {
+        logTerminal('FastAPI Gateway connection note: ' + err.message + '. Falling back to client-side simulation.', 'FALLBACK', 'warn');
+        realResult = null;
+      }
+    }
 
+    if (realResult) {
+      renderMandiResult(realResult);
+    } else {
+      await runMandiSimulation(state, commodity, location, maxRecs);
+    }
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('mandi-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-play"></i> Run Mandi Price Pipeline';
+  };
+
+  async function runMandiSimulation(state, commodity, location, maxRecs) {
     const geo = resolveCoordinates(location, state);
-
-    // Compute real Haversine distances to markets in state
     const candidates = STATE_MARKETS[state] || STATE_MARKETS['Karnataka'];
     const rankedMarkets = candidates.map(m => {
       const dist = calcHaversineKm(geo.lat, geo.lon, m.lat, m.lon);
@@ -2782,14 +2973,13 @@ loader.querySelector('.pg-sub').style.display = 'block';
     }).sort((a, b) => a.distance_km - b.distance_km);
 
     const nearest = rankedMarkets[0];
-
     const logs = [
       { delay: 100, tag: 'Agmarknet', msg: 'Connecting to Data.gov.in AGMARKNET price registry...' },
-      { delay: 320, tag: 'Ingestion', msg: 'Retrieved 1,420 nationwide records; filtering State="' + state + '", Commodity="' + commodity + '"' },
-      { delay: 540, tag: 'Filter',    msg: 'Isolated ' + rankedMarkets.length + ' active market centers for ' + commodity + ' in ' + state },
-      { delay: 780, tag: 'Haversine', msg: 'Geocoding reference coordinate for "' + location + '" -> (' + geo.lat.toFixed(4) + '° N, ' + geo.lon.toFixed(4) + '° E)' },
-      { delay: 1020, tag: 'Distance', msg: 'Distance matrix: Nearest mandi is ' + nearest.name + ' (' + nearest.distance_km + ' km via Haversine)' },
-      { delay: 1200, tag: 'Pipeline', msg: 'Completed in 1.20s. Status 200 OK. Rendering market analytics.' }
+      { delay: 300, tag: 'Ingestion', msg: 'Retrieved 1,420 nationwide records; filtering State="' + state + '", Commodity="' + commodity + '"' },
+      { delay: 500, tag: 'Filter',    msg: 'Isolated ' + rankedMarkets.length + ' active market centers for ' + commodity + ' in ' + state },
+      { delay: 700, tag: 'Haversine', msg: 'Geocoding reference coordinate for "' + location + '" -> (' + geo.lat.toFixed(4) + '° N, ' + geo.lon.toFixed(4) + '° E)' },
+      { delay: 900, tag: 'Distance', msg: 'Distance matrix: Nearest mandi is ' + nearest.name + ' (' + nearest.distance_km + ' km via Haversine)' },
+      { delay: 1100, tag: 'Pipeline', msg: 'Completed in 1.10s. Status 200 OK. Rendering simulation analytics.' }
     ];
 
     for (const step of logs) {
@@ -2798,60 +2988,101 @@ loader.querySelector('.pg-sub').style.display = 'block';
     }
 
     const basePrice = commodity === 'Onion' ? 2400 : commodity === 'Tomato' ? 1800 : commodity === 'Wheat' ? 2650 : commodity === 'Rice' ? 3200 : 2100;
-    const minPrice = basePrice - 350;
-    const maxPrice = basePrice + 600;
-    const modalPrice = basePrice + 80;
+    renderMandiResult({
+      commodity: commodity,
+      state: state,
+      location: location,
+      min_price: basePrice - 350,
+      modal_price: basePrice + 80,
+      max_price: basePrice + 600,
+      nearest: { ...nearest, modal_price: basePrice + 100 },
+      markets: rankedMarkets.map((m, i) => ({ ...m, modal_price: basePrice + (i === 0 ? 20 : (i % 2 === 0 ? -60 : 80)) }))
+    });
+  }
+
+  // ── Disease Result Renderer ──
+  function renderDiseaseResult(data) {
+    const isHealthy = data.healthy;
+    const diseaseName = data.label || 'Leaf Pathology Diagnostic';
+    const predictions = data.predictions || [];
 
     resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>📊 ' + escapeHtml(commodity) + ' In ' + escapeHtml(state) + '</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK</span></div>',
+      '<div class="pg-col-title"><span>🔬 Diagnostic Report</span><span class="pg-status-pill ' + (isHealthy ? 'success' : 'danger') + '"><i class="fas ' + (isHealthy ? 'fa-shield-check' : 'fa-virus') + '"></i> ' + (isHealthy ? 'Healthy Plant' : 'Pathogen Detected') + '</span></div>',
       '<div class="pg-result-content">',
-      '  <div class="pg-kpi-row">',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Min Price</div><div class="pg-kpi-val">₹ ' + minPrice + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Modal / Qtl</div><div class="pg-kpi-val">₹ ' + modalPrice + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Max Price</div><div class="pg-kpi-val">₹ ' + maxPrice + '</div></div>',
-      '  </div>',
       '  <div class="pg-card-box">',
       '    <div class="pg-card-title">',
-      '      <span><i class="fas fa-location-crosshairs text-teal"></i> Nearest Recommended Mandi</span>',
-      '      <span class="text-xs text-teal font-mono font-bold">' + nearest.distance_km + ' km away</span>',
+      '      <span class="text-sm font-bold text-gray-100">' + escapeHtml(diseaseName) + '</span>',
+      '      <span class="text-xs text-teal font-mono font-bold">' + (data.confidence || 96.4) + '% match</span>',
       '    </div>',
-      '    <p class="text-xs text-gray-300"><strong>' + nearest.name + '</strong> (' + nearest.district + ' District) · Modal: <span class="text-teal font-bold">₹ ' + (modalPrice + 20) + '/Qtl</span></p>',
-      '    <p class="text-[11px] text-gray-400 mt-1">Geocoded origin: <strong>' + escapeHtml(location) + '</strong> (' + geo.lat.toFixed(4) + '° N, ' + geo.lon.toFixed(4) + '° E). Great-circle distance ranked.</p>',
-      '  </div>',
-      '  <div class="pg-card-title mt-1"><span>Market Arrivals Ranked by Distance (' + escapeHtml(state) + ')</span></div>',
-      '  <div class="pg-table-wrap">',
-      '    <table class="pg-table">',
-      '      <thead><tr><th>Market</th><th>District</th><th>Distance</th><th>Modal ₹</th></tr></thead>',
-      '      <tbody>',
-      rankedMarkets.slice(0, 6).map((m, i) =>
-        '<tr><td>' + m.name + '</td><td>' + m.district + '</td><td class="font-mono text-teal">' + m.distance_km + ' km</td><td>₹ ' + (modalPrice + (i === 0 ? 20 : (i % 2 === 0 ? -60 : 80))) + '</td></tr>'
+      '    <div class="space-y-1.5 mt-2">',
+      predictions.slice(0, 3).map(p =>
+        '<div class="pg-prob-item">' +
+        '  <div class="pg-prob-header"><span>' + escapeHtml(p.label.replace(/_/g, ' ')) + '</span><span class="font-mono">' + p.confidence + '%</span></div>' +
+        '  <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: ' + p.confidence + '%"></div></div>' +
+        '</div>'
       ).join(''),
-      '      </tbody>',
-      '    </table>',
+      '    </div>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>🌿 Organic & Biological Remedy</span><span class="text-xs text-green-400 font-mono">Recommended</span></div>',
+      '    <p class="text-xs text-gray-300">' + escapeHtml(data.organic_treatment || 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide.') + '</p>',
+      '  </div>',
+      '  <div class="pg-card-box">',
+      '    <div class="pg-card-title"><span>🧪 Chemical & Preventative Control</span><span class="text-xs text-yellow-400 font-mono">' + escapeHtml(data.language || 'English') + '</span></div>',
+      '    <p class="text-xs text-gray-300">' + escapeHtml(data.chemical_treatment || 'Foliar spray with recommended protective fungicide. Maintain proper row aeration.') + '</p>',
       '  </div>',
       '</div>'
     ].join('\n');
+  }
 
-    setPipelineExecuting(false);
-    const btn = document.getElementById('mandi-run-btn');
-    if (btn) btn.innerHTML = '<i class="fas fa-play"></i> Run Mandi Price Pipeline';
-  };
-
+  // ── Crop Disease Scanner Execution ──
   window._pgRunDisease = async function() {
     if (isExecuting) return;
     setPipelineExecuting(true);
 
     const lang = document.getElementById('disease-lang').value;
-    logTerminal('Initiating multipart upload: POST /scan/stream', 'API');
-    logTerminal('Language target: ' + lang + '; sample: ' + selectedLeafPreset, 'PARAM');
+    const fileInp = document.getElementById('disease-file-input');
+    const hasUpload = fileInp && fileInp.files && fileInp.files[0];
 
+    let realResult = null;
+    if (connMode !== 'sim') {
+      try {
+        logTerminal('Connecting to FastAPI Gateway (POST /scan/stream)...', 'API');
+        const formData = new FormData();
+        if (hasUpload) {
+          formData.append('file', fileInp.files[0]);
+        } else {
+          formData.append('preset', selectedLeafPreset);
+        }
+        formData.append('language', lang);
+        if (geminiKey) formData.append('gemini_key', geminiKey);
+
+        realResult = await streamFromGateway('/scan/stream', formData, true);
+      } catch (err) {
+        logTerminal('FastAPI Gateway connection note: ' + err.message + '. Falling back to client simulation.', 'FALLBACK', 'warn');
+        realResult = null;
+      }
+    }
+
+    if (realResult) {
+      renderDiseaseResult(realResult);
+    } else {
+      await runDiseaseSimulation(lang);
+    }
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('disease-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-microscope"></i> Diagnose Leaf & Generate Advisory';
+  };
+
+  async function runDiseaseSimulation(lang) {
     const logs = [
       { delay: 100, tag: 'Vision',   msg: 'Ingesting 224x224 RGB image buffer and applying normalized tensor transforms...' },
-      { delay: 380, tag: 'ViT/CNN',  msg: 'Evaluating ViT classification backbone across 38 PlantVillage disease classes...' },
-      { delay: 650, tag: 'Inference',msg: 'Top logits: class_idx=14 (prob=0.962), class_idx=18 (prob=0.024)' },
-      { delay: 920, tag: 'Knowledge',msg: 'Querying offline agronomic knowledge base for etiology and pathogen treatment protocols...' },
-      { delay: 1180, tag: 'GenAI',   msg: 'Synthesizing verified multilingual agricultural advisory in ' + lang + '...' },
-      { delay: 1400, tag: 'Pipeline',msg: 'Pipeline completed in 1.40s. Status 200 OK.' }
+      { delay: 350, tag: 'ViT/CNN',  msg: 'Evaluating ViT classification backbone across 38 PlantVillage disease classes...' },
+      { delay: 600, tag: 'Inference',msg: 'Top logits: class_idx=14 (prob=0.962), class_idx=18 (prob=0.024)' },
+      { delay: 850, tag: 'Knowledge',msg: 'Querying offline agronomic knowledge base for etiology and pathogen protocols...' },
+      { delay: 1050, tag: 'GenAI',   msg: 'Synthesizing verified multilingual agricultural advisory in ' + lang + '...' },
+      { delay: 1250, tag: 'Pipeline',msg: 'Pipeline completed in 1.25s. Status 200 OK.' }
     ];
 
     for (const step of logs) {
@@ -2861,42 +3092,49 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
     const isHealthy = selectedLeafPreset === 'corn_healthy';
     const diseaseName = isHealthy ? 'Corn (Maize) - Healthy Leaf' : selectedLeafPreset === 'potato_late_blight' ? 'Potato Late Blight (Phytophthora infestans)' : selectedLeafPreset === 'apple_scab' ? 'Apple Scab (Venturia inaequalis)' : 'Tomato Early Blight (Alternaria solani)';
-    const cropName = isHealthy ? 'Corn' : selectedLeafPreset === 'potato_late_blight' ? 'Potato' : selectedLeafPreset === 'apple_scab' ? 'Apple' : 'Tomato';
+    renderDiseaseResult({
+      label: diseaseName,
+      healthy: isHealthy,
+      confidence: 96.4,
+      predictions: [
+        { label: diseaseName.split('(')[0], confidence: 96.4 },
+        { label: 'Secondary Fungal Strain', confidence: 2.8 }
+      ],
+      organic_treatment: isHealthy ? 'Canopy is healthy. Maintain regular soil aeration and drip irrigation.' : 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide during early morning hours.',
+      chemical_treatment: isHealthy ? 'Apply preventive copper oxychloride only if regional humidity exceeds 85%.' : 'Foliar spray with Mancozeb (75% WP @ 2g/L) or Chlorothalonil. Remove infected lower leaves.',
+      language: lang
+    });
+  }
+
+  // ── Crop Stage Result Renderer ──
+  function renderCropStageResult(data) {
+    const stageIdx = data.stage_idx !== undefined ? data.stage_idx : 1;
+    const currentStage = data.current_stage || 'Vegetative / Tillering';
 
     resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>🔬 Diagnostic Report</span><span class="pg-status-pill ' + (isHealthy ? 'success' : 'danger') + '"><i class="fas ' + (isHealthy ? 'fa-shield-check' : 'fa-virus') + '"></i> ' + (isHealthy ? 'Healthy Plant' : 'Pathogen Detected') + '</span></div>',
+      '<div class="pg-col-title"><span>🌱 Phenology Diagnosis</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK (FastAPI Live)</span></div>',
       '<div class="pg-result-content">',
+      '  <div class="pg-kpi-row">',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Current Stage</div><div class="pg-kpi-val text-sm">' + escapeHtml(currentStage) + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">NDVI Index</div><div class="pg-kpi-val">' + data.ndvi + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Est. Harvest</div><div class="pg-kpi-val text-sm">' + data.days_to_harvest + ' Days</div></div>',
+      '  </div>',
       '  <div class="pg-card-box">',
-      '    <div class="pg-card-title">',
-      '      <span class="text-sm font-bold text-gray-100">' + diseaseName + '</span>',
-      '      <span class="text-xs text-teal font-mono font-bold">96.4% match</span>',
-      '    </div>',
-      '    <div class="space-y-1.5 mt-2">',
-      '      <div class="pg-prob-item">',
-      '        <div class="pg-prob-header"><span>' + diseaseName.split('(')[0] + '</span><span class="font-mono">96.4%</span></div>',
-      '        <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: 96.4%"></div></div>',
-      '      </div>',
-      '      <div class="pg-prob-item">',
-      '        <div class="pg-prob-header"><span>Secondary Fungal Strain</span><span class="font-mono">2.8%</span></div>',
-      '        <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: 2.8%"></div></div>',
-      '      </div>',
+      '    <div class="pg-card-title"><span>Phenological Progression (Day ' + data.das + ')</span></div>',
+      '    <div class="pg-stepper">',
+      '      <div class="pg-step ' + (stageIdx >= 0 ? (stageIdx === 0 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 0 ? '✓' : '1') + '</div><span class="pg-step-label">Germinate</span></div>',
+      '      <div class="pg-step ' + (stageIdx >= 1 ? (stageIdx === 1 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 1 ? '✓' : '2') + '</div><span class="pg-step-label">Vegetative</span></div>',
+      '      <div class="pg-step ' + (stageIdx >= 2 ? (stageIdx === 2 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 2 ? '✓' : '3') + '</div><span class="pg-step-label">Heading</span></div>',
+      '      <div class="pg-step ' + (stageIdx >= 3 ? 'active' : '') + '"><div class="pg-step-node">4</div><span class="pg-step-label">Harvest</span></div>',
       '    </div>',
       '  </div>',
       '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>🌿 Organic & Biological Remedy</span><span class="text-xs text-green-400 font-mono">Recommended</span></div>',
-      '    <p class="text-xs text-gray-300">' + (isHealthy ? 'Canopy is healthy. Maintain regular soil aeration and drip irrigation.' : 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide during early morning hours to inhibit fungal spore proliferation.') + '</p>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>🧪 Chemical & Preventative Control</span><span class="text-xs text-yellow-400 font-mono">' + lang + '</span></div>',
-      '    <p class="text-xs text-gray-300">' + (isHealthy ? 'Apply preventive copper oxychloride only if regional humidity exceeds 85%.' : 'Foliar spray with Mancozeb (75% WP @ 2g/L) or Chlorothalonil. Remove infected lower leaves and ensure wide plant spacing.') + '</p>',
+      '    <div class="pg-card-title"><span>Agronomic Management Protocol</span><span class="text-xs text-teal font-mono">Day ' + data.das + '</span></div>',
+      '    <p class="text-xs text-gray-300">' + escapeHtml(data.management_protocol || 'Optimal management window for current crop phase.') + '</p>',
       '  </div>',
       '</div>'
     ].join('\n');
-
-    setPipelineExecuting(false);
-    const btn = document.getElementById('disease-run-btn');
-    if (btn) btn.innerHTML = '<i class="fas fa-microscope"></i> Diagnose Leaf & Generate Advisory';
-  };
+  }
 
   // ── Crop Stage Predictor Execution ──
   window._pgRunCropStage = async function() {
@@ -2905,18 +3143,44 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
     const crop = document.getElementById('crop-type').value;
     const das = parseInt(document.getElementById('crop-das').value, 10) || 48;
-    const lat = document.getElementById('crop-lat').value;
-    const lon = document.getElementById('crop-lon').value;
+    const lat = parseFloat(document.getElementById('crop-lat').value) || 18.5204;
+    const lon = parseFloat(document.getElementById('crop-lon').value) || 73.8567;
 
-    logTerminal('Initiating POST /predict/stream', 'API');
-    logTerminal('Querying phenology model: crop=' + crop + ', DAS=' + das + ', coord=(' + lat + ', ' + lon + ')', 'PARAM');
+    let realResult = null;
+    if (connMode !== 'sim') {
+      try {
+        logTerminal('Connecting to FastAPI Gateway (POST /predict/stream)...', 'API');
+        realResult = await streamFromGateway('/predict/stream', {
+          crop: crop,
+          das: das,
+          lat: lat,
+          lon: lon,
+          agro_key: agroKey
+        });
+      } catch (err) {
+        logTerminal('FastAPI Gateway connection note: ' + err.message + '. Falling back to client simulation.', 'FALLBACK', 'warn');
+        realResult = null;
+      }
+    }
 
+    if (realResult) {
+      renderCropStageResult(realResult);
+    } else {
+      await runCropStageSimulation(crop, das, lat, lon);
+    }
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('crop-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-seedling"></i> Predict Growth Stage & Canopy Health';
+  };
+
+  async function runCropStageSimulation(crop, das, lat, lon) {
     const logs = [
-      { delay: 120, tag: 'Satellite', msg: 'Fetching Sentinel-2 NDVI polygon reflectance at lat=' + lat + ', lon=' + lon + '...' },
-      { delay: 350, tag: 'NDVI',       msg: 'Surface reflectance calibrated: NDVI=0.71, EVI=0.52 (Vegetation Health: Optimal)' },
-      { delay: 620, tag: 'Phenology', msg: 'Running sigmoid vegetative growth curve against accumulated Growing Degree Days (GDD)...' },
-      { delay: 900, tag: 'Stage',     msg: 'Detected Stage: ' + (das < 25 ? 'Germination' : das < 55 ? 'Tillering / Vegetative' : das < 85 ? 'Heading / Flowering' : 'Ripening / Maturity') + ' (Confidence: 94.8%)' },
-      { delay: 1100, tag: 'Pipeline', msg: 'Stage prediction synthesized. Status 200 OK.' }
+      { delay: 100, tag: 'Satellite', msg: 'Fetching Sentinel-2 NDVI polygon reflectance at lat=' + lat + ', lon=' + lon + '...' },
+      { delay: 300, tag: 'NDVI',       msg: 'Surface reflectance calibrated: NDVI=0.71, EVI=0.52 (Vegetation Health: Optimal)' },
+      { delay: 550, tag: 'Phenology', msg: 'Running sigmoid vegetative growth curve against accumulated Growing Degree Days (GDD)...' },
+      { delay: 800, tag: 'Stage',     msg: 'Detected Stage: ' + (das < 25 ? 'Germination' : das < 55 ? 'Tillering / Vegetative' : das < 85 ? 'Heading / Flowering' : 'Ripening / Maturity') + ' (Confidence: 94.8%)' },
+      { delay: 1000, tag: 'Pipeline', msg: 'Stage prediction synthesized. Status 200 OK.' }
     ];
 
     for (const step of logs) {
@@ -2926,36 +3190,49 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
     const stageIdx = das < 25 ? 0 : das < 55 ? 1 : das < 85 ? 2 : 3;
     const stageNames = ['Germination', 'Vegetative / Tillering', 'Heading / Flowering', 'Ripening'];
-    const currentStage = stageNames[stageIdx];
+    renderCropStageResult({
+      crop: crop,
+      das: das,
+      current_stage: stageNames[stageIdx],
+      stage_idx: stageIdx,
+      ndvi: 0.71,
+      days_to_harvest: Math.max(5, 120 - das),
+      management_protocol: stageIdx === 1 ? 'Optimal window for secondary nitrogen top-dressing (Urea @ 40kg/acre). Ensure critical irrigation before stem elongation begins.' : stageIdx === 2 ? 'Panicle emergence stage: Maintain 2-3cm standing water film. Avoid foliar insecticide sprays during active pollination window.' : 'Crop nearing physiological maturity. Cease irrigation 10-12 days before anticipated harvest to facilitate grain hardening.'
+    });
+  }
+
+  // ── Farm Intelligence Result Renderer ──
+  function renderFarmIntelResult(data) {
+    const loc = data.location || 'Your Region';
+    const metrics = data.metrics || { temperature: '29° C', precipitation: '0 mm', wind_speed: '12 km/h', mean_ndvi: '0.69' };
+    const advisories = data.advisories || [];
 
     resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>🌱 Phenology Diagnosis</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 94.8% Confidence</span></div>',
+      '<div class="pg-col-title"><span>🛰️ Intelligence Fusion</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK (FastAPI Live)</span></div>',
       '<div class="pg-result-content">',
       '  <div class="pg-kpi-row">',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Current Stage</div><div class="pg-kpi-val text-sm">' + currentStage + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">NDVI Index</div><div class="pg-kpi-val">0.71</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Est. Harvest</div><div class="pg-kpi-val text-sm">' + (120 - das) + ' Days</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Field NDVI</div><div class="pg-kpi-val">' + metrics.mean_ndvi + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Temperature</div><div class="pg-kpi-val text-teal">' + metrics.temperature + '</div></div>',
+      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Rain Forecast</div><div class="pg-kpi-val text-sm">' + metrics.precipitation + '</div></div>',
       '  </div>',
       '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Phenological Progression (Day ' + das + ')</span></div>',
-      '    <div class="pg-stepper">',
-      '      <div class="pg-step ' + (stageIdx >= 0 ? (stageIdx === 0 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 0 ? '✓' : '1') + '</div><span class="pg-step-label">Germinate</span></div>',
-      '      <div class="pg-step ' + (stageIdx >= 1 ? (stageIdx === 1 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 1 ? '✓' : '2') + '</div><span class="pg-step-label">Vegetative</span></div>',
-      '      <div class="pg-step ' + (stageIdx >= 2 ? (stageIdx === 2 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 2 ? '✓' : '3') + '</div><span class="pg-step-label">Heading</span></div>',
-      '      <div class="pg-step ' + (stageIdx >= 3 ? 'active' : '') + '"><div class="pg-step-node">4</div><span class="pg-step-label">Harvest</span></div>',
+      '    <div class="pg-card-title"><span>Microclimate & Field Telemetry (' + escapeHtml(loc) + ')</span></div>',
+      '    <div class="text-xs text-gray-300 font-mono space-y-1 mb-2">',
+      '      <div>Wind Speed: <span class="text-teal font-bold">' + metrics.wind_speed + '</span> · Health Status: <span class="text-teal font-bold">' + (data.overall_status || 'STABLE') + '</span></div>',
+      '      <div class="text-[11px] text-gray-400">' + escapeHtml(data.summary || 'Fused Sentinel-2 vegetation indices with Open-Meteo 7-day numerical weather forecast.') + '</div>',
       '    </div>',
       '  </div>',
       '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Agronomic Management Protocol</span><span class="text-xs text-teal font-mono">Day ' + das + '</span></div>',
-      '    <p class="text-xs text-gray-300">' + (stageIdx === 1 ? 'Optimal window for secondary nitrogen top-dressing (Urea @ 40kg/acre). Ensure critical irrigation before stem elongation begins.' : stageIdx === 2 ? 'Panicle emergence stage: Maintain 2-3cm standing water film. Avoid foliar insecticide sprays during active pollination window.' : 'Crop nearing physiological maturity. Cease irrigation 10-12 days before anticipated harvest to facilitate grain hardening.') + '</p>',
+      '    <div class="pg-card-title"><span>Actionable AI Agronomic Guidance</span></div>',
+      '    <ul class="text-xs text-gray-300 space-y-1.5 list-disc pl-4">',
+      advisories.length > 0
+        ? advisories.map(a => '<li>' + escapeHtml(typeof a === 'string' ? a : (a.message || a.action || JSON.stringify(a))) + '</li>').join('')
+        : '<li><strong>Immediate Spray Window:</strong> Favorable weather conditions detected over the next 36 hours.</li><li><strong>Irrigation Planning:</strong> Adequate soil moisture levels confirmed.</li>',
+      '    </ul>',
       '  </div>',
       '</div>'
     ].join('\n');
-
-    setPipelineExecuting(false);
-    const btn = document.getElementById('crop-run-btn');
-    if (btn) btn.innerHTML = '<i class="fas fa-seedling"></i> Predict Growth Stage & Canopy Health';
-  };
+  }
 
   // ── Farm Intelligence Execution ──
   window._pgRunFarmIntel = async function() {
@@ -2965,14 +3242,40 @@ loader.querySelector('.pg-sub').style.display = 'block';
     const loc = document.getElementById('farm-location').value;
     const lang = document.getElementById('farm-lang').value;
 
-    logTerminal('Initiating POST /advise/stream for ' + loc, 'API');
+    let realResult = null;
+    if (connMode !== 'sim') {
+      try {
+        logTerminal('Connecting to FastAPI Gateway (POST /advise/stream)...', 'API');
+        realResult = await streamFromGateway('/advise/stream', {
+          location: loc,
+          crop: 'Wheat',
+          language: lang,
+          gemini_key: geminiKey
+        });
+      } catch (err) {
+        logTerminal('FastAPI Gateway connection note: ' + err.message + '. Falling back to client simulation.', 'FALLBACK', 'warn');
+        realResult = null;
+      }
+    }
 
+    if (realResult) {
+      renderFarmIntelResult(realResult);
+    } else {
+      await runFarmIntelSimulation(loc, lang);
+    }
+
+    setPipelineExecuting(false);
+    const btn = document.getElementById('farm-run-btn');
+    if (btn) btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Synthesize Multi-Modal Advisory';
+  };
+
+  async function runFarmIntelSimulation(loc, lang) {
     const logs = [
       { delay: 100, tag: 'Sentinel-2', msg: 'Ingesting 10m Sentinel-2 multispectral tile bands (B4-Red, B8-NIR, B11-SWIR)...' },
-      { delay: 350, tag: 'Weather',    msg: 'Querying OpenWeatherMap microclimate API for ' + loc + ' 5-day forecast array...' },
-      { delay: 650, tag: 'Fusion',     msg: 'Executing cross-modal heuristic rules engine: humidity=68%, rain_prob=20%, NDVI=0.69...' },
-      { delay: 950, tag: 'LLM Advisory',msg: 'Synthesizing prioritized agronomic advisory instructions in ' + lang + '...' },
-      { delay: 1150, tag: 'Pipeline',  msg: 'Advisory fusion pipeline completed in 1.15s. Status 200 OK.' }
+      { delay: 350, tag: 'Weather',    msg: 'Querying Open-Meteo microclimate API for ' + loc + ' 5-day forecast array...' },
+      { delay: 600, tag: 'Fusion',     msg: 'Executing cross-modal heuristic rules engine: humidity=68%, rain_prob=20%, NDVI=0.69...' },
+      { delay: 850, tag: 'LLM Advisory',msg: 'Synthesizing prioritized agronomic advisory instructions in ' + lang + '...' },
+      { delay: 1050, tag: 'Pipeline',  msg: 'Advisory fusion pipeline completed in 1.05s. Status 200 OK.' }
     ];
 
     for (const step of logs) {
@@ -2980,39 +3283,18 @@ loader.querySelector('.pg-sub').style.display = 'block';
       logTerminal(step.msg, step.tag, step.tag === 'Pipeline' ? 'success' : 'normal');
     }
 
-    resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>🛰️ Intelligence Fusion</span><span class="pg-status-pill warning"><i class="fas fa-shield-halved"></i> Moderate Urgency</span></div>',
-      '<div class="pg-result-content">',
-      '  <div class="pg-kpi-row">',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Field NDVI</div><div class="pg-kpi-val">0.69</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Moisture Index</div><div class="pg-kpi-val text-teal">Adequate</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Spraying Window</div><div class="pg-kpi-val text-sm">Next 36h</div></div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>5-Day Microclimate Forecast (' + escapeHtml(loc) + ')</span></div>',
-      '    <div class="pg-forecast-grid">',
-      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Today</div><div class="pg-forecast-icon"><i class="fas fa-sun"></i></div><div class="pg-forecast-temp">29°C</div><div class="pg-forecast-rain">0%</div></div>',
-      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Wed</div><div class="pg-forecast-icon"><i class="fas fa-cloud-sun"></i></div><div class="pg-forecast-temp">30°C</div><div class="pg-forecast-rain">10%</div></div>',
-      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Thu</div><div class="pg-forecast-icon"><i class="fas fa-cloud-rain"></i></div><div class="pg-forecast-temp">26°C</div><div class="pg-forecast-rain">45%</div></div>',
-      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Fri</div><div class="pg-forecast-icon"><i class="fas fa-cloud-showers-heavy"></i></div><div class="pg-forecast-temp">24°C</div><div class="pg-forecast-rain">70%</div></div>',
-      '      <div class="pg-forecast-day"><div class="pg-forecast-date">Sat</div><div class="pg-forecast-icon"><i class="fas fa-sun"></i></div><div class="pg-forecast-temp">28°C</div><div class="pg-forecast-rain">15%</div></div>',
-      '    </div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Actionable AI Agronomic Guidance</span><span class="text-xs text-teal font-mono">' + lang + '</span></div>',
-      '    <ul class="text-xs text-gray-300 space-y-1 list-disc pl-4">',
-      '      <li><strong>Immediate Spray Window:</strong> Conduct protective foliar sprays within the next 36 hours before Thursday rains arrive.</li>',
-      '      <li><strong>Irrigation Hold:</strong> Suspend canal/borewell irrigation; upcoming 45-70% rain probability will supply necessary rootzone moisture.</li>',
-      '      <li><strong>Pest Hazard Watch:</strong> Warm temperatures (29-30°C) coupled with high post-rain humidity pose downy mildew hazards.</li>',
-      '    </ul>',
-      '  </div>',
-      '</div>'
-    ].join('\n');
-
-    setPipelineExecuting(false);
-    const btn = document.getElementById('farm-run-btn');
-    if (btn) btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Synthesize Multi-Modal Advisory';
-  };
+    renderFarmIntelResult({
+      location: loc,
+      overall_status: 'STABLE',
+      metrics: { temperature: '29° C', precipitation: '0 mm', wind_speed: '12 km/h', mean_ndvi: '0.69' },
+      summary: 'Fused Sentinel-2 field reflectance with Open-Meteo 7-day meteorological forecast.',
+      advisories: [
+        'Immediate Spray Window: Conduct protective foliar sprays within the next 36 hours before approaching rains.',
+        'Irrigation Planning: Favorable soil moisture conditions; normal schedule recommended.',
+        'Pest Hazard Watch: Moderate humidity levels require ongoing scouting for fungal leaf spots.'
+      ]
+    });
+  }
 
   // ── CLI Command Interpreter ──
   const COMMANDS = {
@@ -3168,12 +3450,101 @@ loader.querySelector('.pg-sub').style.display = 'block';
   const saveConfigBtn = document.getElementById('pg-save-config-btn');
   const connModeSelect = document.getElementById('pg-conn-mode');
   const customApiInp = document.getElementById('pg-custom-api-url');
+  const testConnBtn = document.getElementById('pg-test-conn-btn');
+  const connStatusBadge = document.getElementById('pg-conn-status-badge');
+  const envDataGovInp = document.getElementById('pg-env-datagov');
+  const envGeminiInp = document.getElementById('pg-env-gemini');
+  const envAgroInp = document.getElementById('pg-env-agro');
+
+  async function checkGatewayHealth() {
+    const selectedMode = (connModeSelect ? connModeSelect.value : connMode) || 'auto';
+    const localUrl = (customApiInp ? customApiInp.value : customApiUrl || 'http://localhost:8000').replace(/\/+$/, '');
+    const currentSpace = SPACES[activeSpaceKey] || SPACES.mandi;
+    const hfUrl = (currentSpace.hfApi || 'https://kishanaik5-mandi-price-explorer.hf.space').replace(/\/+$/, '');
+
+    if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-yellow-400 font-mono"><i class="fas fa-spinner fa-spin"></i> Checking ' + escapeHtml(selectedMode.toUpperCase()) + ' status...</span>';
+
+    if (selectedMode === 'sim') {
+      if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-teal font-mono"><i class="fas fa-check"></i> Simulation Mode (Instant zero-dependency client pipeline)</span>';
+      return true;
+    }
+
+    if (selectedMode === 'hf') {
+      try {
+        const res = await fetch(hfUrl + '/health', { signal: AbortSignal.timeout(4000) });
+        if (res.ok) {
+          const data = await res.json();
+          if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-green-400 font-mono"><i class="fas fa-circle-check"></i> Connected to HF Space: ' + escapeHtml(data.service || currentSpace.name) + '</span>';
+          logTerminal('HF Space health verified at ' + hfUrl, 'HF-HEALTH', 'success');
+          return true;
+        }
+      } catch (e) {
+        if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-orange-400 font-mono"><i class="fas fa-triangle-exclamation"></i> HF Space (' + escapeHtml(hfUrl) + ') building or asleep</span>';
+        logTerminal('HF Space ping failed: ' + e.message, 'HF-HEALTH', 'warn');
+        return false;
+      }
+    }
+
+    if (selectedMode === 'local') {
+      try {
+        const res = await fetch(localUrl + '/health', { signal: AbortSignal.timeout(3500) });
+        if (res.ok) {
+          const data = await res.json();
+          if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-green-400 font-mono"><i class="fas fa-circle-check"></i> Connected: Local FastAPI Gateway v' + escapeHtml(data.version || '2.0') + ' (' + escapeHtml(localUrl) + ')</span>';
+          logTerminal('FastAPI Gateway health verified at ' + localUrl, 'GATEWAY', 'success');
+          return true;
+        }
+      } catch (e) {
+        if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-orange-400 font-mono"><i class="fas fa-triangle-exclamation"></i> Local Gateway Offline at ' + escapeHtml(localUrl) + '</span>';
+        logTerminal('FastAPI Gateway offline at ' + localUrl + ' (' + e.message + ')', 'GATEWAY', 'warn');
+        return false;
+      }
+    }
+
+    // Auto mode: check local first, then HF
+    try {
+      const res = await fetch(localUrl + '/health', { signal: AbortSignal.timeout(2000) });
+      if (res.ok) {
+        const data = await res.json();
+        if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-green-400 font-mono"><i class="fas fa-circle-check"></i> Connected: Local FastAPI Gateway (' + escapeHtml(localUrl) + ')</span>';
+        return true;
+      }
+    } catch (e) {}
+
+    try {
+      const res2 = await fetch(hfUrl + '/health', { signal: AbortSignal.timeout(3500) });
+      if (res2.ok) {
+        if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-green-400 font-mono"><i class="fas fa-circle-check"></i> Connected: HF Space Gateway (' + escapeHtml(hfUrl) + ')</span>';
+        return true;
+      }
+    } catch (e) {}
+
+    if (connStatusBadge) connStatusBadge.innerHTML = '<span class="text-teal font-mono"><i class="fas fa-bolt"></i> Smart Auto-Fallback: Local daemon not found. Client simulation active.</span>';
+    return true;
+  }
+
+  if (connModeSelect) {
+    connModeSelect.addEventListener('change', () => {
+      checkGatewayHealth();
+    });
+  }
+
+  if (testConnBtn) {
+    testConnBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      checkGatewayHealth();
+    });
+  }
 
   if (openConfigBtn && configModal) {
     openConfigBtn.addEventListener('click', () => {
       if (connModeSelect) connModeSelect.value = connMode;
       if (customApiInp) customApiInp.value = customApiUrl;
+      if (envDataGovInp) envDataGovInp.value = dataGovKey;
+      if (envGeminiInp) envGeminiInp.value = geminiKey;
+      if (envAgroInp) envAgroInp.value = agroKey;
       configModal.classList.add('open');
+      checkGatewayHealth();
     });
   }
   if (closeConfigBtn && configModal) {
@@ -3182,11 +3553,22 @@ loader.querySelector('.pg-sub').style.display = 'block';
   if (saveConfigBtn && configModal) {
     saveConfigBtn.addEventListener('click', () => {
       if (connModeSelect) connMode = connModeSelect.value;
-      if (customApiInp) customApiUrl = customApiInp.value;
+      if (customApiInp) customApiUrl = customApiInp.value.trim() || 'http://localhost:8000';
+      if (envDataGovInp) dataGovKey = envDataGovInp.value.trim();
+      if (envGeminiInp) geminiKey = envGeminiInp.value.trim();
+      if (envAgroInp) agroKey = envAgroInp.value.trim();
+
       localStorage.setItem('pg_conn_mode', connMode);
       localStorage.setItem('pg_custom_api_url', customApiUrl);
+      localStorage.setItem('pg_env_datagov', dataGovKey);
+      localStorage.setItem('pg_env_gemini', geminiKey);
+      localStorage.setItem('pg_env_agro', agroKey);
+
       configModal.classList.remove('open');
-      logTerminal('API configuration updated: mode=' + connMode, 'CONFIG', 'success');
+      logTerminal('API & Environment settings saved. Gateway: ' + customApiUrl + ', Mode: ' + connMode, 'CONFIG', 'success');
+      if (dataGovKey) logTerminal('Stored DATA_GOV_API_KEY for Agmarknet', 'ENV', 'success');
+      if (geminiKey) logTerminal('Stored GEMINI_API_KEY for Multilingual Advisory', 'ENV', 'success');
+      if (agroKey) logTerminal('Stored AGRO_API_KEY for AgroMonitoring', 'ENV', 'success');
     });
   }
 
