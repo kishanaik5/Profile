@@ -2612,35 +2612,61 @@ loader.querySelector('.pg-sub').style.display = 'block';
       ].join('\n');
     } else if (key === 'farmintel') {
       inputContainer.innerHTML = [
-        '<div class="pg-col-title"><span>📥 Farm Microclimate Inputs</span><span class="text-xs text-gray-500 font-mono">Fusion Engine</span></div>',
+        '<div class="pg-col-title"><span>📥 Farm Microclimate & Satellite Inputs</span><span class="text-xs text-gray-500 font-mono">AgroFusion v2.0</span></div>',
         '<div class="pg-presets-row">',
         '  <span class="pg-presets-label">⚡ Pre-Configured Plots:</span>',
         '  <div class="pg-preset-chips">',
-        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Pune\', \'English\')">🍇 Pune Vineyard (Humidity Alert)</button>',
-        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Dharwad\', \'Kannada\')">🌿 Dharwad Cotton (Optimal Spray)</button>',
-        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Nashik\', \'Marathi\')">🧅 Nashik Onion (Moisture Deficit)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Pune\', 18.5204, 73.8554, \'Grapes\', \'English\')">🍇 Pune Vineyard (18.52° N, 73.85° E)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Dharwad\', 15.4589, 75.0078, \'Cotton\', \'Kannada\')">🌿 Dharwad Cotton (15.45° N, 75.00° E)</button>',
+        '    <button class="pg-preset-chip" onclick="window._pgSetFarmPreset(\'Nashik\', 19.9975, 73.7898, \'Onion\', \'Marathi\')">🧅 Nashik Onion (19.99° N, 73.78° E)</button>',
+        '  </div>',
+        '</div>',
+        '<div class="grid grid-cols-2 gap-2 mb-3">',
+        '  <div>',
+        '    <label class="pg-form-label">Latitude (°N)</label>',
+        '    <input id="farm-lat" type="number" step="any" class="pg-form-input font-mono" value="18.5204" placeholder="18.5204" />',
+        '  </div>',
+        '  <div>',
+        '    <label class="pg-form-label">Longitude (°E)</label>',
+        '    <input id="farm-lon" type="number" step="any" class="pg-form-input font-mono" value="73.8554" placeholder="73.8554" />',
         '  </div>',
         '</div>',
         '<div class="pg-form-group">',
-        '  <label class="pg-form-label">Farm Location (City / District)</label>',
+        '  <label class="pg-form-label">Farm Location (City / District fallback)</label>',
         '  <input id="farm-location" class="pg-form-input" value="Pune" placeholder="e.g. Pune, Nashik, Dharwad, Karnal" />',
         '</div>',
-        '<div class="pg-form-group">',
-        '  <label class="pg-form-label">Output Advisory Language</label>',
-        '  <select id="farm-lang" class="pg-form-select">',
-        '    <option value="English">English</option>',
-        '    <option value="Hindi">Hindi (हिंदी)</option>',
-        '    <option value="Kannada">Kannada (ಕನ್ನಡ)</option>',
-        '    <option value="Telugu">Telugu (తెలుగు)</option>',
-        '    <option value="Tamil">Tamil (தமிழ்)</option>',
-        '    <option value="Marathi">Marathi (मराठी)</option>',
-        '  </select>',
+        '<div class="grid grid-cols-2 gap-2 mb-3">',
+        '  <div>',
+        '    <label class="pg-form-label">Target Crop</label>',
+        '    <select id="farm-crop" class="pg-form-select">',
+        '      <option value="Sugarcane">Sugarcane</option>',
+        '      <option value="Wheat">Wheat</option>',
+        '      <option value="Rice">Rice (Paddy)</option>',
+        '      <option value="Cotton">Cotton</option>',
+        '      <option value="Grapes" selected>Grapes</option>',
+        '      <option value="Onion">Onion</option>',
+        '      <option value="Tomato">Tomato</option>',
+        '      <option value="Soybean">Soybean</option>',
+        '      <option value="Maize">Maize</option>',
+        '    </select>',
+        '  </div>',
+        '  <div>',
+        '    <label class="pg-form-label">Output Language</label>',
+        '    <select id="farm-lang" class="pg-form-select">',
+        '      <option value="English">English</option>',
+        '      <option value="Hindi">Hindi (हिंदी)</option>',
+        '      <option value="Kannada">Kannada (ಕನ್ನಡ)</option>',
+        '      <option value="Telugu">Telugu (తెలుగు)</option>',
+        '      <option value="Tamil">Tamil (தமிழ்)</option>',
+        '      <option value="Marathi">Marathi (मराठी)</option>',
+        '    </select>',
+        '  </div>',
         '</div>',
         '<div class="pg-form-group">',
-        '  <label class="pg-form-label">Satellite Ingestion Source</label>',
+        '  <label class="pg-form-label">Satellite & Telemetry Ingestion</label>',
         '  <select id="farm-source" class="pg-form-select">',
-        '    <option value="sample">Sentinel-2 Multi-Spectral Ingestion (Optimized Cache)</option>',
-        '    <option value="live">Live AgroMonitoring Satellite Stream</option>',
+        '    <option value="auto">Automatic (AgroMonitoring Live Probe + Open-Meteo Fallback)</option>',
+        '    <option value="live">Enforce Live AgroMonitoring Satellite & Soil Polygons</option>',
         '  </select>',
         '</div>',
         '<button class="pg-run-btn" id="farm-run-btn" onclick="window._pgRunFarmIntel()">',
@@ -2796,10 +2822,13 @@ loader.querySelector('.pg-sub').style.display = 'block';
     }
   };
 
-  window._pgSetFarmPreset = function(loc, lang) {
-    document.getElementById('farm-location').value = loc;
-    document.getElementById('farm-lang').value = lang;
-    logTerminal('Applied Farm Intelligence preset: ' + loc + ' in ' + lang, 'PRESET');
+  window._pgSetFarmPreset = function(loc, lat, lon, crop, lang) {
+    if (document.getElementById('farm-location')) document.getElementById('farm-location').value = loc;
+    if (document.getElementById('farm-lat') && lat !== undefined) document.getElementById('farm-lat').value = lat;
+    if (document.getElementById('farm-lon') && lon !== undefined) document.getElementById('farm-lon').value = lon;
+    if (document.getElementById('farm-crop') && crop) document.getElementById('farm-crop').value = crop;
+    if (document.getElementById('farm-lang') && lang) document.getElementById('farm-lang').value = lang;
+    logTerminal('Applied Farm Intelligence preset: ' + loc + ' (' + lat + ', ' + lon + ') · ' + crop + ' in ' + lang, 'PRESET');
   };
 
   // ── Execution Pipeline Logic ──
@@ -3615,33 +3644,143 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
   // ── Farm Intelligence Result Renderer ──
   function renderFarmIntelResult(data) {
-    const loc = data.location || 'Your Region';
-    const metrics = data.metrics || { temperature: '29° C', precipitation: '0 mm', wind_speed: '12 km/h', mean_ndvi: '0.69' };
+    const loc = data.location || 'Plot Coordinates';
+    const lat = data.lat !== undefined ? Number(data.lat).toFixed(4) : '';
+    const lon = data.lon !== undefined ? Number(data.lon).toFixed(4) : '';
+    const coordStr = (lat && lon) ? (lat + '° N, ' + lon + '° E') : '';
+    const crop = data.crop || 'Crop';
+    const status = data.overall_status || 'STABLE';
+    const statusClass = status === 'STABLE' ? 'success' : (status === 'CAUTION' ? 'warning' : 'danger');
+    const statusIcon = status === 'STABLE' ? 'fa-shield-check' : (status === 'CAUTION' ? 'fa-triangle-exclamation' : 'fa-circle-exclamation');
+
+    const m = data.metrics || {};
+    const veg = data.vegetation || {};
+    const soil = data.soil || {};
     const advisories = data.advisories || [];
+    const aiAdv = data.ai_advisory || null;
+
+    const cardsHtml = [];
+
+    // 1. Telemetry KPI Grid (8 metrics)
+    cardsHtml.push(
+      '<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">Temperature</div>' +
+      '    <div class="pg-kpi-val text-teal">' + escapeHtml(m.temperature || '--') + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">Feels like ' + escapeHtml(m.apparent_temperature || '--') + '</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">Soil Moisture (0-1cm)</div>' +
+      '    <div class="pg-kpi-val text-emerald-400">' + escapeHtml(m.soil_moisture || (soil.moisture_pct ? soil.moisture_pct + '%' : '--')) + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">Root-zone: ' + escapeHtml(m.soil_depth_moisture || (soil.root_zone_moisture_pct ? soil.root_zone_moisture_pct + '%' : '--')) + '</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">Canopy NDVI</div>' +
+      '    <div class="pg-kpi-val text-amber-300">' + escapeHtml(m.mean_ndvi || (veg.mean_ndvi !== undefined ? veg.mean_ndvi : '--')) + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">' + escapeHtml(veg.source ? veg.source.replace(' Multispectral Sample', '').replace(' Sensor Probe (Live)', '') : 'Satellite') + '</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">ET₀ Water Demand</div>' +
+      '    <div class="pg-kpi-val text-sky-300">' + escapeHtml(m.evapotranspiration || '--') + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">Penman-Monteith</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">Humidity & Dew Pt</div>' +
+      '    <div class="pg-kpi-val text-gray-100">' + escapeHtml(m.humidity || '--') + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">Dew Pt: ' + escapeHtml(m.dew_point || '--') + '</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">Wind & Gusts</div>' +
+      '    <div class="pg-kpi-val text-gray-100">' + escapeHtml(m.wind_speed || '--') + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">Gusts: ' + escapeHtml(m.wind_gusts || '--') + '</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">Soil Temperature</div>' +
+      '    <div class="pg-kpi-val text-orange-300">' + escapeHtml(m.soil_temperature || (soil.surface_temp_c ? soil.surface_temp_c + '° C' : '--')) + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">10cm Sub: ' + escapeHtml(m.soil_depth_temperature || (soil.depth_temp_c ? soil.depth_temp_c + '° C' : '--')) + '</div>' +
+      '  </div>' +
+      '  <div class="pg-kpi-card">' +
+      '    <div class="pg-kpi-lbl">UV Index & Rain</div>' +
+      '    <div class="pg-kpi-val text-violet-300">UV ' + escapeHtml(m.uv_index || '--') + '</div>' +
+      '    <div class="text-[10px] text-gray-400 mt-0.5">Rain: ' + escapeHtml(m.rain_probability || m.precipitation || '0%') + '</div>' +
+      '  </div>' +
+      '</div>'
+    );
+
+    // 2. Soil & Satellite Telemetry Details Card
+    cardsHtml.push(
+      '<div class="pg-card-box">' +
+      '  <div class="pg-card-title">' +
+      '    <span class="text-sm font-bold text-gray-100"><i class="fas fa-layer-group text-teal mr-1.5"></i> Multispectral & Soil Probe Telemetry</span>' +
+      '    <span class="text-xs text-teal font-mono">' + escapeHtml(loc) + (coordStr ? ' (' + escapeHtml(coordStr) + ')' : '') + '</span>' +
+      '  </div>' +
+      '  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2 text-xs">' +
+      '    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-700/40">' +
+      '      <div class="text-emerald-400 font-semibold mb-1 flex items-center gap-1.5"><i class="fas fa-seedling"></i> Soil Moisture & Dynamics</div>' +
+      '      <div class="text-gray-400 text-[11px] mb-1.5">Source: <span class="text-gray-300 font-mono">' + escapeHtml(soil.source || 'Open-Meteo High-Resolution Model') + '</span></div>' +
+      '      <div class="space-y-1 text-gray-300 font-mono text-[11px]">' +
+      '        <div>Surface Moisture (0-1cm): <strong class="text-emerald-300">' + escapeHtml(m.soil_moisture || (soil.moisture_pct ? soil.moisture_pct + '%' : '--')) + '</strong></div>' +
+      '        <div>Root-Zone Moisture (3-9cm): <strong class="text-emerald-300">' + escapeHtml(m.soil_depth_moisture || (soil.root_zone_moisture_pct ? soil.root_zone_moisture_pct + '%' : '--')) + '</strong></div>' +
+      '        <div>Surface Soil Temp: <strong class="text-amber-300">' + escapeHtml(m.soil_temperature || (soil.surface_temp_c ? soil.surface_temp_c + '° C' : '--')) + '</strong></div>' +
+      '        <div>Subsurface Temp (10cm): <strong class="text-amber-300">' + escapeHtml(m.soil_depth_temperature || (soil.depth_temp_c ? soil.depth_temp_c + '° C' : '--')) + '</strong></div>' +
+      '      </div>' +
+      '    </div>' +
+      '    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-700/40">' +
+      '      <div class="text-sky-400 font-semibold mb-1 flex items-center gap-1.5"><i class="fas fa-satellite"></i> Sentinel-2 Canopy Health</div>' +
+      '      <div class="text-gray-400 text-[11px] mb-1.5">Source: <span class="text-gray-300 font-mono">' + escapeHtml(veg.source || 'Sentinel-2 L2A') + '</span></div>' +
+      '      <div class="space-y-1 text-gray-300 font-mono text-[11px]">' +
+      '        <div>Mean Canopy NDVI: <strong class="text-teal font-bold">' + escapeHtml(m.mean_ndvi || (veg.mean_ndvi !== undefined ? veg.mean_ndvi : '--')) + '</strong></div>' +
+      '        <div>NDVI Spectrum: <strong class="text-gray-300">' + escapeHtml(m.ndvi_min || (veg.min_ndvi !== undefined ? veg.min_ndvi : '--')) + '</strong> to <strong class="text-gray-300">' + escapeHtml(m.ndvi_max || (veg.max_ndvi !== undefined ? veg.max_ndvi : '--')) + '</strong></div>' +
+      '        <div>Acquisition Cycle: <strong class="text-gray-300">' + escapeHtml(veg.scene_date || 'Recent Cycle') + '</strong></div>' +
+      '        <div>Atmospheric Pressure: <strong class="text-sky-300">' + escapeHtml(m.surface_pressure || '--') + '</strong></div>' +
+      '      </div>' +
+      '    </div>' +
+      '  </div>' +
+      '</div>'
+    );
+
+    // 3. AI Agronomic Advisory (Gemini Precision LLM if available)
+    if (aiAdv) {
+      cardsHtml.push(
+        '<div class="pg-card-box" style="border-left: 3px solid #14b8a6; background: rgba(20,184,166,0.06);">' +
+        '  <div class="pg-card-title">' +
+        '    <span class="text-teal font-bold"><i class="fas fa-sparkles mr-1.5"></i> AI Agronomic Advisory (' + escapeHtml(crop) + ')</span>' +
+        '    <span class="text-xs text-teal font-mono">Gemini Enriched</span>' +
+        '  </div>' +
+        '  <div class="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap mt-1 font-sans">' + escapeHtml(aiAdv) + '</div>' +
+        '</div>'
+      );
+    }
+
+    // 4. Rule Engine Operational Directives
+    cardsHtml.push(
+      '<div class="pg-card-box">' +
+      '  <div class="pg-card-title">' +
+      '    <span class="text-sm font-bold text-gray-100"><i class="fas fa-clipboard-check text-amber-400 mr-1.5"></i> Operational Directives & Safety Thresholds</span>' +
+      '    <span class="text-xs text-amber-400 font-mono">Heuristic Rule Engine</span>' +
+      '  </div>' +
+      '  <ul class="text-xs text-gray-300 space-y-2 list-none pl-0 mt-2">' +
+      (advisories.length > 0
+        ? advisories.map(a => {
+            const str = typeof a === 'string' ? a : (a.message || a.action || JSON.stringify(a));
+            const parts = str.split(':');
+            const title = parts.length > 1 ? parts[0].trim() : 'Advisory';
+            const body = parts.length > 1 ? parts.slice(1).join(':').trim() : str;
+            return '<li class="flex items-start gap-2 p-2 rounded bg-slate-900/40 border border-slate-800/60">' +
+                   '  <i class="fas fa-arrow-right text-teal mt-0.5 text-[10px]"></i>' +
+                   '  <div><strong class="text-teal">' + escapeHtml(title) + ':</strong> <span class="text-gray-300">' + escapeHtml(body) + '</span></div>' +
+                   '</li>';
+          }).join('')
+        : '<li class="p-2 rounded bg-slate-900/40 text-gray-400">Microclimate parameters are within normal agronomic operating ranges.</li>'
+      ) +
+      '  </ul>' +
+      '</div>'
+    );
 
     resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>🛰️ Intelligence Fusion</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK (FastAPI Live)</span></div>',
-      '<div class="pg-result-content">',
-      '  <div class="pg-kpi-row">',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Field NDVI</div><div class="pg-kpi-val">' + metrics.mean_ndvi + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Temperature</div><div class="pg-kpi-val text-teal">' + metrics.temperature + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Rain Forecast</div><div class="pg-kpi-val text-sm">' + metrics.precipitation + '</div></div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Microclimate & Field Telemetry (' + escapeHtml(loc) + ')</span></div>',
-      '    <div class="text-xs text-gray-300 font-mono space-y-1 mb-2">',
-      '      <div>Wind Speed: <span class="text-teal font-bold">' + metrics.wind_speed + '</span> · Health Status: <span class="text-teal font-bold">' + (data.overall_status || 'STABLE') + '</span></div>',
-      '      <div class="text-[11px] text-gray-400">' + escapeHtml(data.summary || 'Fused Sentinel-2 vegetation indices with Open-Meteo 7-day numerical weather forecast.') + '</div>',
-      '    </div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Actionable AI Agronomic Guidance</span></div>',
-      '    <ul class="text-xs text-gray-300 space-y-1.5 list-disc pl-4">',
-      advisories.length > 0
-        ? advisories.map(a => '<li>' + escapeHtml(typeof a === 'string' ? a : (a.message || a.action || JSON.stringify(a))) + '</li>').join('')
-        : '<li><strong>Immediate Spray Window:</strong> Favorable weather conditions detected over the next 36 hours.</li><li><strong>Irrigation Planning:</strong> Adequate soil moisture levels confirmed.</li>',
-      '    </ul>',
-      '  </div>',
+      '<div class="pg-col-title"><span>🛰️ Intelligence Fusion Report</span><span class="pg-status-pill ' + statusClass + '"><i class="fas ' + statusIcon + '"></i> ' + status + '</span></div>',
+      '<div class="pg-result-content space-y-2.5">',
+      cardsHtml.join('\n'),
       '</div>'
     ].join('\n');
   }
@@ -3651,19 +3790,26 @@ loader.querySelector('.pg-sub').style.display = 'block';
     if (isExecuting) return;
     setPipelineExecuting(true);
 
-    const loc = document.getElementById('farm-location').value;
-    const lang = document.getElementById('farm-lang').value;
+    const latVal = document.getElementById('farm-lat') ? parseFloat(document.getElementById('farm-lat').value) : NaN;
+    const lonVal = document.getElementById('farm-lon') ? parseFloat(document.getElementById('farm-lon').value) : NaN;
+    const loc = document.getElementById('farm-location') ? document.getElementById('farm-location').value.trim() : 'Pune';
+    const crop = document.getElementById('farm-crop') ? document.getElementById('farm-crop').value : 'Grapes';
+    const lang = document.getElementById('farm-lang') ? document.getElementById('farm-lang').value : 'English';
 
     let realResult = null;
     if (connMode !== 'sim') {
       try {
-        logTerminal('Connecting to FastAPI Gateway (POST /advise/stream)...', 'API');
-        realResult = await streamFromGateway('/advise/stream', {
-          location: loc,
-          crop: 'Wheat',
+        logTerminal('Connecting to Farm Intelligence Gateway (POST /advise/stream)...', 'API');
+        const payload = {
+          lat: !isNaN(latVal) ? latVal : null,
+          lon: !isNaN(lonVal) ? lonVal : null,
+          location: loc || undefined,
+          crop: crop,
           language: lang,
-          gemini_key: geminiKey
-        });
+          agro_key: agroKey || undefined,
+          gemini_key: geminiKey || undefined
+        };
+        realResult = await streamFromGateway('/advise/stream', payload);
       } catch (err) {
         logTerminal('FastAPI Gateway connection note: ' + err.message + '. Falling back to client simulation.', 'FALLBACK', 'warn');
         realResult = null;
@@ -3673,7 +3819,7 @@ loader.querySelector('.pg-sub').style.display = 'block';
     if (realResult) {
       renderFarmIntelResult(realResult);
     } else {
-      await runFarmIntelSimulation(loc, lang);
+      await runFarmIntelSimulation(loc, !isNaN(latVal) ? latVal : 18.5204, !isNaN(lonVal) ? lonVal : 73.8554, crop, lang);
     }
 
     setPipelineExecuting(false);
@@ -3681,13 +3827,15 @@ loader.querySelector('.pg-sub').style.display = 'block';
     if (btn) btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Synthesize Multi-Modal Advisory';
   };
 
-  async function runFarmIntelSimulation(loc, lang) {
+  async function runFarmIntelSimulation(loc, lat, lon, crop, lang) {
     const logs = [
-      { delay: 100, tag: 'Sentinel-2', msg: 'Ingesting 10m Sentinel-2 multispectral tile bands (B4-Red, B8-NIR, B11-SWIR)...' },
-      { delay: 350, tag: 'Weather',    msg: 'Querying Open-Meteo microclimate API for ' + loc + ' 5-day forecast array...' },
-      { delay: 600, tag: 'Fusion',     msg: 'Executing cross-modal heuristic rules engine: humidity=68%, rain_prob=20%, NDVI=0.69...' },
-      { delay: 850, tag: 'LLM Advisory',msg: 'Synthesizing prioritized agronomic advisory instructions in ' + lang + '...' },
-      { delay: 1050, tag: 'Pipeline',  msg: 'Advisory fusion pipeline completed in 1.05s. Status 200 OK.' }
+      { delay: 100, tag: 'GPS',        msg: 'Resolving coordinates ' + lat.toFixed(4) + '° N, ' + lon.toFixed(4) + '° E → ' + loc + '...' },
+      { delay: 300, tag: 'Weather',    msg: 'Querying Open-Meteo 7-day meteorological & soil profile array for ' + loc + '...' },
+      { delay: 550, tag: 'Sentinel-2', msg: 'Ingesting 10m Sentinel-2 multispectral tile bands (B4-Red, B8-NIR, B11-SWIR)...' },
+      { delay: 800, tag: 'Soil',       msg: 'Surface soil moisture: 31.9% (Root-zone: 32.1%), Surface Temp: 22.4°C...' },
+      { delay: 1000, tag: 'Fusion',     msg: 'Executing cross-modal heuristic rules engine: humidity=80%, ET₀=4.66mm, NDVI=0.60...' },
+      { delay: 1200, tag: 'LLM Advisory',msg: 'Synthesizing precision agricultural advisory for ' + crop + ' in ' + lang + '...' },
+      { delay: 1400, tag: 'Pipeline',  msg: 'Advisory fusion pipeline completed in 1.40s. Status 200 OK.' }
     ];
 
     for (const step of logs) {
