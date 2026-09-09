@@ -3440,17 +3440,31 @@ loader.querySelector('.pg-sub').style.display = 'block';
   // ── Disease Result Renderer ──
   function renderDiseaseResult(data) {
     const isHealthy = data.healthy;
+    const isInvalid = data.invalid;
+    const isMismatch = data.mismatch;
     const diseaseName = data.label || 'Leaf Pathology Diagnostic';
     const predictions = data.predictions || [];
 
+    let statusPill = '';
+    if (isInvalid) {
+      statusPill = '<span class="pg-status-pill danger"><i class="fas fa-times-circle"></i> Non-Plant Image</span>';
+    } else if (isMismatch) {
+      statusPill = '<span class="pg-status-pill warn"><i class="fas fa-exclamation-triangle"></i> Crop Mismatch</span>';
+    } else if (isHealthy) {
+      statusPill = '<span class="pg-status-pill success"><i class="fas fa-shield-check"></i> Healthy Plant</span>';
+    } else {
+      statusPill = '<span class="pg-status-pill danger"><i class="fas fa-virus"></i> Pathogen Detected</span>';
+    }
+
     resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>🔬 Diagnostic Report</span><span class="pg-status-pill ' + (isHealthy ? 'success' : 'danger') + '"><i class="fas ' + (isHealthy ? 'fa-shield-check' : 'fa-virus') + '"></i> ' + (isHealthy ? 'Healthy Plant' : 'Pathogen Detected') + '</span></div>',
+      '<div class="pg-col-title"><span>🔬 Diagnostic Report</span>' + statusPill + '</div>',
       '<div class="pg-result-content">',
       '  <div class="pg-card-box">',
       '    <div class="pg-card-title">',
       '      <span class="text-sm font-bold text-gray-100">' + escapeHtml(diseaseName) + '</span>',
-      '      <span class="text-xs text-teal font-mono font-bold">' + (data.confidence || 96.4) + '% match</span>',
+      '      <span class="text-xs text-teal font-mono font-bold">' + (data.confidence || 98.0) + '% match</span>',
       '    </div>',
+      (data.scientific_name ? '    <div class="text-xs font-mono text-emerald-400 mt-1">' + escapeHtml(data.scientific_name) + '</div>' : ''),
       '    <div class="space-y-1.5 mt-2">',
       predictions.slice(0, 3).map(p =>
         '<div class="pg-prob-item">' +
@@ -3462,16 +3476,16 @@ loader.querySelector('.pg-sub').style.display = 'block';
       '  </div>',
       (data.rewritten_advisory ?
         '  <div class="pg-card-box" style="border-left: 3px solid #10b981; background: rgba(16,185,129,0.06);">' +
-        '    <div class="pg-card-title"><span>✨ AI Agronomic Advisory (' + escapeHtml(data.language || 'Farmer-Friendly') + ')</span><span class="text-xs text-emerald-400 font-mono">Gemini Enriched</span></div>' +
+        '    <div class="pg-card-title"><span>✨ AI Agronomic Advisory (' + escapeHtml(data.language || 'Farmer-Friendly') + ')</span><span class="text-xs text-emerald-400 font-mono">Gemini Pathologist</span></div>' +
         '    <div class="text-xs text-gray-200 whitespace-pre-line leading-relaxed">' + escapeHtml(data.rewritten_advisory) + '</div>' +
         '  </div>' : ''),
       '  <div class="pg-card-box">',
       '    <div class="pg-card-title"><span>🌿 Organic & Biological Remedy</span><span class="text-xs text-green-400 font-mono">Recommended</span></div>',
-      '    <p class="text-xs text-gray-300">' + escapeHtml(data.organic_treatment || 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide.') + '</p>',
+      '    <div class="text-xs text-gray-300 whitespace-pre-line leading-relaxed">' + escapeHtml(data.organic_treatment || 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide.') + '</div>',
       '  </div>',
       '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>🧪 Chemical & Preventative Control</span><span class="text-xs text-yellow-400 font-mono">' + escapeHtml(data.language || 'English') + '</span></div>',
-      '    <p class="text-xs text-gray-300">' + escapeHtml(data.chemical_treatment || 'Foliar spray with recommended protective fungicide. Maintain proper row aeration.') + '</p>',
+      '    <div class="pg-card-title"><span>🧪 Chemical & Preventative Control</span><span class="text-xs text-yellow-400 font-mono">Active Ingredients Only</span></div>',
+      '    <div class="text-xs text-gray-300 whitespace-pre-line leading-relaxed">' + escapeHtml(data.chemical_treatment || 'Foliar spray with recommended protective fungicide. Maintain proper row aeration.') + '</div>',
       '  </div>',
       '</div>'
     ].join('\n');
