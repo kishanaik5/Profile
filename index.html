@@ -3449,6 +3449,11 @@ loader.querySelector('.pg-sub').style.display = 'block';
       ).join(''),
       '    </div>',
       '  </div>',
+      (data.rewritten_advisory ?
+        '  <div class="pg-card-box" style="border-left: 3px solid #10b981; background: rgba(16,185,129,0.06);">' +
+        '    <div class="pg-card-title"><span>✨ AI Agronomic Advisory (' + escapeHtml(data.language || 'Farmer-Friendly') + ')</span><span class="text-xs text-emerald-400 font-mono">Gemini Enriched</span></div>' +
+        '    <div class="text-xs text-gray-200 whitespace-pre-line leading-relaxed">' + escapeHtml(data.rewritten_advisory) + '</div>' +
+        '  </div>' : ''),
       '  <div class="pg-card-box">',
       '    <div class="pg-card-title"><span>🌿 Organic & Biological Remedy</span><span class="text-xs text-green-400 font-mono">Recommended</span></div>',
       '    <p class="text-xs text-gray-300">' + escapeHtml(data.organic_treatment || 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide.') + '</p>',
