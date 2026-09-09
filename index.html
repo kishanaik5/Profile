@@ -2604,8 +2604,11 @@ loader.querySelector('.pg-sub').style.display = 'block';
         '<div class="pg-dropzone" id="disease-dropzone" onclick="document.getElementById(\'disease-file-input\').click()">',
         '  <i class="fas fa-cloud-arrow-up"></i>',
         '  <span class="pg-dropzone-text" id="disease-dropzone-text">Click to upload or drag & drop leaf image</span>',
-        '  <span class="pg-dropzone-sub">Supports JPG, PNG, WEBP (Max 5MB)</span>',
         '  <input id="disease-file-input" type="file" accept="image/*" style="display:none" onchange="window._pgHandleDiseaseFile(this)" />',
+        '</div>',
+        '<div class="pg-form-group">',
+        '  <label class="pg-form-label">Claimed Crop Name (Text Input)</label>',
+        '  <input type="text" id="disease-crop-name" class="pg-form-input" placeholder="e.g. Tomato, Potato, Apple, Corn, Wheat..." value="Tomato" />',
         '</div>',
         '<div class="pg-form-group">',
         '  <label class="pg-form-label">Advisory Language (Multilingual GenAI)</label>',
@@ -2836,7 +2839,15 @@ loader.querySelector('.pg-sub').style.display = 'block';
     };
     const el = document.getElementById('disease-dropzone-text');
     if (el) el.innerHTML = '<span class="text-teal font-semibold">' + names[preset] + '</span> selected';
-    logTerminal('Selected leaf sample preset: ' + names[preset], 'PRESET');
+    const cropMap = {
+      tomato_early_blight: 'Tomato',
+      potato_late_blight: 'Potato',
+      apple_scab: 'Apple',
+      corn_healthy: 'Corn'
+    };
+    const cropInp = document.getElementById('disease-crop-name');
+    if (cropInp && cropMap[preset]) cropInp.value = cropMap[preset];
+    logTerminal('Selected leaf sample preset: ' + names[preset] + ' (Crop: ' + (cropMap[preset] || '') + ')', 'PRESET');
   };
 
   window._pgHandleDiseaseFile = function(input) {
@@ -3472,19 +3483,22 @@ loader.querySelector('.pg-sub').style.display = 'block';
     setPipelineExecuting(true);
 
     const lang = document.getElementById('disease-lang').value;
+    const cropInp = document.getElementById('disease-crop-name');
+    const cropName = cropInp ? cropInp.value.trim() : '';
     const fileInp = document.getElementById('disease-file-input');
     const hasUpload = fileInp && fileInp.files && fileInp.files[0];
 
     let realResult = null;
     if (connMode !== 'sim') {
       try {
-        logTerminal('Connecting to FastAPI Gateway (POST /scan/stream)...', 'API');
+        logTerminal(`Connecting to FastAPI Gateway (POST /scan/stream${cropName ? ' crop="' + cropName + '"' : ''})...`, 'API');
         const formData = new FormData();
         if (hasUpload) {
           formData.append('file', fileInp.files[0]);
         } else {
           formData.append('preset', selectedLeafPreset);
         }
+        if (cropName) formData.append('crop', cropName);
         formData.append('language', lang);
         if (geminiKey) formData.append('gemini_key', geminiKey);
 
