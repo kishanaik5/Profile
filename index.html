@@ -3439,54 +3439,170 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
   // ── Disease Result Renderer ──
   function renderDiseaseResult(data) {
-    const isHealthy = data.healthy;
-    const isInvalid = data.invalid;
-    const isMismatch = data.mismatch;
-    const diseaseName = data.label || 'Leaf Pathology Diagnostic';
+    const isHealthy = Boolean(data.healthy);
+    const isInvalid = Boolean(data.invalid);
+    const isMismatch = Boolean(data.mismatch);
+    const cropName = data.crop || '';
+    const diseaseName = data.disease_name || data.label || 'Leaf Pathology Diagnostic';
     const predictions = data.predictions || [];
+    const struct = data.gemini_structured || {};
+    const diseaseInfo = struct.disease_info || {};
+    const plantInfo = struct.plant_info || {};
+    const mgmt = struct.management || {};
 
     let statusPill = '';
     if (isInvalid) {
       statusPill = '<span class="pg-status-pill danger"><i class="fas fa-times-circle"></i> Non-Plant Image</span>';
     } else if (isMismatch) {
-      statusPill = '<span class="pg-status-pill warn"><i class="fas fa-exclamation-triangle"></i> Crop Mismatch</span>';
+      statusPill = '<span class="pg-status-pill warning"><i class="fas fa-exclamation-triangle"></i> Crop Mismatch</span>';
     } else if (isHealthy) {
       statusPill = '<span class="pg-status-pill success"><i class="fas fa-shield-check"></i> Healthy Plant</span>';
     } else {
       statusPill = '<span class="pg-status-pill danger"><i class="fas fa-virus"></i> Pathogen Detected</span>';
     }
 
+    // Format list of bullets into styled items
+    function renderBullets(items) {
+      if (!items) return '';
+      let arr = [];
+      if (Array.isArray(items)) {
+        arr = items.filter(Boolean);
+      } else if (typeof items === 'string') {
+        arr = items.split('\n').map(s => s.replace(/^[•\-\*\s]+/, '').trim()).filter(Boolean);
+      }
+      if (!arr.length) return '';
+      return '<ul class="space-y-1.5 pl-0.5">' + arr.map(item =>
+        '<li class="flex items-start gap-2 text-xs text-gray-300 leading-relaxed">' +
+        '<i class="fas fa-circle-check text-emerald-400 text-[10px] mt-1 shrink-0"></i>' +
+        '<span>' + escapeHtml(item) + '</span></li>'
+      ).join('') + '</ul>';
+    }
+
+    const cardsHtml = [];
+
+    // 1. Primary Classification Card (Filter out contradictory CNN baseline bars)
+    let probBars = '';
+    const displayPreds = predictions.filter(p => !p.label.toLowerCase().includes('plantvillage cnn'));
+    const activePreds = displayPreds.length > 0 ? displayPreds : predictions.slice(0, 1);
+    if (activePreds.length > 0) {
+      probBars = '<div class="space-y-1.5 mt-2.5">' +
+        activePreds.map(p =>
+          '<div class="pg-prob-item">' +
+          '  <div class="pg-prob-header"><span class="font-medium">' + escapeHtml(p.label.replace(/_/g, ' ')) + '</span><span class="font-mono text-teal">' + p.confidence + '%</span></div>' +
+          '  <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: ' + p.confidence + '%"></div></div>' +
+          '</div>'
+        ).join('') + '</div>';
+    }
+
+    const sciName = data.scientific_name || plantInfo.scientific_name || '';
+    const pathogenType = diseaseInfo.pathogen_type ? (' · ' + diseaseInfo.pathogen_type) : '';
+    const severityBadge = (diseaseInfo.severity && !isHealthy) ? ('<span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono border border-amber-500/30">Severity: ' + escapeHtml(diseaseInfo.severity) + '</span>') : '';
+
+    cardsHtml.push(
+      '<div class="pg-card-box">' +
+      '  <div class="pg-card-title">' +
+      '    <div class="flex items-center gap-2">' +
+      '      <span class="text-sm font-bold text-gray-100">' + escapeHtml(data.label || (cropName + ' - ' + diseaseName)) + '</span>' +
+      severityBadge +
+      '    </div>' +
+      '    <span class="text-xs text-teal font-mono font-bold">' + (data.confidence || 98.0) + '% match</span>' +
+      '  </div>' +
+      (sciName ? '  <div class="text-xs font-mono text-emerald-400 mt-0.5">' + escapeHtml(sciName) + pathogenType + '</div>' : '') +
+      probBars +
+      '</div>'
+    );
+
+    // 2. Observations: Symptoms & Etiology / Visual Assessment
+    const symptomsText = data.symptoms || diseaseInfo.symptoms || '';
+    const causeText = data.cause || diseaseInfo.cause || '';
+    const spreadText = (!isHealthy ? (data.disease_spread || diseaseInfo.disease_spread) : '') || '';
+
+    if (symptomsText || causeText) {
+      cardsHtml.push(
+        '<div class="pg-card-box">' +
+        '  <div class="pg-card-title">' +
+        '    <span>' + (isHealthy ? '🌱 Visual Health Assessment' : '🔍 Symptoms & Pathogen Etiology') + '</span>' +
+        '    <span class="text-xs text-gray-400 font-mono">' + (isHealthy ? 'Vigorous Foliage' : 'Clinical Findings') + '</span>' +
+        '  </div>' +
+        '  <div class="space-y-2 text-xs leading-relaxed">' +
+        (symptomsText ? '    <div><strong class="text-teal font-medium">Observed Condition: </strong><span class="text-gray-300">' + escapeHtml(symptomsText) + '</span></div>' : '') +
+        (causeText ? '    <div><strong class="text-emerald-400 font-medium">' + (isHealthy ? 'Physiology: ' : 'Cause & Agent: ') + '</strong><span class="text-gray-300">' + escapeHtml(causeText) + '</span></div>' : '') +
+        (spreadText ? '    <div><strong class="text-amber-400 font-medium">Spread Vector: </strong><span class="text-gray-300">' + escapeHtml(spreadText) + '</span></div>' : '') +
+        '  </div>' +
+        '</div>'
+      );
+    }
+
+    // 3. Treatment / Management Section
+    const organicItems = (mgmt && mgmt.organic_practices && mgmt.organic_practices.length > 0)
+      ? mgmt.organic_practices
+      : (data.organic_treatment || '');
+    const chemicalItems = (mgmt && mgmt.chemical_practices && mgmt.chemical_practices.length > 0)
+      ? mgmt.chemical_practices
+      : (data.chemical_treatment || '');
+
+    if (isHealthy) {
+      // For Healthy plants: show single routine monitoring & cultural practices card. NO chemical card!
+      cardsHtml.push(
+        '<div class="pg-card-box" style="border-left: 3px solid #10b981; background: rgba(16,185,129,0.06);">' +
+        '  <div class="pg-card-title">' +
+        '    <span class="text-emerald-300"><i class="fas fa-leaf mr-1.5"></i> Maintenance & Good Cultural Practices</span>' +
+        '    <span class="text-xs text-emerald-400 font-mono">Preventative</span>' +
+        '  </div>' +
+        (organicItems ? renderBullets(organicItems) : '<p class="text-xs text-gray-300">Maintain standard irrigation, balanced soil fertility, and weekly scouting for early signs of disease.</p>') +
+        '  <div class="mt-2.5 pt-2 border-t border-emerald-500/20 text-[11px] text-emerald-400/90 flex items-center gap-1.5">' +
+        '    <i class="fas fa-shield-halved"></i> No chemical fungicide or pesticide required for healthy foliage.' +
+        '  </div>' +
+        '</div>'
+      );
+    } else if (!isInvalid) {
+      // Disease detected: Show Organic & Biological Remedy, plus Chemical Remedy (Active Ingredients)
+      if (organicItems) {
+        cardsHtml.push(
+          '<div class="pg-card-box" style="border-left: 3px solid #10b981; background: rgba(16,185,129,0.06);">' +
+          '  <div class="pg-card-title">' +
+          '    <span class="text-emerald-300"><i class="fas fa-seedling mr-1.5"></i> Organic & Biological Remedy</span>' +
+          '    <span class="text-xs text-emerald-400 font-mono">1st Line Defense</span>' +
+          '  </div>' +
+          renderBullets(organicItems) +
+          '</div>'
+        );
+      }
+      if (chemicalItems) {
+        cardsHtml.push(
+          '<div class="pg-card-box" style="border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.06);">' +
+          '  <div class="pg-card-title">' +
+          '    <span class="text-amber-300"><i class="fas fa-flask mr-1.5"></i> Chemical & Curative Control</span>' +
+          '    <span class="text-xs text-amber-400 font-mono">Active Ingredients Only</span>' +
+          '  </div>' +
+          renderBullets(chemicalItems) +
+          '</div>'
+        );
+      }
+    }
+
+    // 4. Non-Plant or Mismatch Notice if applicable
+    if (isMismatch) {
+      cardsHtml.push(
+        '<div class="pg-card-box" style="border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08);">' +
+        '  <div class="pg-card-title text-amber-300"><i class="fas fa-triangle-exclamation mr-1.5"></i> Crop Claim Mismatch</div>' +
+        '  <div class="text-xs text-gray-300 leading-relaxed">' + escapeHtml(sciName || 'The visual characteristics of the foliage do not align with the claimed crop name. Diagnosis is based on the detected plant leaf structure.') + '</div>' +
+        '</div>'
+      );
+    }
+    if (isInvalid) {
+      cardsHtml.push(
+        '<div class="pg-card-box" style="border-left: 3px solid #ef4444; background: rgba(239,68,68,0.08);">' +
+        '  <div class="pg-card-title text-red-300"><i class="fas fa-circle-xmark mr-1.5"></i> Unrecognized Image</div>' +
+        '  <div class="text-xs text-gray-300 leading-relaxed">No plant foliage or leaf tissue could be detected in this photo. Please upload a well-lit, close-up photograph of a plant leaf.</div>' +
+        '</div>'
+      );
+    }
+
     resultContainer.innerHTML = [
       '<div class="pg-col-title"><span>🔬 Diagnostic Report</span>' + statusPill + '</div>',
-      '<div class="pg-result-content">',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title">',
-      '      <span class="text-sm font-bold text-gray-100">' + escapeHtml(diseaseName) + '</span>',
-      '      <span class="text-xs text-teal font-mono font-bold">' + (data.confidence || 98.0) + '% match</span>',
-      '    </div>',
-      (data.scientific_name ? '    <div class="text-xs font-mono text-emerald-400 mt-1">' + escapeHtml(data.scientific_name) + '</div>' : ''),
-      '    <div class="space-y-1.5 mt-2">',
-      predictions.slice(0, 3).map(p =>
-        '<div class="pg-prob-item">' +
-        '  <div class="pg-prob-header"><span>' + escapeHtml(p.label.replace(/_/g, ' ')) + '</span><span class="font-mono">' + p.confidence + '%</span></div>' +
-        '  <div class="pg-prob-bar-bg"><div class="pg-prob-bar-fill" style="width: ' + p.confidence + '%"></div></div>' +
-        '</div>'
-      ).join(''),
-      '    </div>',
-      '  </div>',
-      (data.rewritten_advisory ?
-        '  <div class="pg-card-box" style="border-left: 3px solid #10b981; background: rgba(16,185,129,0.06);">' +
-        '    <div class="pg-card-title"><span>✨ AI Agronomic Advisory (' + escapeHtml(data.language || 'Farmer-Friendly') + ')</span><span class="text-xs text-emerald-400 font-mono">Gemini Pathologist</span></div>' +
-        '    <div class="text-xs text-gray-200 whitespace-pre-line leading-relaxed">' + escapeHtml(data.rewritten_advisory) + '</div>' +
-        '  </div>' : ''),
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>🌿 Organic & Biological Remedy</span><span class="text-xs text-green-400 font-mono">Recommended</span></div>',
-      '    <div class="text-xs text-gray-300 whitespace-pre-line leading-relaxed">' + escapeHtml(data.organic_treatment || 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide.') + '</div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>🧪 Chemical & Preventative Control</span><span class="text-xs text-yellow-400 font-mono">Active Ingredients Only</span></div>',
-      '    <div class="text-xs text-gray-300 whitespace-pre-line leading-relaxed">' + escapeHtml(data.chemical_treatment || 'Foliar spray with recommended protective fungicide. Maintain proper row aeration.') + '</div>',
-      '  </div>',
+      '<div class="pg-result-content space-y-2.5">',
+      cardsHtml.join('\n'),
       '</div>'
     ].join('\n');
   }
@@ -3552,15 +3668,20 @@ loader.querySelector('.pg-sub').style.display = 'block';
     const isHealthy = selectedLeafPreset === 'corn_healthy';
     const diseaseName = isHealthy ? 'Corn (Maize) - Healthy Leaf' : selectedLeafPreset === 'potato_late_blight' ? 'Potato Late Blight (Phytophthora infestans)' : selectedLeafPreset === 'apple_scab' ? 'Apple Scab (Venturia inaequalis)' : 'Tomato Early Blight (Alternaria solani)';
     renderDiseaseResult({
+      crop: isHealthy ? 'Corn (Maize)' : selectedLeafPreset === 'potato_late_blight' ? 'Potato' : selectedLeafPreset === 'apple_scab' ? 'Apple' : 'Tomato',
+      scientific_name: isHealthy ? 'Zea mays' : selectedLeafPreset === 'potato_late_blight' ? 'Solanum tuberosum' : selectedLeafPreset === 'apple_scab' ? 'Malus domestica' : 'Solanum lycopersicum',
       label: diseaseName,
+      disease_name: isHealthy ? 'Healthy' : selectedLeafPreset === 'potato_late_blight' ? 'Late Blight' : selectedLeafPreset === 'apple_scab' ? 'Apple Scab' : 'Early Blight',
       healthy: isHealthy,
       confidence: 96.4,
       predictions: [
-        { label: diseaseName.split('(')[0], confidence: 96.4 },
-        { label: 'Secondary Fungal Strain', confidence: 2.8 }
+        { label: isHealthy ? 'Corn (Maize) · Healthy' : diseaseName.split('(')[0].trim(), confidence: 96.4 }
       ],
-      organic_treatment: isHealthy ? 'Canopy is healthy. Maintain regular soil aeration and drip irrigation.' : 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide during early morning hours.',
-      chemical_treatment: isHealthy ? 'Apply preventive copper oxychloride only if regional humidity exceeds 85%.' : 'Foliar spray with Mancozeb (75% WP @ 2g/L) or Chlorothalonil. Remove infected lower leaves.',
+      symptoms: isHealthy ? 'Foliage exhibits vigorous green tissue with no signs of lesion, chlorosis, or necrosis.' : 'Concentric dark target-board rings and irregular lesions on foliage.',
+      cause: isHealthy ? 'Normal physiological cellular health.' : 'Fungal pathogen sporulation under high relative humidity.',
+      disease_spread: isHealthy ? '' : 'Airborne spores and rain splashing.',
+      organic_treatment: isHealthy ? 'Maintain optimal field drainage, balanced nitrogen feeding, and routine scouting.' : 'Apply cold-pressed Neem Oil extract (5ml/L) or Trichoderma viride bio-fungicide during early morning hours.',
+      chemical_treatment: isHealthy ? '' : 'Foliar spray with Mancozeb (75% WP @ 2g/L) or Chlorothalonil. Remove infected lower leaves.',
       language: lang
     });
   }
