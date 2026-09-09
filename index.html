@@ -686,7 +686,7 @@ padding: 5px 10px; transition: color 0.2s, border-color 0.2s;
 /* Space Selector Tabs Bar */
 .pg-tabs-bar {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -1962,11 +1962,6 @@ Say Hello
       <span class="pg-tab-title">Crop Disease Scanner</span>
       <span class="pg-tab-sub">ViT · Knowledge Base · LLM</span>
     </button>
-    <button class="pg-tab-btn" data-space="cropstage">
-      <span class="pg-tab-icon">🌱</span>
-      <span class="pg-tab-title">Crop Stage Predictor</span>
-      <span class="pg-tab-sub">Phenology · NDVI Remote Sensing</span>
-    </button>
     <button class="pg-tab-btn" data-space="farmintel">
       <span class="pg-tab-icon">🛰️</span>
       <span class="pg-tab-title">Farm Intelligence</span>
@@ -2386,16 +2381,6 @@ loader.querySelector('.pg-sub').style.display = 'block';
       localPort: 8002,
       streamEndpoint: '/scan/stream',
     },
-    cropstage: {
-      id: 'cropstage',
-      name: 'Crop Stage Predictor',
-      icon: '🌱',
-      route: 'POST /predict/stream',
-      hf: 'https://huggingface.co/spaces/kishanaik5/crop-stage-predictor',
-      hfApi: 'https://kishanaik5-crop-stage-predictor.hf.space',
-      localPort: 8003,
-      streamEndpoint: '/predict/stream',
-    },
     farmintel: {
       id: 'farmintel',
       name: 'Farm Intelligence & Weather Advisor',
@@ -2625,55 +2610,6 @@ loader.querySelector('.pg-sub').style.display = 'block';
         '  <i class="fas fa-microscope"></i> Diagnose Leaf & Generate Advisory',
         '</button>'
       ].join('\n');
-    } else if (key === 'cropstage') {
-      inputContainer.innerHTML = [
-        '<div class="pg-col-title"><span>📥 Field & Phenology Parameters</span><span class="text-xs text-gray-500 font-mono">AgroMonitoring</span></div>',
-        '<div class="pg-presets-row">',
-        '  <span class="pg-presets-label">⚡ Growth Stage Scenarios:</span>',
-        '  <div class="pg-preset-chips">',
-        '    <button class="pg-preset-chip" onclick="window._pgSetCropPreset(\'Wheat\', 48, 18.52, 73.85)">🌾 Wheat · Heading (Day 48)</button>',
-        '    <button class="pg-preset-chip" onclick="window._pgSetCropPreset(\'Rice\', 32, 15.36, 75.12)">🍚 Rice · Tillering (Day 32)</button>',
-        '    <button class="pg-preset-chip" onclick="window._pgSetCropPreset(\'Cotton\', 75, 21.14, 79.08)">🌱 Cotton · Flowering (Day 75)</button>',
-        '  </div>',
-        '</div>',
-        '<div class="pg-form-group">',
-        '  <label class="pg-form-label">Crop Type</label>',
-        '  <select id="crop-type" class="pg-form-select">',
-        '    <option value="Wheat">Wheat</option>',
-        '    <option value="Rice">Rice</option>',
-        '    <option value="Cotton">Cotton</option>',
-        '    <option value="Maize">Maize</option>',
-        '    <option value="Soybean">Soybean</option>',
-        '  </select>',
-        '</div>',
-        '<div class="grid grid-cols-2 gap-3 pg-form-group">',
-        '  <div>',
-        '    <label class="pg-form-label">Latitude</label>',
-        '    <input id="crop-lat" class="pg-form-input" value="18.5204" />',
-        '  </div>',
-        '  <div>',
-        '    <label class="pg-form-label">Longitude</label>',
-        '    <input id="crop-lon" class="pg-form-input" value="73.8567" />',
-        '  </div>',
-        '</div>',
-        '<div class="pg-form-group">',
-        '  <label class="pg-form-label">Days After Sowing (DAS)</label>',
-        '  <div class="pg-form-range-wrap">',
-        '    <input id="crop-das" type="range" class="pg-form-range" min="10" max="140" value="48" oninput="document.getElementById(\'crop-das-val\').textContent = this.value" />',
-        '    <span class="pg-form-range-val" id="crop-das-val">48</span>',
-        '  </div>',
-        '</div>',
-        '<div class="pg-form-group">',
-        '  <label class="pg-form-label">Pipeline Engine Mode</label>',
-        '  <select id="crop-mode" class="pg-form-select">',
-        '    <option value="sample">Multi-Modal Phenology Engine (Realtime)</option>',
-        '    <option value="ndvi">Direct AgroMonitoring Satellite NDVI</option>',
-        '  </select>',
-        '</div>',
-        '<button class="pg-run-btn" id="crop-run-btn" onclick="window._pgRunCropStage()">',
-        '  <i class="fas fa-seedling"></i> Predict Growth Stage & Canopy Health',
-        '</button>'
-      ].join('\n');
     } else if (key === 'farmintel') {
       inputContainer.innerHTML = [
         '<div class="pg-col-title"><span>📥 Farm Microclimate Inputs</span><span class="text-xs text-gray-500 font-mono">Fusion Engine</span></div>',
@@ -2858,15 +2794,6 @@ loader.querySelector('.pg-sub').style.display = 'block';
       if (el) el.innerHTML = '<span class="text-teal font-semibold"><i class="fas fa-file-image"></i> ' + escapeHtml(name) + '</span> ready for diagnosis';
       logTerminal('User uploaded leaf file: ' + name, 'UPLOAD');
     }
-  };
-
-  window._pgSetCropPreset = function(crop, das, lat, lon) {
-    document.getElementById('crop-type').value = crop;
-    document.getElementById('crop-das').value = das;
-    document.getElementById('crop-das-val').textContent = das;
-    document.getElementById('crop-lat').value = lat;
-    document.getElementById('crop-lon').value = lon;
-    logTerminal('Applied Crop Stage preset: ' + crop + ' at Day ' + das + ' (' + lat + ', ' + lon + ')', 'PRESET');
   };
 
   window._pgSetFarmPreset = function(loc, lang) {
@@ -3686,101 +3613,6 @@ loader.querySelector('.pg-sub').style.display = 'block';
     });
   }
 
-  // ── Crop Stage Result Renderer ──
-  function renderCropStageResult(data) {
-    const stageIdx = data.stage_idx !== undefined ? data.stage_idx : 1;
-    const currentStage = data.current_stage || 'Vegetative / Tillering';
-
-    resultContainer.innerHTML = [
-      '<div class="pg-col-title"><span>🌱 Phenology Diagnosis</span><span class="pg-status-pill success"><i class="fas fa-check-circle"></i> 200 OK (FastAPI Live)</span></div>',
-      '<div class="pg-result-content">',
-      '  <div class="pg-kpi-row">',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Current Stage</div><div class="pg-kpi-val text-sm">' + escapeHtml(currentStage) + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">NDVI Index</div><div class="pg-kpi-val">' + data.ndvi + '</div></div>',
-      '    <div class="pg-kpi-card"><div class="pg-kpi-lbl">Est. Harvest</div><div class="pg-kpi-val text-sm">' + data.days_to_harvest + ' Days</div></div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Phenological Progression (Day ' + data.das + ')</span></div>',
-      '    <div class="pg-stepper">',
-      '      <div class="pg-step ' + (stageIdx >= 0 ? (stageIdx === 0 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 0 ? '✓' : '1') + '</div><span class="pg-step-label">Germinate</span></div>',
-      '      <div class="pg-step ' + (stageIdx >= 1 ? (stageIdx === 1 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 1 ? '✓' : '2') + '</div><span class="pg-step-label">Vegetative</span></div>',
-      '      <div class="pg-step ' + (stageIdx >= 2 ? (stageIdx === 2 ? 'active' : 'passed') : '') + '"><div class="pg-step-node">' + (stageIdx > 2 ? '✓' : '3') + '</div><span class="pg-step-label">Heading</span></div>',
-      '      <div class="pg-step ' + (stageIdx >= 3 ? 'active' : '') + '"><div class="pg-step-node">4</div><span class="pg-step-label">Harvest</span></div>',
-      '    </div>',
-      '  </div>',
-      '  <div class="pg-card-box">',
-      '    <div class="pg-card-title"><span>Agronomic Management Protocol</span><span class="text-xs text-teal font-mono">Day ' + data.das + '</span></div>',
-      '    <p class="text-xs text-gray-300">' + escapeHtml(data.management_protocol || 'Optimal management window for current crop phase.') + '</p>',
-      '  </div>',
-      '</div>'
-    ].join('\n');
-  }
-
-  // ── Crop Stage Predictor Execution ──
-  window._pgRunCropStage = async function() {
-    if (isExecuting) return;
-    setPipelineExecuting(true);
-
-    const crop = document.getElementById('crop-type').value;
-    const das = parseInt(document.getElementById('crop-das').value, 10) || 48;
-    const lat = parseFloat(document.getElementById('crop-lat').value) || 18.5204;
-    const lon = parseFloat(document.getElementById('crop-lon').value) || 73.8567;
-
-    let realResult = null;
-    if (connMode !== 'sim') {
-      try {
-        logTerminal('Connecting to FastAPI Gateway (POST /predict/stream)...', 'API');
-        realResult = await streamFromGateway('/predict/stream', {
-          crop: crop,
-          das: das,
-          lat: lat,
-          lon: lon,
-          agro_key: agroKey
-        });
-      } catch (err) {
-        logTerminal('FastAPI Gateway connection note: ' + err.message + '. Falling back to client simulation.', 'FALLBACK', 'warn');
-        realResult = null;
-      }
-    }
-
-    if (realResult) {
-      renderCropStageResult(realResult);
-    } else {
-      await runCropStageSimulation(crop, das, lat, lon);
-    }
-
-    setPipelineExecuting(false);
-    const btn = document.getElementById('crop-run-btn');
-    if (btn) btn.innerHTML = '<i class="fas fa-seedling"></i> Predict Growth Stage & Canopy Health';
-  };
-
-  async function runCropStageSimulation(crop, das, lat, lon) {
-    const logs = [
-      { delay: 100, tag: 'Satellite', msg: 'Fetching Sentinel-2 NDVI polygon reflectance at lat=' + lat + ', lon=' + lon + '...' },
-      { delay: 300, tag: 'NDVI',       msg: 'Surface reflectance calibrated: NDVI=0.71, EVI=0.52 (Vegetation Health: Optimal)' },
-      { delay: 550, tag: 'Phenology', msg: 'Running sigmoid vegetative growth curve against accumulated Growing Degree Days (GDD)...' },
-      { delay: 800, tag: 'Stage',     msg: 'Detected Stage: ' + (das < 25 ? 'Germination' : das < 55 ? 'Tillering / Vegetative' : das < 85 ? 'Heading / Flowering' : 'Ripening / Maturity') + ' (Confidence: 94.8%)' },
-      { delay: 1000, tag: 'Pipeline', msg: 'Stage prediction synthesized. Status 200 OK.' }
-    ];
-
-    for (const step of logs) {
-      await new Promise(r => setTimeout(r, step.delay));
-      logTerminal(step.msg, step.tag, step.tag === 'Pipeline' ? 'success' : 'normal');
-    }
-
-    const stageIdx = das < 25 ? 0 : das < 55 ? 1 : das < 85 ? 2 : 3;
-    const stageNames = ['Germination', 'Vegetative / Tillering', 'Heading / Flowering', 'Ripening'];
-    renderCropStageResult({
-      crop: crop,
-      das: das,
-      current_stage: stageNames[stageIdx],
-      stage_idx: stageIdx,
-      ndvi: 0.71,
-      days_to_harvest: Math.max(5, 120 - das),
-      management_protocol: stageIdx === 1 ? 'Optimal window for secondary nitrogen top-dressing (Urea @ 40kg/acre). Ensure critical irrigation before stem elongation begins.' : stageIdx === 2 ? 'Panicle emergence stage: Maintain 2-3cm standing water film. Avoid foliar insecticide sprays during active pollination window.' : 'Crop nearing physiological maturity. Cease irrigation 10-12 days before anticipated harvest to facilitate grain hardening.'
-    });
-  }
-
   // ── Farm Intelligence Result Renderer ──
   function renderFarmIntelResult(data) {
     const loc = data.location || 'Your Region';
@@ -3885,7 +3717,6 @@ loader.querySelector('.pg-sub').style.display = 'block';
       printCLI('  run <space>             open and run a space (e.g. run mandi, run diseasescan)', 'out');
       printCLI('  mandi                   quick shortcut for Mandi Price Explorer', 'out');
       printCLI('  diseasescan             quick shortcut for Crop Disease Scanner', 'out');
-      printCLI('  cropstage               quick shortcut for Crop Stage Predictor', 'out');
       printCLI('  farmintel               quick shortcut for Farm Intelligence', 'out');
       printCLI('  status                  display API server connectivity status', 'out');
       printCLI('  api <space> <url>       configure custom backend endpoint', 'out');
@@ -3904,7 +3735,6 @@ loader.querySelector('.pg-sub').style.display = 'block';
     },
     mandi: () => { switchSpace('mandi'); printCLI('Switched to Mandi Price Explorer.', 'success'); },
     diseasescan: () => { switchSpace('diseasescan'); printCLI('Switched to Crop Disease Scanner.', 'success'); },
-    cropstage: () => { switchSpace('cropstage'); printCLI('Switched to Crop Stage Predictor.', 'success'); },
     farmintel: () => { switchSpace('farmintel'); printCLI('Switched to Farm Intelligence.', 'success'); },
     clear: () => { if (cliOut) cliOut.innerHTML = ''; },
     status: () => {
@@ -3946,7 +3776,7 @@ loader.querySelector('.pg-sub').style.display = 'block';
 
     if (verb === 'run' || verb === 'open') {
       if (!arg) {
-        printCLI('usage: run <space>  (options: mandi, diseasescan, cropstage, farmintel)', 'warn');
+        printCLI('usage: run <space>  (options: mandi, diseasescan, farmintel)', 'warn');
       } else if (SPACES[arg]) {
         switchSpace(arg);
         printCLI('Switched to ' + SPACES[arg].name + '. Click run or trigger inputs.', 'success');
@@ -4225,7 +4055,7 @@ chips: ["Playground", "Skills", "Contact"]
 {
 id: "playground",
 keywords: ["playground", "demo", "demos", "live", "try", "space", "spaces", "huggingface", "hugging face"],
-reply: "The Playground section has 4 live Hugging Face Spaces you can try right on this page — Mandi Price Explorer, Crop Stage Predictor, AI Farm Intelligence System, and Crop Disease Scanner. They're on the free tier, so if one's been idle a while it may take ~20–30s to wake up — there's a direct 'Open on Hugging Face' fallback link if that happens.",
+reply: "The Playground section has 3 live Hugging Face Spaces you can try right on this page — Mandi Price Explorer, Crop Disease Scanner, and AI Farm Intelligence System. They're on the free tier, so if one's been idle a while it may take ~20–30s to wake up — there's a direct 'Open on Hugging Face' fallback link if that happens.",
 chips: ["Projects", "Contact"]
 },
 {
