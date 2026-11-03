@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kishan K — Blog</title><meta name="description" content="Honest engineering notes on ML, LLMs and computer vision.">
+<meta property="og:title" content="Kishan K — Blog"><meta property="og:description" content="Honest engineering notes on ML, LLMs and computer vision."><meta property="og:type" content="article">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060d1f;--card:#112240;--fg:#e2e8f0;--muted:#94a3b8;--line:#1e3a5f;--accent:#64ffda;--code:#0c1a33}
+body.light{--bg:#dce4ef;--card:#c8d5e3;--fg:#1e2d3d;--muted:#3d5068;--line:#96aec4;--accent:#1a4a8a;--code:#cfdbe8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.75 'Roboto',sans-serif;transition:background .4s,color .4s}
+h1,h2,h3{font-family:'Poppins',sans-serif;line-height:1.25}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:780px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:5;backdrop-filter:blur(8px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+header .in{display:flex;justify-content:space-between;align-items:center;height:68px;max-width:960px;margin:0 auto;padding:0 22px}
+.brand{font:700 1.35rem 'Poppins',sans-serif;color:var(--accent)}
+nav a{margin-left:20px;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.12em}nav a:hover{color:var(--accent);text-decoration:none}
+button.t{background:none;border:1px solid var(--line);color:var(--accent);border-radius:8px;padding:5px 10px;margin-left:18px;cursor:pointer}
+.hero{padding:70px 0 20px}.eyebrow{font:500 .95rem monospace;color:var(--accent)}
+.hero h1{font-size:clamp(2.1rem,6vw,3.2rem);margin:.2em 0 .3em}.hero p{color:var(--muted);font-size:1.1rem;max-width:620px;margin:0}
+.grid{display:grid;gap:22px;margin:34px 0 70px}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 28px;color:inherit;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 14px 34px rgba(0,0,0,.28);text-decoration:none}
+.card h2{margin:0 0 8px;font-size:1.28rem;color:var(--fg)}.card p{margin:8px 0 14px;color:var(--muted);font-size:.98rem}
+.meta{font-size:.84rem;color:var(--muted)}
+.tag{display:inline-block;font-size:.78rem;padding:3px 11px;margin:0 8px 6px 0;border-radius:4px;background:rgba(100,255,218,.1);border:1px solid rgba(100,255,218,.22);color:var(--accent)}
+body.light .tag{background:rgba(26,74,138,.08);border-color:rgba(26,74,138,.25)}
+article{padding:54px 0 24px}article h1{font-size:clamp(1.9rem,5vw,2.6rem);margin:0 0 12px}
+article h2{margin:2.1em 0 .5em;font-size:1.45rem;color:var(--accent)}
+article table{border-collapse:collapse;width:100%;margin:1.3em 0;font-size:.95rem}
+article th,article td{border:1px solid var(--line);padding:9px 13px;text-align:left}article th{background:var(--card)}
+article code{background:var(--code);padding:2px 7px;border-radius:5px;font:.88em 'Fira Code',Consolas,monospace}
+article pre{background:var(--code);padding:15px;border-radius:8px;overflow:auto}
+article blockquote{margin:1.3em 0;padding:.2em 1.1em;border-left:3px solid var(--accent);color:var(--muted)}
+.back{display:inline-block;margin:34px 0 10px;font-family:monospace}
+footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:.9rem;text-align:center}footer a{margin:0 10px}
+@media(max-width:560px){body{font-size:16px}nav a{margin-left:12px}}
+</style></head><body><header><div class="in"><a class="brand" href="../index.html">Kishan K</a><span><nav style="display:inline"><a href="index.html">Blog</a><a href="../index.html">Portfolio</a></nav><button class="t" aria-label="Toggle theme"><i class="fas fa-moon"></i></button></span></div></header>
+<div class="wrap"><section class="hero"><div class="eyebrow">Blog</div><h1>Engineering notes from production AI.</h1><p>Honest write-ups on fine-tuning, evaluation, computer vision and LLM systems: what I measured, what I got wrong, and what I would do differently.</p></section><div class="grid"><a class="card" href="01-auditing-my-own-ml-numbers.html"><h2>A 5-line baseline humbled my 99.6%</h2><p>I fine-tuned a 7B model to 270/271 on a held-out set. Then I trained TF-IDF + logistic regression on the same data and got 269/271. Here is what I changed in how I report results.</p><div class="meta"><span class=tag>Evaluation</span><span class=tag>Fine-tuning</span><span class=tag>LLMs</span><br>2026-11-03 · 2 min read</div></a><a class="card" href="02-tracking-sperm-cells-yolov8-deepsort.html"><h2>Tracking microscopic swimmers with YOLOv8 + DeepSORT on 2 vCPUs</h2><p>How a microscopy video becomes a motility report: detection, tracking, a queue, and where the time actually goes.</p><div class="meta"><span class=tag>Computer Vision</span><span class=tag>Tracking</span><span class=tag>Backend</span><br>2026-11-03 · 2 min read</div></a><a class="card" href="03-backtest-a-price-model-honestly.html"><h2>How to backtest a price forecaster without fooling yourself</h2><p>Your service&#x27;s own error metric is probably measured on training data. Here is a rolling-origin backtest recipe, with a naive baseline in the room.</p><div class="meta"><span class=tag>Forecasting</span><span class=tag>Time Series</span><span class=tag>Evaluation</span><br>2026-11-03 · 2 min read</div></a><a class="card" href="04-cache-your-llm-like-a-database.html"><h2>Cache your LLM like a database: bucket the inputs, template the output</h2><p>When thousands of users ask almost the same question, don&#x27;t pay for thousands of generations. A two-level template cache pattern.</p><div class="meta"><span class=tag>LLMs</span><span class=tag>Caching</span><span class=tag>System Design</span><br>2026-11-03 · 2 min read</div></a><a class="card" href="05-when-validation-is-secretly-training.html"><h2>When your validation set is secretly your training set</h2><p>Fine-tuning on templated data makes leakage easy to create and easy to miss. The checks I run now, and how I report results when the leakage cannot be removed.</p><div class="meta"><span class=tag>Fine-tuning</span><span class=tag>Evaluation</span><span class=tag>Data</span><br>2026-11-03 · 2 min read</div></a></div><footer><a href="../index.html">Portfolio</a><a href="https://github.com/kishanaik5">GitHub</a><a href="https://linkedin.com/in/kishan-k-823049259">LinkedIn</a><a href="https://huggingface.co/kishanaik5">Hugging Face</a><br><br>© Kishan K. Views are my own; no employer code or data is published here.</footer></div><script>(function(){var k='kk-theme',b=document.body;try{if(localStorage.getItem(k)==='light')b.classList.add('light')}catch(e){}
+function sync(){var i=document.querySelector('.t i');if(i)i.className=b.classList.contains('light')?'fas fa-sun':'fas fa-moon'}sync();
+document.addEventListener('click',function(e){if(e.target.closest('.t')){b.classList.toggle('light');try{localStorage.setItem(k,b.classList.contains('light')?'light':'dark')}catch(x){}sync()}});})();</script></body></html>

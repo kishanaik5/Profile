@@ -1255,6 +1255,7 @@ body.light .pg-tab-title { color: #1e293b; }
 <nav class="hidden md:block">
 <div class="ml-10 flex items-center space-x-6">
 <a href="#experience" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Experience</a>
+<a href="#blogs" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Blogs</a>
 <a href="#contact" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Contact</a>
 <a href="#playground" class="nav-link text-gray-300 font-medium text-sm uppercase tracking-widest">Playground</a>
 <a href="kishan_k.pdf" target="_blank" class="resume-button border border-teal text-teal font-medium py-2 px-4 rounded-md hover:bg-teal/10 flex items-center gap-2">
@@ -1274,6 +1275,7 @@ Resume <i class="fas fa-file-arrow-down text-xs"></i>
 <a href="#about" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
 <a href="#experience" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
 <a href="#projects" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+<a href="#blogs" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Blogs</a>
 <a href="#playground" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Playground</a>
 <a href="#publications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Publications</a>
 <a href="#certifications" class="nav-link text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
@@ -1296,6 +1298,9 @@ Resume <i class="fas fa-file-arrow-down text-xs"></i>
 </a>
 <a href="#projects" class="corner-tab" title="Projects">
 <i class="fas fa-diagram-project corner-tab-icon"></i><span class="corner-tab-label">Projects</span>
+</a>
+<a href="#blogs" class="corner-tab" title="Blogs">
+<i class="fas fa-pen-nib corner-tab-icon"></i><span class="corner-tab-label">Blogs</span>
 </a>
 <a href="#publications" class="corner-tab" title="Publications">
 <i class="fas fa-book corner-tab-icon"></i><span class="corner-tab-label">Publications</span>
@@ -1356,7 +1361,7 @@ I'm a <strong>Software Engineer (AI/ML)</strong> who builds and ships production
 Hello! I'm Kishan, a <strong>Software Engineer (AI/ML)</strong> with a strong foundation from <strong>Ramaiah Institute of Technology</strong>. I work across the full lifecycle — from research and modeling to deploying robust, scalable systems in production.
 </p>
 <p class="text-lg text-gray-400 leading-relaxed">
-Currently at <strong>Silo Fortune</strong>, I build production AI for agriculture and livestock — computer-vision crop diagnostics, satellite intelligence (NDVI, EVI, NDWI), weather-driven recommendations, and multilingual LLM advisory generation across <strong>12+ Indian languages</strong> — on cloud-native FastAPI services with multi-level caching that drives recurring inference costs to near-zero. Alongside this, I work part-time as a Forward Deployed Engineer for <strong>Narvia Design</strong>, a luxury interior/exterior design studio, where I built and shipped their production site end-to-end as sole engineer.
+Currently at <strong>Silo Fortune</strong>, I build production AI for agriculture and livestock — computer-vision crop diagnostics, satellite intelligence (NDVI, EVI, NDWI), weather-driven recommendations, and multilingual LLM advisory generation across <strong>12 Indian languages</strong> — on cloud-native FastAPI services with two-level template caching that reuses reports instead of regenerating them. Alongside this, I work part-time as a Forward Deployed Engineer for <strong>Narvia Design</strong>, a luxury interior/exterior design studio, where I built and shipped their production site end-to-end as sole engineer.
 </p>
 <div class="bg-light-navy rounded-lg p-6 mt-8 border-l-4 border-teal">
 <h3 class="text-xl font-bold text-gray-100 mb-2">Education</h3>
@@ -1374,7 +1379,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <h4 class="text-sm font-mono text-gray-300 mb-2">GenAI</h4>
 <div class="flex flex-wrap">
 <span class="skill-tag">Google Gemini</span><span class="skill-tag">OpenAI</span>
-<span class="skill-tag">Version Prompting</span><span class="skill-tag">MCP-based AI Agents</span>
+<span class="skill-tag">Version Prompting</span><span class="skill-tag">QLoRA Fine-Tuning</span>
 </div>
 </div>
 <div>
@@ -1457,11 +1462,10 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <h3 class="text-xl font-bold text-gray-100">Software Engineer - AI/ML <span class="text-teal">@ Silo Fortune</span></h3>
 <p class="text-sm font-mono text-gray-400 mb-4">Oct 2025 - Present | Bengaluru</p>
 <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-<li>Architected <strong>Kisaan Sampurna</strong> — a multimodal GenAI pipeline (Gemini 2.5 Flash + Computer Vision) delivering crop disease advisories in <strong>12 Indian languages</strong> with <strong>92%+ precision</strong>, handling <strong>10,000+ daily API requests</strong>.</li>
-<li>Built <strong>Real-Time Mandi Price API</strong> serving price data for <strong>7,000+ agricultural markets</strong> with real-time APMC price aggregation, recursive ML price forecasting, multilingual support, and dual-source data (PostgreSQL + AWS S3).</li>
-<li>Engineered <strong>AI Farm Intelligence System</strong> converting satellite indices (NDVI, NRI, EVI) into 432 farm condition fingerprints, generating 15-section advisories in <strong>13 languages</strong> via two-level LLM cache — deployed on <strong>AWS ECS Fargate</strong> with Jenkins CI/CD.</li>
-<li>Built <strong>AI Crop Stage Prediction</strong> pipeline reading 5 years of satellite imagery to detect growth cycles for 21 crops across 80+ sub-stages, with parallel asyncio Gemini calls for knowledge generation.</li>
-<li>Orchestrated production-grade <strong>FastAPI microservices</strong> with PostgreSQL service isolation, Redis caching, and Docker CI/CD — reducing downtime by <strong>40%</strong>.</li>
+<li>Fine-tuned <strong>Qwen-2.5-1.5B</strong> (4-bit QLoRA) on <strong>178,980</strong> knowledge-base-generated advisory pairs covering <strong>312 crops</strong>, <strong>1,693 diseases</strong> and <strong>12 Indian languages</strong>; on 300 validation prompts it produced the required 4-section advisory format <strong>300/300</strong> times (base model: 0/300), matching the action field <strong>99.3%</strong> and the infection-rate range <strong>85.7%</strong> of the time.</li>
+<li>Built the <strong>mandi price-forecasting service</strong> for <strong>6,273 mandis</strong> and <strong>346 commodities</strong>: a 6-model ensemble (CatBoost, LightGBM, XGBoost, GBR, RF, SVR) with lag and sin/cos seasonality features and a 12-week recursive forecast. A rolling-origin backtest on 15 market–commodity series (59 origins) gave <strong>13.4% MAPE vs 17.0%</strong> for a naive baseline.</li>
+<li>Designed a <strong>two-level report cache</strong> (report template keyed on 5 bucketed satellite metrics, plus a per-language translation store in PostgreSQL): <strong>99.4%</strong> template hit rate and about <strong>97% fewer Gemini calls</strong> (8,130 hits vs 52 generations, production counters).</li>
+<li>Contributed to satellite processing (NDVI/EVI/NDWI) and an <strong>ISRIC</strong> soil-based crop-recommendation engine; services run on <strong>AWS ECS Fargate</strong> with Docker and Jenkins. The platform has reached <strong>50,000+ installs</strong> and <strong>3,500+ subscribers</strong>.</li>
 </ul>
 </div>
 </div>
@@ -1471,7 +1475,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <h3 class="text-xl font-bold text-gray-100">Forward Deployed Engineer <span class="text-teal">@ Narvia Design</span></h3>
 <p class="text-sm font-mono text-gray-400 mb-4">Aug 2026 - Present | Remote · Part-Time / Freelance</p>
 <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-<li>Embedded directly with a luxury interior/exterior design studio client to design, build, and ship <a href="https://narviadesign.com" target="_blank" class="text-teal hover:underline">narviadesign.com</a> end-to-end as sole engineer, from information architecture through production deployment. <span class="text-gray-500 text-sm">(Reference: <a href="mailto:narviadesigners@gmail.com" class="text-teal/70 hover:text-teal hover:underline">narviadesigners@gmail.com</a>)</span></li>
+<li>Embedded directly with a luxury interior/exterior design studio client to design, build, and ship <a href="https://narviadesign.com" target="_blank" class="text-teal hover:underline">narviadesign.com</a> end-to-end as sole engineer, from information architecture through production deployment. <span class="text-gray-500 text-sm">(References available on request.)</span></li>
 </ul>
 </div>
 </div>
@@ -1481,7 +1485,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 <h3 class="text-xl font-bold text-gray-100">Applied ML Engineer <span class="text-teal">@ Alpify Technologies LLP</span></h3>
 <p class="text-sm font-mono text-gray-400 mb-4">Sep 2026 - Present | Bengaluru · Part-Time / Contract</p>
 <ul class="list-disc list-outside text-gray-400 space-y-3 marker:text-teal ml-4">
-<li>Contracted through <a href="https://alpify.in" target="_blank" class="text-teal hover:underline">Alpify</a> to build a lead-quality ML pipeline for one of their clients, filtering fraudulent and anonymous leads sourced from Meta Ads and adding genuineness verification to a booking-slot flow that previously had no fraud or security layer. <span class="text-gray-500 text-sm">(Reference: <a href="mailto:deepak@alpify.in" class="text-teal/70 hover:text-teal hover:underline">deepak@alpify.in</a>)</span></li>
+<li>Contracted through <a href="https://alpify.in" target="_blank" class="text-teal hover:underline">Alpify</a> to build a lead-quality pipeline for one of their clients: an ETL unifying <strong>611 leads</strong> from <strong>12 sheets across 6 channels</strong> (Meta, Google, outbound, website) and an <strong>XGBoost</strong> contactability model (5-fold CV <strong>AUC 0.81</strong>) that assigns P1/P2/P3 call priorities. Rule-based lead validation (phone, email and duplicate checks) is in progress. <span class="text-gray-500 text-sm">(References available on request.)</span></li>
 </ul>
 </div>
 </div>
@@ -1544,7 +1548,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Mandi Price Explorer</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">FastAPI backend serving price data for 7,000+ agricultural markets across India. Real-time APMC market price discovery, automated recursive ML price forecasting, 12-language support, dual-source data (PostgreSQL + AWS S3 Parquet), and cascade dropdowns under 5ms via in-memory cache.</p>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">FastAPI backend serving price data for 6,273 agricultural markets across India. Real-time APMC market price discovery, automated recursive ML price forecasting, 12-language support, dual-source data (PostgreSQL + AWS S3 Parquet), and cascade dropdowns under 5ms via in-memory cache.</p>
 </div>
 <div><p class="text-xs text-teal font-mono mt-4">FastAPI, PostgreSQL, AWS S3, Docker, SQLAlchemy, JWT</p></div>
 </div>
@@ -1576,7 +1580,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">AI Farm Intelligence System</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Satellite indices (NDVI, NRI, EVI, DSWI) → deterministic bucketing → 432 condition fingerprints → 15-section advisory in 13 languages. Two-level LLM cache drives cost to near-zero. 6 satellite overlay images stored on AWS S3. Deployed on AWS ECS Fargate + Jenkins CI/CD.</p>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Satellite indices (NDVI, NRI, EVI, DSWI) → deterministic bucketing → 432 condition fingerprints → 15-section advisory in 13 languages. A two-level LLM cache reuses reports instead of regenerating them. 6 satellite overlay images stored on AWS S3. Deployed on AWS ECS Fargate + Jenkins CI/CD.</p>
 </div>
 <div><p class="text-xs text-teal font-mono mt-4">FastAPI, Gemini, AWS S3, AWS ECS Fargate, PostgreSQL, Jenkins</p></div>
 </div>
@@ -1592,7 +1596,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Crop Disease Scanner</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Diagnostic system identifying 360+ crop varieties in 10 languages with 94% precision using Knowledge-Based Agents and Gemini pro (APIs) models.</p>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Diagnostic system identifying 360+ crop varieties in 10 languages using Knowledge-Based Agents and Gemini Pro (API) models.</p>
 </div>
 <div><p class="text-xs text-teal font-mono mt-4">Python, Computer Vision, DL, ML Agents, Expert Systems</p></div>
 </div>
@@ -1622,7 +1626,7 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Agri-Expert Copilot</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Conversational agri-advisory copilot on a Neo4j knowledge graph of 164+ crops, 1,900+ disease-treatment links and 19,000+ PIN codes. A LangGraph engine runs multi-hop Cypher traversals to answer disease, dosage, phenology and crop suitability queries, served via a Strawberry GraphQL API on FastAPI with RabbitMQ workers for async tasks.</p>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Proof-of-concept advisory copilot over a Neo4j knowledge graph built from a 3,140 crop–disease knowledge base and 19,000+ PIN-code zone mappings. A LangGraph flow (extract entities → traverse graph → synthesise advice) answers disease, dosage, phenology and crop-suitability queries, served via a Strawberry GraphQL API on FastAPI with RabbitMQ workers and an in-memory fallback graph.</p>
 </div>
 <div><p class="text-xs text-teal font-mono mt-4">Neo4j, Cypher, GraphQL, LangGraph, FastAPI, RabbitMQ</p></div>
 </div>
@@ -1649,9 +1653,9 @@ Currently at <strong>Silo Fortune</strong>, I build production AI for agricultur
 </div>
 </div>
 <h3 class="text-xl font-bold mb-3 text-gray-100">Multi-Agent Research Platform</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Multi-agent AI research platform for NSE/BSE-listed companies using LangGraph, RAG, and MCP-based tool orchestration. Implemented hybrid retrieval, reranking, observability, and evaluation pipelines; currently developing QLoRA fine-tuning on Qwen-2.5-7B for grounded, citation-aware financial research.</p>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Research-to-compliance agent for NSE/BSE-listed companies built with LangGraph: hybrid retrieval (BM25 + pgvector, reciprocal-rank fusion, BGE reranker) drafts a cited brief, then a QLoRA-tuned Qwen-2.5-7B audits it for SEBI rules (270/271 on a held-out synthetic set; a simple TF-IDF baseline reaches 269). RAGAS on 100 queries: 0.88 faithfulness, 0.85 answer relevancy.</p>
 </div>
-<div><p class="text-xs text-teal font-mono mt-4">LangGraph, LangChain, QLoRA, Qwen 2.5, RAG, FAISS, FastAPI, Langfuse, Docker, AWS</p></div>
+<div><p class="text-xs text-teal font-mono mt-4">LangGraph, QLoRA, Qwen 2.5, RAG, pgvector, RAGAS, FastAPI, PostgreSQL, Docker</p></div>
 </div>
 </div>
 
@@ -1729,12 +1733,12 @@ Open-source notification infrastructure that provides a single API for routing n
 <div>
 <div class="flex justify-between items-center mb-6">
 <i class="fas fa-cow text-teal text-4xl"></i>
-<span class="text-xs text-gray-400 font-mono border border-gray-700 rounded px-2 py-1">In Development</span>
+<span class="text-xs text-gray-400 font-mono border border-gray-700 rounded px-2 py-1">Team project</span>
 </div>
-<h3 class="text-xl font-bold mb-3 text-gray-100">Gau Swastha</h3>
-<p class="text-gray-400 text-sm leading-relaxed mb-4">Multimodal VLM platform for cattle disease and health diagnostics, covering 31 cattle diseases and a 27-way fecal condition taxonomy. Evidence-first visual reasoning with Google Gemini, deterministic knowledge-base linking in PostgreSQL, automated AWS S3 image workflows and structured clinical triage reporting.</p>
+<h3 class="text-xl font-bold mb-3 text-gray-100">Gau Swastha — App Backend</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-4">Cattle health and advisory platform built by a team. My part: the structured-API backend (Gau-Gopalan-Seva) with cached GenAI answers and multilingual knowledge-base translations for the mobile app, plus multilingual weather advisories in the AI orchestration layer.</p>
 </div>
-<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Google Gemini, VLM, PostgreSQL, Alembic, AWS S3, Docker</p></div>
+<div><p class="text-xs text-teal font-mono mt-4">FastAPI, Google Gemini, PostgreSQL, AWS S3, Docker</p></div>
 </div>
 </div>
 
@@ -1814,6 +1818,27 @@ Open-source notification infrastructure that provides a single API for routing n
 </div>
 <div><p class="text-xs text-teal font-mono mt-4">PyTorch, ReactJS, Flask, ESP-32</p></div>
 </div>
+</div>
+</div>
+</section>
+
+<!-- Blogs Section (cards are generated by tools/build_blog.py between the markers) -->
+<section id="blogs" class="py-24 bg-light-navy/30">
+<div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+<div class="flex items-center gap-4 mb-4 reveal">
+<h2 class="text-3xl font-bold text-gray-100">Blogs</h2>
+<div class="h-[1px] bg-gray-700 flex-grow"></div>
+<a href="blog/index.html" class="text-teal text-sm font-mono hover:underline whitespace-nowrap">All posts <i class="fas fa-arrow-right text-xs"></i></a>
+</div>
+<p class="text-gray-400 max-w-2xl mb-12 reveal">Honest engineering notes: what I measured, what I got wrong, and what I would do differently.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- BLOGS:START -->
+<a href="blog/01-auditing-my-own-ml-numbers.html" class="project-card rounded-lg shadow-lg p-8 reveal block"><div><div class="flex justify-between items-center mb-5"><i class="fas fa-pen-nib text-teal text-3xl"></i><span class="text-xs text-gray-400 font-mono">2 min read</span></div><h3 class="text-xl font-bold mb-3 text-gray-100">A 5-line baseline humbled my 99.6%</h3><p class="text-gray-400 text-sm leading-relaxed mb-4">I fine-tuned a 7B model to 270/271 on a held-out set. Then I trained TF-IDF + logistic regression on the same data and got 269/271. Here is what I changed in how I report results.</p></div><div><span class=skill-tag>Evaluation</span><span class=skill-tag>Fine-tuning</span><span class=skill-tag>LLMs</span></div></a>
+<a href="blog/02-tracking-sperm-cells-yolov8-deepsort.html" class="project-card rounded-lg shadow-lg p-8 reveal block"><div><div class="flex justify-between items-center mb-5"><i class="fas fa-pen-nib text-teal text-3xl"></i><span class="text-xs text-gray-400 font-mono">2 min read</span></div><h3 class="text-xl font-bold mb-3 text-gray-100">Tracking microscopic swimmers with YOLOv8 + DeepSORT on 2 vCPUs</h3><p class="text-gray-400 text-sm leading-relaxed mb-4">How a microscopy video becomes a motility report: detection, tracking, a queue, and where the time actually goes.</p></div><div><span class=skill-tag>Computer Vision</span><span class=skill-tag>Tracking</span><span class=skill-tag>Backend</span></div></a>
+<a href="blog/03-backtest-a-price-model-honestly.html" class="project-card rounded-lg shadow-lg p-8 reveal block"><div><div class="flex justify-between items-center mb-5"><i class="fas fa-pen-nib text-teal text-3xl"></i><span class="text-xs text-gray-400 font-mono">2 min read</span></div><h3 class="text-xl font-bold mb-3 text-gray-100">How to backtest a price forecaster without fooling yourself</h3><p class="text-gray-400 text-sm leading-relaxed mb-4">Your service&#x27;s own error metric is probably measured on training data. Here is a rolling-origin backtest recipe, with a naive baseline in the room.</p></div><div><span class=skill-tag>Forecasting</span><span class=skill-tag>Time Series</span><span class=skill-tag>Evaluation</span></div></a>
+<a href="blog/04-cache-your-llm-like-a-database.html" class="project-card rounded-lg shadow-lg p-8 reveal block"><div><div class="flex justify-between items-center mb-5"><i class="fas fa-pen-nib text-teal text-3xl"></i><span class="text-xs text-gray-400 font-mono">2 min read</span></div><h3 class="text-xl font-bold mb-3 text-gray-100">Cache your LLM like a database: bucket the inputs, template the output</h3><p class="text-gray-400 text-sm leading-relaxed mb-4">When thousands of users ask almost the same question, don&#x27;t pay for thousands of generations. A two-level template cache pattern.</p></div><div><span class=skill-tag>LLMs</span><span class=skill-tag>Caching</span><span class=skill-tag>System Design</span></div></a>
+<a href="blog/05-when-validation-is-secretly-training.html" class="project-card rounded-lg shadow-lg p-8 reveal block"><div><div class="flex justify-between items-center mb-5"><i class="fas fa-pen-nib text-teal text-3xl"></i><span class="text-xs text-gray-400 font-mono">2 min read</span></div><h3 class="text-xl font-bold mb-3 text-gray-100">When your validation set is secretly your training set</h3><p class="text-gray-400 text-sm leading-relaxed mb-4">Fine-tuning on templated data makes leakage easy to create and easy to miss. The checks I run now, and how I report results when the leakage cannot be removed.</p></div><div><span class=skill-tag>Fine-tuning</span><span class=skill-tag>Evaluation</span><span class=skill-tag>Data</span></div></a>
+<!-- BLOGS:END -->
 </div>
 </div>
 </section>
